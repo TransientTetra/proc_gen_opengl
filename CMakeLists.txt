@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(project)
+project(proc_gen_opengl)
 
 set(CMAKE_CXX_STANDARD 17)
 
