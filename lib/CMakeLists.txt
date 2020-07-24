@@ -2,6 +2,8 @@ include_directories(imgui)
 
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_INCLUDE_DIR}/SDL2)
+include_directories(${GLEW_INCLUDE_DIR})
+
 set(
         IMGUI_SRC
 
