@@ -1,13 +1,16 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 project(proc_gen_opengl)
 
 set(CMAKE_CXX_STANDARD 17)
+
+set(ASSETS_FOLDER ${CMAKE_SOURCE_DIR}/assets)
 
 set(SDL2_LIBRARY ${CMAKE_SOURCE_DIR}/lib/sdl2/bin/SDL2.dll)
 set(SDL2_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/lib/sdl2/include)
 
 set(GLEW_LIBRARY ${CMAKE_SOURCE_DIR}/lib/glew/bin/glew32.dll)
 set(GLEW_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/lib/glew/include)
+
 
 find_package(Threads REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -20,7 +23,28 @@ include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${GLEW_INCLUDE_DIR})
 
 add_subdirectory(src)
-add_subdirectory(tst)
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    add_subdirectory(tst)
+endif()
 add_subdirectory(lib)
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp)
-target_link_libraries(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}_lib Threads::Threads ${SDL2_LIBRARY} opengl32 ${GLEW_LIBRARY} imgui)
+target_link_libraries(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}_lib Threads::Threads imgui ${SDL2_LIBRARY} ${GLEW_LIBRARY} opengl32)
+
+#copying dlls and assets
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${SDL2_LIBRARY} $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${GLEW_LIBRARY} $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${ASSETS_FOLDER} $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/assets)
+
+#installing, remember to install with release mode
+set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}) #this is temporary, to install project in source dir
+install(TARGETS ${CMAKE_PROJECT_NAME}
+        DESTINATION bin)
+install(FILES ${SDL2_LIBRARY} ${GLEW_LIBRARY} DESTINATION bin)
+install(DIRECTORY ${ASSETS_FOLDER} DESTINATION bin)
+

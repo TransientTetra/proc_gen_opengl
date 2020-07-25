@@ -31,5 +31,11 @@
 *.out
 *.app
 
-/.idea/
-/cmake-build-debug/
+# Jetbrains IDE folder
+.idea/
+
+# Build folders
+cmake-build-debug/
+cmake-build-release/
+build/
+bin/
