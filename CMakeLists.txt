@@ -6,9 +6,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(ASSETS_FOLDER ${CMAKE_SOURCE_DIR}/assets)
 
 if(WIN32)
-    set(SDL2_LIBRARY ${CMAKE_SOURCE_DIR}/lib/sdl2/bin/SDL2.dll)
+    set(SDL2_LIBRARY ${CMAKE_SOURCE_DIR}/lib/sdl2/lib/libSDL2.dll.a)
+    set(SDL2_DLL_LIBRARY ${CMAKE_SOURCE_DIR}/lib/sdl2/bin/SDL2.dll)
     set(SDL2_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/lib/sdl2/include)
-    set(GLEW_LIBRARY ${CMAKE_SOURCE_DIR}/lib/glew/bin/glew32.dll)
+
+    set(GLEW_LIBRARY ${CMAKE_SOURCE_DIR}/lib/glew/lib/glew32.lib)
+    set(GLEW_DLL_LIBRARY ${CMAKE_SOURCE_DIR}/lib/glew/bin/glew32.dll)
     set(GLEW_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/lib/glew/include)
 else()
     find_package(SDL2 REQUIRED)
@@ -35,19 +38,20 @@ add_subdirectory(lib)
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp)
 target_link_libraries(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}_lib Threads::Threads imgui)
 if(WIN32)
-    target_link_libraries(${CMAKE_PROJECT_NAME}  ${SDL2_LIBRARY} ${GLEW_LIBRARY} opengl32)
+    set(CGO_LDFLAGS ${CGO_LDFLAGS} " -lole32 -loleaut32 -limm32 -lversion")
+    target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} ${GLEW_LIBRARY} winmm opengl32)
 else()
-    target_link_libraries(${CMAKE_PROJECT_NAME}  SDL2 GLEW GL)
+    target_link_libraries(${CMAKE_PROJECT_NAME} SDL2 GLEW GL)
 endif()
 
 #copying dlls and assets
 if(WIN32)
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
-            ${SDL2_LIBRARY} $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
+            ${SDL2_DLL_LIBRARY} $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
-            ${GLEW_LIBRARY} $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
+            ${GLEW_DLL_LIBRARY} $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
 endif()
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
@@ -59,6 +63,6 @@ install(TARGETS ${CMAKE_PROJECT_NAME}
         DESTINATION bin)
 install(DIRECTORY ${ASSETS_FOLDER} DESTINATION bin)
 if(WIN32)
-    install(FILES ${SDL2_LIBRARY} ${GLEW_LIBRARY} DESTINATION bin)
+    install(FILES ${SDL2_DLL_LIBRARY} ${GLEW_DLL_LIBRARY} DESTINATION bin)
 endif()
 
