@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
-#define DEFAULT_WINDOW_TITLE "title"
+#define DEFAULT_WINDOW_TITLE "Procedural Generation + OpenGL"
 #define DEFAULT_WINDOW_WIDTH 900
 #define DEFAULT_WINDOW_HEIGHT 600
 

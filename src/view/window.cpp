@@ -1,12 +1,11 @@
-#include "../../include/view/window.hpp"
+#include "view/window.hpp"
 
 Window::Window(std::string title, int posX, int posY, int height, int width)
 : posX(posX), posY(posY), height(height), width(width), title(title), open(true)
 {
-	IM_ASSERT(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) == 0);
+	assert(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) == 0);
 
 	// GL 3.0 + GLSL 130
-	const char* glsl_version = "#version 130";
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -23,6 +22,20 @@ Window::Window(std::string title, int posX, int posY, int height, int width)
 	SDL_GL_MakeCurrent(sdlWindow, glContext);
 	SDL_GL_SetSwapInterval(1); // Enable vsync
 
+	setupImGui();
+}
+
+Window::~Window()
+{
+	closeImGui();
+	SDL_GL_DeleteContext(glContext);
+	SDL_DestroyWindow(sdlWindow);
+	SDL_Quit();
+}
+
+void Window::setupImGui()
+{
+	const char* glsl_version = "#version 130";
 	// Initialize OpenGL loader
 	IM_ASSERT(glewInit() == GLEW_OK);
 
@@ -40,15 +53,11 @@ Window::Window(std::string title, int posX, int posY, int height, int width)
 	//ImGui::StyleColorsClassic();
 }
 
-Window::~Window()
+void Window::closeImGui()
 {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
-
-	SDL_GL_DeleteContext(glContext);
-	SDL_DestroyWindow(sdlWindow);
-	SDL_Quit();
 }
 
 bool Window::isOpen()
@@ -68,10 +77,8 @@ SDL_Window *Window::getSDLWindow()
 
 void Window::render()
 {
-	ImGui::Render();
 	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 	glClearColor(bgColor.x, bgColor.y, bgColor.z, bgColor.w);
 	glClear(GL_COLOR_BUFFER_BIT);
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	SDL_GL_SwapWindow(sdlWindow);
 }

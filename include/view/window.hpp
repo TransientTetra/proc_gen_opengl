@@ -26,6 +26,9 @@ public:
 	Window(std::string title, int posX, int posY, int height, int width);
 	~Window();
 
+	void setupImGui();
+	void closeImGui();
+
 	void render();
 	bool isOpen();
 	void setClose();

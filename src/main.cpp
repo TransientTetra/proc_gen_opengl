@@ -1,4 +1,4 @@
-#include "controller/application.hpp"
+#include "controller/demo1.hpp"
 #include <iostream>
 
 #ifdef _WIN32
@@ -8,8 +8,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
 int main(int argc, char** argv)
 #endif
 {
-	std::cout << "elo" << std::endl;
-	Application application(DEFAULT_WINDOW_TITLE);
+	Demo1 application(DEFAULT_WINDOW_TITLE, DEFAULT_WINDOW_HEIGHT, DEFAULT_WINDOW_WIDTH);
 	application.run();
 	return 0;
 }

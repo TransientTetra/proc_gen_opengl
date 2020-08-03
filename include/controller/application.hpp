@@ -3,19 +3,22 @@
 
 
 #include <string>
+#include <memory>
 #include "view/window.hpp"
 #include "constants.hpp"
+#include "view/view.hpp"
 
 class Application
 {
 private:
+protected:
 	std::string title;
 	Window window;
-protected:
+	std::unique_ptr<View> currentView;
 public:
-	Application(std::string title);
+	Application(std::string title, int height, int width);
 
-	void run();
+	virtual void run() = 0;
 };
 
 

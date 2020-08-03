@@ -6,7 +6,10 @@ set(
         SRC
         controller/application.cpp
         view/window.cpp
-        view/frame.cpp)
+        view/frame.cpp
+        controller/demo1.cpp
+        view/view.cpp
+)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)
