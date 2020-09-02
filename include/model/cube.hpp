@@ -2,11 +2,17 @@
 #define PROC_GEN_OPENGL_CUBE_HPP
 
 
-class Cube
+#include "entity.hpp"
+
+class Cube : public Entity
 {
 private:
 protected:
+	float width;
+	float height;
+	float depth;
 public:
+	Cube(Point position, float width, float height, float depth);
 };
 
 

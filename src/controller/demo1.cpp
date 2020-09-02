@@ -2,7 +2,9 @@
 
 Demo1::Demo1(const std::string &title, int height, int width)
 : Application(title, height, width)
-{}
+{
+	
+}
 
 void Demo1::run()
 {
