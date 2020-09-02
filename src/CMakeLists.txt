@@ -9,7 +9,7 @@ set(
         view/frame.cpp
         controller/demo1.cpp
         view/view.cpp
-)
+        model/entity.cpp ../include/model/entity.hpp model/world.cpp ../include/model/world.hpp model/terrain.cpp ../include/model/terrain.hpp model/square.cpp ../include/model/square.hpp model/cube.cpp ../include/model/cube.hpp model/point.cpp ../include/model/point.hpp)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)
