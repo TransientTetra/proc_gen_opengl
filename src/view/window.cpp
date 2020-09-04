@@ -92,8 +92,12 @@ SDL_Window *Window::getSDLWindow()
 
 void Window::render()
 {
+	SDL_GL_SwapWindow(sdlWindow);
+}
+
+void Window::updateViewportAndBGColour()
+{
 	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 	glClearColor(bgColor.x, bgColor.y, bgColor.z, bgColor.w);
 	glClear(GL_COLOR_BUFFER_BIT);
-	SDL_GL_SwapWindow(sdlWindow);
 }

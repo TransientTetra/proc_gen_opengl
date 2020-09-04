@@ -13,6 +13,8 @@ public:
 	Demo1(const std::string &title, int height, int width);
 
 	void run() override;
+
+	void processEvents() override;
 };
 
 

@@ -9,7 +9,17 @@ set(
         view/frame.cpp
         controller/demo1.cpp
         view/view.cpp
-        model/entity.cpp ../include/model/entity.hpp model/world.cpp ../include/model/world.hpp model/terrain.cpp ../include/model/terrain.hpp model/square.cpp ../include/model/square.hpp model/cube.cpp ../include/model/cube.hpp model/point.cpp ../include/model/point.hpp)
+        model/entity.cpp
+        model/world.cpp
+        model/terrain.cpp
+        model/square.cpp
+        model/cube.cpp
+        model/point.cpp
+        view/vbo.cpp
+        view/shader.cpp
+        view/vertex_shader.cpp
+        view/fragment_shader.cpp
+        view/shader_program.cpp ../include/view/shader_program.hpp view/vao.cpp ../include/view/vao.hpp)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)
