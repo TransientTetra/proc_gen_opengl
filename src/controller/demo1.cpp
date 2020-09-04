@@ -1,9 +1,10 @@
+#include <model/square.hpp>
 #include "controller/demo1.hpp"
 
 Demo1::Demo1(const std::string &title, int height, int width)
 : Application(title, height, width)
 {
-	
+	world.addEntity(std::shared_ptr<Square>(new Square(Point(0, 0, 0), 10, 10)));
 }
 
 void Demo1::run()

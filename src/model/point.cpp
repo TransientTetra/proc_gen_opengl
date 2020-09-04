@@ -5,7 +5,7 @@ Point::Point(float x, float y, float z)
 {
 }
 
-Point::Point(Point &other)
+Point::Point(const Point &other)
 : x(other.x), y(other.y), z(other.z)
 {
 }

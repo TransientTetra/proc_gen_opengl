@@ -12,7 +12,7 @@ public:
 	float z;
 
 	Point(float x, float y, float z);
-	Point(Point &other);
+	Point(const Point &other);
 	void operator=(Point const &other);
 };
 

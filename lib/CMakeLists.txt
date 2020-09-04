@@ -16,6 +16,8 @@ set(
 set(IMGUI_SRC ${IMGUI_SRC})
 add_library(imgui ${IMGUI_SRC})
 
+add_subdirectory(glm)
+
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_subdirectory(googletest)
 endif()

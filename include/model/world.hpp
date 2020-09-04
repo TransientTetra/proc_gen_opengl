@@ -10,11 +10,12 @@
 class World
 {
 private:
-	std::vector<std::unique_ptr<Entity>> entities; //possibly use another data structure
+	std::vector<std::shared_ptr<Entity>> entities; //possibly use another data structure
 	std::unique_ptr<Terrain> terrain;
 
 protected:
 public:
+	void addEntity(std::shared_ptr<Entity> entity);
 };
 
 
