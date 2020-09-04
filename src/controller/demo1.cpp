@@ -56,7 +56,7 @@ void Demo1::run()
 	{
 		processEvents();
 //		currentView->draw();
-//		window.updateViewportAndBGColour();
+		window.updateViewportAndClear();
 		program.useProgram();
 		vao.bind();
 		glDrawArrays(GL_TRIANGLES, 0, 3);
