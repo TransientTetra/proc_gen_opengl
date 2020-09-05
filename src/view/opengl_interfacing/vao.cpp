@@ -1,5 +1,5 @@
 #include <GL/glew.h>
-#include "view/vao.hpp"
+#include "view/opengl_interfacing/vao.hpp"
 
 VAO::VAO()
 {

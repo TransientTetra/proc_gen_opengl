@@ -1,9 +1,9 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "view/shader.hpp"
+#include "view/opengl_interfacing/shader.hpp"
 
-Shader::Shader(int shaderType)
+Shader::Shader(GLenum shaderType)
 {
 	id = glCreateShader(shaderType);
 }

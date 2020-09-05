@@ -1,9 +1,11 @@
 #include <model/square.hpp>
-#include <view/vertex_shader.hpp>
-#include <view/fragment_shader.hpp>
-#include <view/vao.hpp>
-#include <view/vbo.hpp>
-#include <view/shader_program.hpp>
+#include <view/opengl_interfacing/vertex_shader.hpp>
+#include <view/opengl_interfacing/fragment_shader.hpp>
+#include <view/opengl_interfacing/vao.hpp>
+#include <view/opengl_interfacing/vbo.hpp>
+#include <view/opengl_interfacing/shader_program.hpp>
+#include <view/opengl_interfacing/ebo.hpp>
+#include <view/opengl_interfacing/rendered_model.hpp>
 #include "controller/demo1.hpp"
 
 Demo1::Demo1(const std::string &title, int height, int width)
@@ -32,9 +34,23 @@ void Demo1::run()
 {
 	float vertices[] =
 		{
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f,  0.5f, 0.0f
+			-0.25f,  0.5f, 0.0f, // top right
+			-0.25f, 0.25f, 0.0f, // bottom right
+			-0.5f, 0.25f, 0.0f, // bottom left
+			-0.5f,  0.5f, 0.0f  // top left
+		};
+
+	float vertices2[] =
+		{
+			0.25f,  0.5f, 0.0f, // top right
+			0.25f, 0.25f, 0.0f, // bottom right
+			0.5f, 0.25f, 0.0f, // bottom left
+			0.5f,  0.5f, 0.0f  // top left
+		};
+	unsigned int indices[] =
+		{
+			0, 1, 3,
+			1, 2, 3
 		};
 	VertexShader vs;
 	FragmentShader fs;
@@ -46,20 +62,16 @@ void Demo1::run()
 	program.attachVertexAndFragmentShaders(vs, fs);
 	program.linkProgram();
 
-	VAO vao;
-	VBO vbo;
-	vao.bind();
-	vbo.bind();
-	vbo.loadVertices(vertices, sizeof(vertices));
-	vao.setVertexAttributePointers(0, 3);
+	RenderedModel model(vertices, sizeof(vertices), indices, sizeof(indices), GL_STATIC_DRAW);
+	RenderedModel model2(vertices2, sizeof(vertices2), indices, sizeof(indices), GL_STATIC_DRAW);
 	while (window.isOpen())
 	{
 		processEvents();
 //		currentView->draw();
 //		window.updateViewportAndBGColour();
 		program.useProgram();
-		vao.bind();
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		model.draw();
+		model2.draw();
 		window.render();
 	}
 }

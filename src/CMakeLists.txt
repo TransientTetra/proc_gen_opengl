@@ -15,11 +15,13 @@ set(
         model/square.cpp
         model/cube.cpp
         model/point.cpp
-        view/vbo.cpp
-        view/shader.cpp
-        view/vertex_shader.cpp
-        view/fragment_shader.cpp
-        view/shader_program.cpp ../include/view/shader_program.hpp view/vao.cpp ../include/view/vao.hpp)
+        view/opengl_interfacing/vbo.cpp
+        view/opengl_interfacing/shader.cpp
+        view/opengl_interfacing/vertex_shader.cpp
+        view/opengl_interfacing/fragment_shader.cpp
+        view/opengl_interfacing/shader_program.cpp
+        view/opengl_interfacing/vao.cpp
+        view/opengl_interfacing/ebo.cpp ../include/view/opengl_interfacing/ebo.hpp view/opengl_interfacing/rendered_model.cpp ../include/view/opengl_interfacing/rendered_model.hpp)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)

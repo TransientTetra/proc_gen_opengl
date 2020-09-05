@@ -11,7 +11,7 @@ protected:
 	unsigned int id;
 	std::string getSourceFromFile(std::string filename);
 public:
-	Shader(int shaderType);
+	Shader(GLenum shaderType);
 	~Shader();
 	void loadCompileShaderSource(std::string filename);
 

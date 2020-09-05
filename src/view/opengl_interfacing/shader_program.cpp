@@ -1,6 +1,6 @@
 #include <GL/glew.h>
 #include <iostream>
-#include "view/shader_program.hpp"
+#include "view/opengl_interfacing/shader_program.hpp"
 
 ShaderProgram::ShaderProgram()
 {
