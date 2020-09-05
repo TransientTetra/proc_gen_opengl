@@ -20,7 +20,7 @@ RenderedModel::RenderedModel(float *vertices, int sizeVertices, unsigned int *in
 	ebo.bind();
 	ebo.loadIndices(indices, sizeIndices, usage);
 
-	vao.setVertexAttributePointers(0, 3);
+	vao.setVertexAttributePointers(0, 3, 3 * sizeof(float), 0);
 }
 
 void RenderedModel::draw()
