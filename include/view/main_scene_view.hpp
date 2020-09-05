@@ -15,9 +15,6 @@ class MainSceneView : public View
 private:
 	std::vector<std::shared_ptr<RenderedModel>> models;
 
-	VertexShader vs;
-	FragmentShader fs;
-	ShaderProgram program;
 public:
 	MainSceneView();
 	void draw() override;

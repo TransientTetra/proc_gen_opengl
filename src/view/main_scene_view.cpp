@@ -3,12 +3,6 @@
 
 MainSceneView::MainSceneView()
 {
-	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic.glsl");
-	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic.glsl");
-
-	program.attachVertexAndFragmentShaders(vs, fs);
-	program.linkProgram();
-
 	//todo temporary below
 	float vertices[] =
 		{
@@ -37,7 +31,6 @@ MainSceneView::MainSceneView()
 void MainSceneView::draw()
 {
 	View::draw();
-	program.useProgram();
 	for (auto model : models)
 	{
 		model->draw();
