@@ -8,7 +8,6 @@ private:
 	unsigned int id;
 public:
 	VBO();
-	~VBO();
 
 	void bind();
 	void loadVertices(float *vertices, int size, GLenum usage);

@@ -21,7 +21,7 @@ set(
         view/opengl_interfacing/fragment_shader.cpp
         view/opengl_interfacing/shader_program.cpp
         view/opengl_interfacing/vao.cpp
-        view/opengl_interfacing/ebo.cpp ../include/view/opengl_interfacing/ebo.hpp view/opengl_interfacing/rendered_model.cpp ../include/view/opengl_interfacing/rendered_model.hpp)
+        view/opengl_interfacing/ebo.cpp ../include/view/opengl_interfacing/ebo.hpp view/opengl_interfacing/rendered_model.cpp ../include/view/opengl_interfacing/rendered_model.hpp view/main_scene_view.cpp ../include/view/main_scene_view.hpp)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)
