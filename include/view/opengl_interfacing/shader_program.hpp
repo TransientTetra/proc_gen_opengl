@@ -2,6 +2,7 @@
 #define PROC_GEN_OPENGL_SHADER_PROGRAM_HPP
 
 
+#include <glm/glm/glm.hpp>
 #include "vertex_shader.hpp"
 #include "fragment_shader.hpp"
 
@@ -15,6 +16,9 @@ public:
 	void attachVertexAndFragmentShaders(VertexShader vs, FragmentShader fs);
 	void linkProgram();
 	void useProgram();
+
+	unsigned int getId() const;
+	void sendUniformMatrix(std::string uniformName, glm::mat4 &matrix);
 };
 
 

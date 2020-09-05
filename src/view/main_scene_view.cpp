@@ -6,26 +6,27 @@ MainSceneView::MainSceneView()
 	//todo temporary below
 	float vertices[] =
 		{
-			-0.25f,  0.5f, 0.0f, // top right
-			-0.25f, 0.25f, 0.0f, // bottom right
-			-0.5f, 0.25f, 0.0f, // bottom left
-			-0.5f,  0.5f, 0.0f  // top left
-		};
+			//front face
+			-.5f, .5f, .5f, //up left
+			-.5f, -.5f, .5f, //down left
+			.5f, -.5f, .5f, //down right
+			.5f, .5f, .5f, //up right
 
-	float vertices2[] =
-		{
-			0.25f,  0.5f, 0.0f, // top right
-			0.25f, 0.25f, 0.0f, // bottom right
-			0.5f, 0.25f, 0.0f, // bottom left
-			0.5f,  0.5f, 0.0f  // top left
+			//back face
+			-.5f, .5f, -.5f, //up left
+			-.5f, -.5f, -.5f, //down left
+			.5f, -.5f, -.5f, //down right
+			.5f, .5f, -.5f, //up right
 		};
 	unsigned int indices[] =
 		{
 			0, 1, 3,
-			1, 2, 3
+			1, 2, 3,
+
+			4, 5, 7,
+			5, 6, 7
 		};
 	addModel(std::make_shared<RenderedModel>(vertices, sizeof(vertices), indices, sizeof(indices), GL_STATIC_DRAW));
-	addModel(std::make_shared<RenderedModel>(vertices2, sizeof(vertices2), indices, sizeof(indices), GL_STATIC_DRAW));
 }
 
 void MainSceneView::draw()
