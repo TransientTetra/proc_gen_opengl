@@ -68,7 +68,7 @@ void Demo1::run()
 	{
 		processEvents();
 //		currentView->draw();
-//		window.updateViewportAndBGColour();
+		window.updateViewportAndClear();
 		program.useProgram();
 		model.draw();
 		model2.draw();
