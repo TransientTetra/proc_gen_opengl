@@ -37,7 +37,10 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 endif()
 add_subdirectory(lib)
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp)
+
 target_link_libraries(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}_lib Threads::Threads imgui glm)
+target_link_libraries(${CMAKE_PROJECT_NAME} -static-libgcc -static-libstdc++)
+
 if(WIN32)
     target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} ${GLEW_DLL_LIBRARY} opengl32 hid winmm mingw32 kernel32
             imm32 msvcrt ole32 oleaut32 setupapi shell32 user32 version)
