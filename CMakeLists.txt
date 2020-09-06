@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.16)
 project(proc_gen_opengl)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
 
 set(ASSETS_FOLDER ${PROJECT_SOURCE_DIR}/assets)
 
 if(WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
     set(SDL2_LIBRARY ${PROJECT_SOURCE_DIR}/lib/sdl2/lib/libSDL2.a)
     set(SDL2_DLL_LIBRARY ${PROJECT_SOURCE_DIR}/lib/sdl2/bin/SDL2.dll)
     set(SDL2_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/lib/sdl2/include)
