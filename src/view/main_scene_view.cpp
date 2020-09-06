@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "view/main_scene_view.hpp"
 
 MainSceneView::MainSceneView()
@@ -28,6 +29,7 @@ MainSceneView::MainSceneView()
 			5, 6, 7
 		};
 	addModel(std::make_shared<RenderedModel>(vertices, sizeof(vertices), indices, sizeof(indices), GL_STATIC_DRAW));
+	camera.setPosition(glm::vec3(.0f, .0f, 3.0f));
 }
 
 void MainSceneView::draw()
@@ -36,6 +38,8 @@ void MainSceneView::draw()
 	for (auto model : models)
 	{
 		model->draw(camera.getViewMatrix(), camera.getProjectionMatrix());
+		//todo remove below demo
+		model->rotate(glm::radians(2.f), glm::vec3(0, 1, 1));
 	}
 }
 

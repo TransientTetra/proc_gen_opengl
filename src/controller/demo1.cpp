@@ -8,6 +8,7 @@
 #include <view/opengl_interfacing/ebo.hpp>
 #include <view/opengl_interfacing/rendered_model.hpp>
 #include <view/main_scene_view.hpp>
+#include <iostream>
 #include "controller/demo1.hpp"
 
 Demo1::Demo1(const std::string &title, int height, int width)
@@ -40,6 +41,7 @@ void Demo1::run()
 {
 	while (window.isOpen())
 	{
+		auto start = std::chrono::high_resolution_clock::now();
 		processEvents();
 
 		window.updateViewportAndClear();
@@ -47,6 +49,9 @@ void Demo1::run()
 		currentView->draw();
 
 		window.render();
+
+		auto end = std::chrono::high_resolution_clock::now();
+		lastFrameDuration = end - start;
 	}
 }
 

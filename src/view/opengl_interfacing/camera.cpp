@@ -20,3 +20,15 @@ const glm::mat4 &Camera::getProjectionMatrix() const
 {
 	return projectionMatrix;
 }
+
+void Camera::setPosition(const glm::vec3 &position)
+{
+	Camera::position = position;
+	viewMatrix = glm::lookAt(position, direction, up);
+}
+
+void Camera::setDirection(const glm::vec3 &direction)
+{
+	Camera::direction = direction;
+	viewMatrix = glm::lookAt(position, direction, up);
+}
