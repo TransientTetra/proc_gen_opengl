@@ -42,7 +42,7 @@ unsigned int ShaderProgram::getId() const
 	return id;
 }
 
-void ShaderProgram::sendUniformMatrix(std::string uniformName, glm::mat4 &matrix)
+void ShaderProgram::sendUniformMatrix(std::string uniformName, const glm::mat4 &matrix)
 {
 	int id = glGetUniformLocation(getId(), uniformName.c_str());
 	if (id == -1)

@@ -18,7 +18,7 @@ public:
 	void useProgram();
 
 	unsigned int getId() const;
-	void sendUniformMatrix(std::string uniformName, glm::mat4 &matrix);
+	void sendUniformMatrix(std::string uniformName, const glm::mat4 &matrix);
 };
 
 

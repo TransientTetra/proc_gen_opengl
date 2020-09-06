@@ -20,10 +20,7 @@ private:
 	FragmentShader fs;
 	ShaderProgram shader;
 
-	glm::mat4 transformMatrix;
 	glm::mat4 modelMatrix;
-	glm::mat4 viewMatrix;
-	glm::mat4 projectionMatrix;
 
 	VAO vao;
 	VBO vbo;
@@ -37,7 +34,7 @@ private:
 public:
 	RenderedModel(float* vertices, int sizeVertices, unsigned int* indices, int sizeIndices, GLenum usage);
 
-	void draw();
+	void draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix);
 
 	void scale(glm::vec3 scale);
 	//angle in radians!

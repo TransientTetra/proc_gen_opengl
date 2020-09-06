@@ -2,6 +2,7 @@
 #include "view/main_scene_view.hpp"
 
 MainSceneView::MainSceneView()
+: camera(glm::radians(45.0f), 800 / 600, .1f, 100.0f)
 {
 	//todo temporary below
 	float vertices[] =
@@ -34,7 +35,7 @@ void MainSceneView::draw()
 	View::draw();
 	for (auto model : models)
 	{
-		model->draw();
+		model->draw(camera.getViewMatrix(), camera.getProjectionMatrix());
 	}
 }
 

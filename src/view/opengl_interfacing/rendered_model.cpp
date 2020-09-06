@@ -5,16 +5,11 @@ RenderedModel::RenderedModel(float *vertices, int sizeVertices, unsigned int *in
 {
 	nVertices = sizeVertices / sizeof(float);
 	nIndices = sizeIndices / sizeof(unsigned int);
-	transformMatrix = glm::mat4(1.0f);
-	//todo these almost definitely don't all belong here
+
 	modelMatrix = glm::mat4(1.0f);
-	viewMatrix = glm::mat4(1.0f);
-	projectionMatrix = glm::mat4(1.0f);
 
-	//todo remove demo matrices setting from here
-	viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0f, 0.0f, -3.0f));
-	projectionMatrix = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f,100.0f);
-
+	//the shaders used below are strongly related to what uniform names are used in draw(), so they cannot be
+	//parametrized easily
 	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_transform.glsl");
 	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic.glsl");
 
@@ -32,11 +27,9 @@ RenderedModel::RenderedModel(float *vertices, int sizeVertices, unsigned int *in
 	vao.setVertexAttributePointers(0, 3, 3 * sizeof(float), 0);
 }
 
-void RenderedModel::draw()
+void RenderedModel::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 {
 	shader.useProgram();
-	//todo remove demo rotation from here
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(1.f), glm::vec3(.5f, 1.0f, 0.2f));
 
 	//first parameter has to be exactly the same as the uniform's name in the shader used
 	shader.sendUniformMatrix("modelMatrix", modelMatrix);
@@ -49,18 +42,18 @@ void RenderedModel::draw()
 
 void RenderedModel::scale(glm::vec3 scale)
 {
-	transformMatrix = glm::scale(transformMatrix, scale);
+	modelMatrix = glm::scale(modelMatrix, scale);
 }
 
 void RenderedModel::rotate(float angle, glm::vec3 axis)
 {
 	axis = glm::normalize(axis);
-	transformMatrix = glm::rotate(transformMatrix, angle, axis);
+	modelMatrix = glm::rotate(modelMatrix, angle, axis);
 }
 
 void RenderedModel::translate(glm::vec3 trans)
 {
-	transformMatrix = glm::translate(transformMatrix, trans);
+	modelMatrix = glm::translate(modelMatrix, trans);
 }
 
 void RenderedModel::scaleRotateTranslate(glm::vec3 scale, float angle, glm::vec3 axis, glm::vec3 trans)
