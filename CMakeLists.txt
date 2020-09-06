@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(proc_gen_opengl)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
 
 set(ASSETS_FOLDER ${PROJECT_SOURCE_DIR}/assets)
 
@@ -39,7 +40,6 @@ add_subdirectory(lib)
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}_lib Threads::Threads imgui glm)
-target_link_libraries(${CMAKE_PROJECT_NAME} -static-libgcc -static-libstdc++)
 
 if(WIN32)
     target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} ${GLEW_DLL_LIBRARY} opengl32 hid winmm mingw32 kernel32
