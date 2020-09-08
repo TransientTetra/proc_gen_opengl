@@ -1,3 +1,4 @@
+#include <iostream>
 #include "view/window.hpp"
 
 Window::Window(std::string title, int posX, int posY, int height, int width)
@@ -5,11 +6,13 @@ Window::Window(std::string title, int posX, int posY, int height, int width)
 {
 	assert(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) == 0);
 
-	// GL 3.0 + GLSL 130
+	// GL 3.3 + GLSL 130
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// Create sdlWindow with graphics context
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -18,9 +21,21 @@ Window::Window(std::string title, int posX, int posY, int height, int width)
 	SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL
 	| SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 	sdlWindow = SDL_CreateWindow(title.c_str(), posX, posY, width, height, window_flags);
+	if (sdlWindow == NULL)
+	{
+		std::cerr << "Failed to create a window" << std::endl;
+	}
 	glContext = SDL_GL_CreateContext(sdlWindow);
 	SDL_GL_MakeCurrent(sdlWindow, glContext);
 	SDL_GL_SetSwapInterval(1); // Enable vsync
+
+	GLenum status = glewInit();
+	if (status != GLEW_OK)
+	{
+		std::cerr << "Glew failed to initialize" << std::endl;
+	}
+
+	glEnable(GL_DEPTH_TEST);
 
 	setupImGui();
 }
