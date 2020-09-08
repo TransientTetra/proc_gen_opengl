@@ -29,6 +29,7 @@ public:
 	void setupImGui();
 	void closeImGui();
 
+	void updateViewportAndClear();
 	void render();
 	bool isOpen();
 	void setClose();

@@ -1,5 +1,4 @@
 #include "controller/demo1.hpp"
-#include <iostream>
 
 #ifdef _WIN32
 #include <minwindef.h>

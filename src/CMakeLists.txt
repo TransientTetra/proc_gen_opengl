@@ -9,7 +9,19 @@ set(
         view/frame.cpp
         controller/demo1.cpp
         view/view.cpp
-        model/entity.cpp ../include/model/entity.hpp model/world.cpp ../include/model/world.hpp model/terrain.cpp ../include/model/terrain.hpp model/square.cpp ../include/model/square.hpp model/cube.cpp ../include/model/cube.hpp model/point.cpp ../include/model/point.hpp)
+        model/entity.cpp
+        model/world.cpp
+        model/terrain.cpp
+        model/square.cpp
+        model/cube.cpp
+        model/point.cpp
+        view/opengl_interfacing/vbo.cpp
+        view/opengl_interfacing/shader.cpp
+        view/opengl_interfacing/vertex_shader.cpp
+        view/opengl_interfacing/fragment_shader.cpp
+        view/opengl_interfacing/shader_program.cpp
+        view/opengl_interfacing/vao.cpp
+        view/opengl_interfacing/ebo.cpp ../include/view/opengl_interfacing/ebo.hpp view/opengl_interfacing/rendered_model.cpp ../include/view/opengl_interfacing/rendered_model.hpp)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)

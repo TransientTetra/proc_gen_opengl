@@ -19,6 +19,7 @@ public:
 	Application(std::string title, int height, int width);
 
 	virtual void run() = 0;
+	virtual void processEvents() = 0;
 };
 
 
