@@ -1,10 +1,5 @@
 #include "view/view.hpp"
 
-View::View()
-{
-
-}
-
 void View::draw()
 {
 	for (Frame frame : frames)

@@ -11,10 +11,10 @@ void VAO::bind()
 	glBindVertexArray(id);
 }
 
-void VAO::setVertexAttributePointers(unsigned int index, int size)
+void VAO::setVertexAttributePointers(unsigned int index, unsigned int size, int stride, int offset)
 {
 	//index is the id of vertex attribute we are configuring, dictated by
 	//the value from vertex shader; size is the size of vertices loaded to vbo
-	glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, size * sizeof(float), (void *)0);
-	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, stride, (void *)offset);
+	glEnableVertexAttribArray(index);
 }

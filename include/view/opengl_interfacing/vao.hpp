@@ -10,7 +10,7 @@ public:
 	VAO();
 
 	void bind();
-	void setVertexAttributePointers(unsigned int index, int size);
+	void setVertexAttributePointers(unsigned int index, unsigned int size, int stride, int offset);
 };
 
 

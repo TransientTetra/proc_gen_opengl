@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(ASSETS_FOLDER ${PROJECT_SOURCE_DIR}/assets)
 
 if(WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
     set(SDL2_LIBRARY ${PROJECT_SOURCE_DIR}/lib/sdl2/lib/libSDL2.a)
     set(SDL2_DLL_LIBRARY ${PROJECT_SOURCE_DIR}/lib/sdl2/bin/SDL2.dll)
     set(SDL2_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/lib/sdl2/include)
@@ -37,7 +38,9 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 endif()
 add_subdirectory(lib)
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp)
+
 target_link_libraries(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}_lib Threads::Threads imgui glm)
+
 if(WIN32)
     target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} ${GLEW_DLL_LIBRARY} opengl32 hid winmm mingw32 kernel32
             imm32 msvcrt ole32 oleaut32 setupapi shell32 user32 version)

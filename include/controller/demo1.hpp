@@ -1,7 +1,7 @@
 #ifndef DEMO1_HPP
 #define DEMO1_HPP
 
-
+#include <chrono>
 #include <model/world.hpp>
 #include "application.hpp"
 
@@ -9,6 +9,8 @@ class Demo1 : public Application
 {
 private:
 	World world;
+
+	std::chrono::duration<double> lastFrameDuration;
 public:
 	Demo1(const std::string &title, int height, int width);
 

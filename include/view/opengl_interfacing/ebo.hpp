@@ -8,6 +8,7 @@ private:
 	unsigned int id;
 public:
 	EBO();
+
 	void bind();
 	void loadIndices(unsigned int* indices, int size, GLenum usage);
 };
