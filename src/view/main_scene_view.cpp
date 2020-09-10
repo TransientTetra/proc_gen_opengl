@@ -28,7 +28,7 @@ MainSceneView::MainSceneView()
 			4, 5, 7,
 			5, 6, 7
 		};
-	addModel(std::make_shared<RenderedModel>(vertices, sizeof(vertices), indices, sizeof(indices), GL_STATIC_DRAW));
+	addModel(std::make_shared<Mesh>(vertices, sizeof(vertices), indices, sizeof(indices), GL_STATIC_DRAW));
 	camera.setPosition(glm::vec3(.0f, .0f, 3.0f));
 }
 
@@ -49,7 +49,7 @@ void MainSceneView::render()
 }
 
 //todo this function leaks! some weird things with smart pointers going on
-void MainSceneView::addModel(std::shared_ptr<RenderedModel> model)
+void MainSceneView::addModel(std::shared_ptr<Mesh> model)
 {
 	models.emplace_back(std::move(model));
 }

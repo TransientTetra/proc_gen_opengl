@@ -1,6 +1,6 @@
-#include "view/opengl_interfacing/rendered_model.hpp"
+#include "view/opengl_interfacing/mesh.hpp"
 
-RenderedModel::RenderedModel(float *vertices, int sizeVertices, unsigned int *indices, int sizeIndices, GLenum usage)
+Mesh::Mesh(float *vertices, int sizeVertices, unsigned int *indices, int sizeIndices, GLenum usage)
 : sizeIndices(sizeIndices), sizeVertices(sizeVertices)
 {
 	nVertices = sizeVertices / sizeof(float);
@@ -27,7 +27,7 @@ RenderedModel::RenderedModel(float *vertices, int sizeVertices, unsigned int *in
 	vao.setVertexAttributePointers(0, 3, 3 * sizeof(float), 0);
 }
 
-void RenderedModel::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
+void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 {
 	shader.useProgram();
 
@@ -40,23 +40,23 @@ void RenderedModel::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectio
 	glDrawElements(GL_TRIANGLES, sizeIndices, GL_UNSIGNED_INT, 0);
 }
 
-void RenderedModel::scale(glm::vec3 scale)
+void Mesh::scale(glm::vec3 scale)
 {
 	modelMatrix = glm::scale(modelMatrix, scale);
 }
 
-void RenderedModel::rotate(float angle, glm::vec3 axis)
+void Mesh::rotate(float angle, glm::vec3 axis)
 {
 	axis = glm::normalize(axis);
 	modelMatrix = glm::rotate(modelMatrix, angle, axis);
 }
 
-void RenderedModel::translate(glm::vec3 trans)
+void Mesh::translate(glm::vec3 trans)
 {
 	modelMatrix = glm::translate(modelMatrix, trans);
 }
 
-void RenderedModel::scaleRotateTranslate(glm::vec3 scale, float angle, glm::vec3 axis, glm::vec3 trans)
+void Mesh::scaleRotateTranslate(glm::vec3 scale, float angle, glm::vec3 axis, glm::vec3 trans)
 {
 	this->scale(scale);
 	rotate(angle, axis);

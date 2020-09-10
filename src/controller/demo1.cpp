@@ -6,7 +6,7 @@
 #include <view/opengl_interfacing/vbo.hpp>
 #include <view/opengl_interfacing/shader_program.hpp>
 #include <view/opengl_interfacing/ebo.hpp>
-#include <view/opengl_interfacing/rendered_model.hpp>
+#include <view/opengl_interfacing/mesh.hpp>
 #include <view/main_scene_view.hpp>
 #include <iostream>
 #include "controller/demo1.hpp"

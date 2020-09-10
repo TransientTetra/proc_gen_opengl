@@ -1,5 +1,5 @@
-#ifndef PROC_GEN_OPENGL_RENDERED_MODEL_HPP
-#define PROC_GEN_OPENGL_RENDERED_MODEL_HPP
+#ifndef PROC_GEN_OPENGL_MESH_HPP
+#define PROC_GEN_OPENGL_MESH_HPP
 
 
 #include <GL/glew.h>
@@ -12,8 +12,7 @@
 #include "fragment_shader.hpp"
 #include "shader_program.hpp"
 
-//todo perhaps change class name and delegate some of its responsibilities?
-class RenderedModel
+class Mesh
 {
 private:
 	VertexShader vs;
@@ -32,7 +31,7 @@ private:
 	unsigned int nVertices; //number of them!
 	unsigned int nIndices;
 public:
-	RenderedModel(float* vertices, int sizeVertices, unsigned int* indices, int sizeIndices, GLenum usage);
+	Mesh(float* vertices, int sizeVertices, unsigned int* indices, int sizeIndices, GLenum usage);
 
 	void draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix);
 
@@ -46,4 +45,4 @@ public:
 };
 
 
-#endif //PROC_GEN_OPENGL_RENDERED_MODEL_HPP
+#endif //PROC_GEN_OPENGL_MESH_HPP

@@ -22,7 +22,7 @@ set(
         view/opengl_interfacing/shader_program.cpp
         view/opengl_interfacing/vao.cpp
         view/opengl_interfacing/ebo.cpp
-        view/opengl_interfacing/rendered_model.cpp
+        view/opengl_interfacing/mesh.cpp
         view/main_scene_view.cpp
         view/opengl_interfacing/camera.cpp
 )

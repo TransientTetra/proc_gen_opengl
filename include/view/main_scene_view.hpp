@@ -2,7 +2,7 @@
 #define PROC_GEN_OPENGL_MAIN_SCENE_VIEW_HPP
 
 
-#include <view/opengl_interfacing/rendered_model.hpp>
+#include <view/opengl_interfacing/mesh.hpp>
 #include <memory>
 #include <view/opengl_interfacing/vertex_shader.hpp>
 #include <view/opengl_interfacing/fragment_shader.hpp>
@@ -14,7 +14,7 @@
 class MainSceneView : public View
 {
 private:
-	std::vector<std::shared_ptr<RenderedModel>> models;
+	std::vector<std::shared_ptr<Mesh>> models;
 	Camera camera;
 
 public:
@@ -22,7 +22,7 @@ public:
 	void draw() override;
 	void render() override;
 
-	void addModel(std::shared_ptr<RenderedModel> model);
+	void addModel(std::shared_ptr<Mesh> model);
 };
 
 
