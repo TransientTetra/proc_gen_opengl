@@ -25,6 +25,7 @@ set(
         view/opengl_interfacing/mesh.cpp
         view/main_scene_view.cpp
         view/opengl_interfacing/camera.cpp
+        view/opengl_interfacing/vertex.cpp
 )
 set(SRC ${SRC})
 

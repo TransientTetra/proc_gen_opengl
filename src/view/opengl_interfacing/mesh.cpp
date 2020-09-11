@@ -1,11 +1,8 @@
 #include "view/opengl_interfacing/mesh.hpp"
 
-Mesh::Mesh(float *vertices, int sizeVertices, unsigned int *indices, int sizeIndices, GLenum usage)
-: sizeIndices(sizeIndices), sizeVertices(sizeVertices)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage)
+: vertices(vertices), indices(indices)
 {
-	nVertices = sizeVertices / sizeof(float);
-	nIndices = sizeIndices / sizeof(unsigned int);
-
 	modelMatrix = glm::mat4(1.0f);
 
 	//the shaders used below are strongly related to what uniform names are used in draw(), so they cannot be
@@ -21,12 +18,13 @@ Mesh::Mesh(float *vertices, int sizeVertices, unsigned int *indices, int sizeInd
 	vao.bind();
 
 	vbo.bind();
-	vbo.loadVertices(vertices, sizeVertices, usage);
+	vbo.loadVertices(vertices, usage);
 
 	ebo.bind();
-	ebo.loadIndices(indices, sizeIndices, usage);
+	ebo.loadIndices(indices, usage);
 
 	vao.setVertexAttributePointers(0, 3, 3 * sizeof(float), 0);
+	//vao.setVertexAttributePointers(1, 3, 3 * sizeof(float), offsetof(Vertex, normal)) //for adding new fields to Vertex
 }
 
 void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
@@ -39,7 +37,7 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 	shader.sendUniformMatrix("projectionMatrix", projectionMatrix);
 
 	vao.bind();
-	glDrawElements(GL_TRIANGLES, sizeIndices, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 void Mesh::scale(glm::vec3 scale)

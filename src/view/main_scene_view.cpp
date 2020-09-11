@@ -6,21 +6,21 @@ MainSceneView::MainSceneView()
 : camera(glm::radians(45.0f), 800 / 600, .1f, 100.0f)
 {
 	//todo temporary below
-	float vertices[] =
+	std::vector<Vertex> vertices =
 		{
 			//front face
-			-.5f, .5f, .5f, //up left
-			-.5f, -.5f, .5f, //down left
-			.5f, -.5f, .5f, //down right
-			.5f, .5f, .5f, //up right
+			Vertex(glm::vec3(-.5f, .5f, .5f)), //up left
+			Vertex(glm::vec3(-.5f, -.5f, .5f)), //down left
+			Vertex(glm::vec3(.5f, -.5f, .5f)), //down right
+			Vertex(glm::vec3(.5f, .5f, .5f)), //up right
 
 			//back face
-			-.5f, .5f, -.5f, //up left
-			-.5f, -.5f, -.5f, //down left
-			.5f, -.5f, -.5f, //down right
-			.5f, .5f, -.5f, //up right
+			Vertex(glm::vec3(-.5f, .5f, -.5f)), //up left
+			Vertex(glm::vec3(-.5f, -.5f, -.5f)), //down left
+			Vertex(glm::vec3(.5f, -.5f, -.5f)), //down right
+			Vertex(glm::vec3(.5f, .5f, -.5f)), //up right
 		};
-	unsigned int indices[] =
+	std::vector<unsigned int> indices =
 		{
 			0, 1, 3,
 			1, 2, 3,
@@ -28,7 +28,7 @@ MainSceneView::MainSceneView()
 			4, 5, 7,
 			5, 6, 7
 		};
-	addModel(std::make_shared<Mesh>(vertices, sizeof(vertices), indices, sizeof(indices), GL_STATIC_DRAW));
+	addModel(std::make_shared<Mesh>(vertices, indices, GL_STATIC_DRAW));
 	camera.setPosition(glm::vec3(.0f, .0f, 3.0f));
 }
 
