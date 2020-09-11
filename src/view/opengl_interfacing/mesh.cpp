@@ -10,6 +10,8 @@ Mesh::Mesh(float *vertices, int sizeVertices, unsigned int *indices, int sizeInd
 
 	//the shaders used below are strongly related to what uniform names are used in draw(), so they cannot be
 	//parametrized easily
+	VertexShader vs;
+	FragmentShader fs;
 	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_transform.glsl");
 	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic.glsl");
 

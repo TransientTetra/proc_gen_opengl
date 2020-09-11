@@ -15,8 +15,6 @@
 class Mesh
 {
 private:
-	VertexShader vs;
-	FragmentShader fs;
 	ShaderProgram shader;
 
 	glm::mat4 modelMatrix;
