@@ -15,7 +15,6 @@ class MainSceneView : public View
 {
 private:
 	std::vector<std::shared_ptr<Mesh>> models;
-	Camera camera;
 
 public:
 	MainSceneView();
@@ -23,6 +22,7 @@ public:
 	void render() override;
 
 	void addModel(std::shared_ptr<Mesh> model);
+
 };
 
 

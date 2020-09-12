@@ -4,16 +4,28 @@
 
 #include <vector>
 #include <view/frame.hpp>
+#include <view/opengl_interfacing/camera.hpp>
 
 class View
 {
 protected:
 	std::vector<Frame> frames;
+
+    Camera* camera;
+    glm::vec3* cameraPos;
+    glm::vec3* cameraFront;
+    glm::vec3 cameraUp;
 public:
+    View();
 	//draw has to be called at the start of the overridden method
 	virtual void draw();
 	//render has to be called at the end of the overridden method
 	virtual void render();
+
+    Camera* getCamera();
+    glm::vec3* getCameraFront();
+    glm::vec3 getCameraUp();
+    void changeCameraPos(const glm::vec3 &changeVector);
 };
 
 
