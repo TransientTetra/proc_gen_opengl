@@ -9,7 +9,7 @@ class Square : public Cube
 private:
 protected:
 public:
-	Square(Point position, float width, float height);
+	Square(glm::vec3 position, float width, float height);
 };
 
 

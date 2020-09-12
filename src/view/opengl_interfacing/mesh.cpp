@@ -45,6 +45,7 @@ void Mesh::scale(glm::vec3 scale)
 	modelMatrix = glm::scale(modelMatrix, scale);
 }
 
+//todo rotate only works when model at 0,0,0
 void Mesh::rotate(float angle, glm::vec3 axis)
 {
 	axis = glm::normalize(axis);

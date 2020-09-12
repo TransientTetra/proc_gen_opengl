@@ -14,7 +14,6 @@ set(
         model/terrain.cpp
         model/square.cpp
         model/cube.cpp
-        model/point.cpp
         view/opengl_interfacing/vbo.cpp
         view/opengl_interfacing/shader.cpp
         view/opengl_interfacing/vertex_shader.cpp
@@ -26,6 +25,7 @@ set(
         view/main_scene_view.cpp
         view/opengl_interfacing/camera.cpp
         view/opengl_interfacing/vertex.cpp
+        controller/entity_translator.cpp
 )
 set(SRC ${SRC})
 
