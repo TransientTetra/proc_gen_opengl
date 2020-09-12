@@ -39,16 +39,16 @@ void Demo1::processEvents()
 		    case SDL_KEYDOWN:
                 switch( event.key.keysym.sym ){
                     case SDLK_LEFT:
-                        currentView->changeCameraPos(glm::normalize(glm::cross(*currentView->getCameraFront(), currentView->getCameraUp())) * -0.1f);
+                        currentView->changeCameraPos(glm::normalize(glm::cross(*currentView->getCameraFront(), *currentView->getCameraUp())) * -currentView->getCameraSpeed());
                         break;
                     case SDLK_RIGHT:
-                        currentView->changeCameraPos(glm::normalize(glm::cross(*currentView->getCameraFront(), currentView->getCameraUp())) * 0.1f);
+                        currentView->changeCameraPos(glm::normalize(glm::cross(*currentView->getCameraFront(), *currentView->getCameraUp())) * currentView->getCameraSpeed());
                         break;
                     case SDLK_UP:
-                        currentView->changeCameraPos(0.1f * currentView->getCameraUp());
+                        currentView->changeCameraPos(currentView->getCameraSpeed() * *currentView->getCameraUp());
                         break;
                     case SDLK_DOWN:
-                        currentView->changeCameraPos(-0.1f * currentView->getCameraUp());
+                        currentView->changeCameraPos(-currentView->getCameraSpeed() * *currentView->getCameraUp());
                         break;
                     default:
                         break;
