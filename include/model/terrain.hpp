@@ -3,15 +3,18 @@
 
 
 #include <vector>
+#include <glm/glm.hpp>
 
 class Terrain
 {
 private:
 protected:
-	float length; //z axis
-	float width; //x axis
+	unsigned int length; //z axis
+	unsigned int width; //x axis
+	std::vector<glm::vec3> vertices;
+
 public:
-	Terrain();
+	Terrain(unsigned int width, unsigned int length);
 };
 
 
