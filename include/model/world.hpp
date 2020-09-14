@@ -16,6 +16,8 @@ private:
 protected:
 public:
 	void addEntity(std::shared_ptr<Entity> entity);
+
+	const std::vector<std::shared_ptr<Entity>> &getEntities() const;
 };
 
 

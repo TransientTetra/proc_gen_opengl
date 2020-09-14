@@ -5,18 +5,21 @@
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <vector>
 #include "vao.hpp"
 #include "vbo.hpp"
 #include "ebo.hpp"
 #include "vertex_shader.hpp"
 #include "fragment_shader.hpp"
 #include "shader_program.hpp"
+#include "vertex.hpp"
 
 class Mesh
 {
 private:
-	VertexShader vs;
-	FragmentShader fs;
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	//todo shader should probably not belong to the mesh class
 	ShaderProgram shader;
 
 	glm::mat4 modelMatrix;
@@ -24,14 +27,8 @@ private:
 	VAO vao;
 	VBO vbo;
 	EBO ebo;
-
-	unsigned int sizeVertices; //size in bytes!
-	unsigned int sizeIndices;
-
-	unsigned int nVertices; //number of them!
-	unsigned int nIndices;
 public:
-	Mesh(float* vertices, int sizeVertices, unsigned int* indices, int sizeIndices, GLenum usage);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage);
 
 	void draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix);
 

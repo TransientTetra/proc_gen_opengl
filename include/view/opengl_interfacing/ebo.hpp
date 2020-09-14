@@ -2,6 +2,8 @@
 #define PROC_GEN_OPENGL_EBO_HPP
 
 
+#include <vector>
+
 class EBO
 {
 private:
@@ -10,7 +12,7 @@ public:
 	EBO();
 
 	void bind();
-	void loadIndices(unsigned int* indices, int size, GLenum usage);
+	void loadIndices(std::vector<unsigned int> indices, GLenum usage);
 };
 
 
