@@ -37,7 +37,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_subdirectory(tst)
 endif()
 add_subdirectory(lib)
-add_executable(${CMAKE_PROJECT_NAME} src/main.cpp)
+add_executable(${CMAKE_PROJECT_NAME} src/main.cpp include/view/opengl_interfacing/above_camera.hpp)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}_lib Threads::Threads imgui glm)
 

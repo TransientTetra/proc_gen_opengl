@@ -5,7 +5,7 @@
 MainSceneView::MainSceneView()
     : View()
 {
-    camera = new Camera(glm::radians(45.0f), 800 / 600, .1f, 100.0f);
+    camera = new AboveCamera(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 0.05f);
     camera->setPosition(glm::vec3(1.0f, .0f, 4.0f));
     camera->setDirection(camera->getPosition() + camera->getForward());
 
@@ -40,17 +40,23 @@ void MainSceneView::processEvents(SDL_Event &event)
     switch(event.type) {
         case SDL_KEYDOWN:
             switch( event.key.keysym.sym ){
-                case SDLK_LEFT:
-                    camera->changePosition(glm::normalize(glm::cross(camera->getDirection(), camera->getUp())) * 0.05f);
+                case SDLK_a:
+                    ((AboveCamera*)camera)->moveHorizontally(true);
                     break;
-                case SDLK_RIGHT:
-                    camera->changePosition(glm::normalize(glm::cross(camera->getDirection(), camera->getUp())) * -0.05f);
+                case SDLK_d:
+                    ((AboveCamera*)camera)->moveHorizontally(false);
+                    break;
+                case SDLK_w:
+                    ((AboveCamera*)camera)->moveVertically(true);
+                    break;
+                case SDLK_s:
+                    ((AboveCamera*)camera)->moveVertically(false);
                     break;
                 case SDLK_UP:
-                    camera->changePosition(0.05f * camera->getUp());
+                    ((AboveCamera*)camera)->moveDeeper(true);
                     break;
                 case SDLK_DOWN:
-                    camera->changePosition(-0.05f * camera->getUp());
+                    ((AboveCamera*)camera)->moveDeeper(false);
                     break;
                 default:
                     break;

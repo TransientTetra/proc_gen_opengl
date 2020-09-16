@@ -53,9 +53,3 @@ void Camera::setDirection(const glm::vec3 &direction)
 	Camera::direction = direction;
 	viewMatrix = glm::lookAt(position, direction, up);
 }
-
-void Camera::changePosition(const glm::vec3 &shift)
-{
-    Camera::position = position + shift;
-    setDirection(position + forward);
-}

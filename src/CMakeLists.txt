@@ -26,7 +26,7 @@ set(
         view/main_scene_view.cpp
         view/opengl_interfacing/camera.cpp
 )
-set(SRC ${SRC})
+set(SRC ${SRC} view/opengl_interfacing/above_camera.cpp)
 
 include_directories(../include BINARY)
 add_library(${BINARY}_lib STATIC ${SRC})

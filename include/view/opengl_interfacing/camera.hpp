@@ -7,14 +7,14 @@
 class Camera
 {
 private:
-	glm::vec3 position;
-	glm::vec3 direction;
-	glm::vec3 forward;
-	glm::vec3 up;
-
-	glm::mat4 viewMatrix;
-	glm::mat4 projectionMatrix;
 protected:
+    glm::vec3 position;
+    glm::vec3 direction;
+    glm::vec3 forward;
+    glm::vec3 up;
+
+    glm::mat4 viewMatrix;
+    glm::mat4 projectionMatrix;
 public:
 	//all angles in radians
 	Camera(float fov, float aspectRatio, float nearDraw, float farDraw);
@@ -31,9 +31,6 @@ public:
 	//using only this will result in camera moving, but looking at the point set in direction vector
 	void setPosition(const glm::vec3 &position);
 	void setDirection(const glm::vec3 &direction);
-
-	void changePosition(const glm::vec3 &shift);
-
 };
 
 
