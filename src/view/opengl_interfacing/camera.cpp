@@ -5,6 +5,7 @@ Camera::Camera(float fov, float aspectRatio, float nearDraw, float farDraw)
 {
 	position = glm::vec3(.0f, .0f, .0f);
 	direction = glm::vec3(.0f, .0f, -1.0f);
+    forward = glm::vec3(.0f, .0f, -1.0f);
 	up = glm::vec3(.0f, 1.0f, .0f);
 	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
 
@@ -21,6 +22,26 @@ const glm::mat4 &Camera::getProjectionMatrix() const
 	return projectionMatrix;
 }
 
+const glm::vec3 &Camera::getPosition() const
+{
+    return position;
+}
+
+const glm::vec3 &Camera::getDirection() const
+{
+    return direction;
+}
+
+const glm::vec3 &Camera::getForward() const
+{
+    return direction;
+}
+
+const glm::vec3 &Camera::getUp() const
+{
+    return up;
+}
+
 void Camera::setPosition(const glm::vec3 &position)
 {
 	Camera::position = position;
@@ -31,4 +52,10 @@ void Camera::setDirection(const glm::vec3 &direction)
 {
 	Camera::direction = direction;
 	viewMatrix = glm::lookAt(position, direction, up);
+}
+
+void Camera::changePosition(const glm::vec3 &shift)
+{
+    Camera::position = position + shift;
+    setDirection(position + forward);
 }

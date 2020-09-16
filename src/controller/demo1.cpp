@@ -35,26 +35,7 @@ void Demo1::processEvents()
 			window.setClose();
 		}
 
-		switch(event.type) {
-		    case SDL_KEYDOWN:
-                switch( event.key.keysym.sym ){
-                    case SDLK_LEFT:
-                        currentView->changeCameraPos(glm::normalize(glm::cross(*currentView->getCameraFront(), *currentView->getCameraUp())) * -currentView->getCameraSpeed());
-                        break;
-                    case SDLK_RIGHT:
-                        currentView->changeCameraPos(glm::normalize(glm::cross(*currentView->getCameraFront(), *currentView->getCameraUp())) * currentView->getCameraSpeed());
-                        break;
-                    case SDLK_UP:
-                        currentView->changeCameraPos(currentView->getCameraSpeed() * *currentView->getCameraUp());
-                        break;
-                    case SDLK_DOWN:
-                        currentView->changeCameraPos(-currentView->getCameraSpeed() * *currentView->getCameraUp());
-                        break;
-                    default:
-                        break;
-                }
-		        break;
-		}
+        currentView->processEvents(event);
 	}
 }
 

@@ -18,12 +18,11 @@ private:
 
 public:
 	MainSceneView();
+	void processEvents(SDL_Event& event) override;
 	void draw() override;
 	void render() override;
 
 	void addModel(std::shared_ptr<Mesh> model);
-
 };
-
 
 #endif //PROC_GEN_OPENGL_MAIN_SCENE_VIEW_HPP

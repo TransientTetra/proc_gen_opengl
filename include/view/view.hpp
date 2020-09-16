@@ -12,23 +12,14 @@ protected:
 	std::vector<Frame> frames;
 
     Camera* camera;
-    float cameraSpeed;
-    glm::vec3* cameraPos;
-    glm::vec3* cameraFront;
-    glm::vec3* cameraUp;
 public:
     View();
+
+    virtual void processEvents(SDL_Event& event) = 0;
 	//draw has to be called at the start of the overridden method
 	virtual void draw();
 	//render has to be called at the end of the overridden method
 	virtual void render();
-
-    Camera* getCamera();
-    float getCameraSpeed();
-    glm::vec3* getCameraPos();
-    glm::vec3* getCameraFront();
-    glm::vec3* getCameraUp();
-    void changeCameraPos(const glm::vec3 &changeVector);
 };
 
 

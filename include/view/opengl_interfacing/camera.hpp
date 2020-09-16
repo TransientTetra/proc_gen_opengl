@@ -9,6 +9,7 @@ class Camera
 private:
 	glm::vec3 position;
 	glm::vec3 direction;
+	glm::vec3 forward;
 	glm::vec3 up;
 
 	glm::mat4 viewMatrix;
@@ -21,11 +22,18 @@ public:
 	const glm::mat4 &getViewMatrix() const;
 	const glm::mat4 &getProjectionMatrix() const;
 
+    const glm::vec3 &getPosition() const;
+    const glm::vec3 &getDirection() const;
+    const glm::vec3 &getForward() const;
+    const glm::vec3 &getUp() const;
+
 	//this only sets the position vector! this does not change direction where camera looks at, meaning that
 	//using only this will result in camera moving, but looking at the point set in direction vector
 	void setPosition(const glm::vec3 &position);
-
 	void setDirection(const glm::vec3 &direction);
+
+	void changePosition(const glm::vec3 &shift);
+
 };
 
 
