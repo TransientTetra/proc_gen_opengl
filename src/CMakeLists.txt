@@ -26,7 +26,8 @@ set(
         view/opengl_interfacing/camera.cpp
         view/opengl_interfacing/vertex.cpp
         controller/entity_translator.cpp
-)
+        controller/terrain_translator.cpp
+        model/height_map.cpp ../include/model/height_map.hpp)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)

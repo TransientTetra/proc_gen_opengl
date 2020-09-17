@@ -18,6 +18,10 @@ public:
 	void addEntity(std::shared_ptr<Entity> entity);
 
 	const std::vector<std::shared_ptr<Entity>> &getEntities() const;
+
+	const std::unique_ptr<Terrain> &getTerrain() const;
+
+	void setTerrain(std::unique_ptr<Terrain> terrain);
 };
 
 

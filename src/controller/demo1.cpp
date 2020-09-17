@@ -10,6 +10,7 @@
 #include <view/main_scene_view.hpp>
 #include <iostream>
 #include <controller/entity_translator.hpp>
+#include <controller/terrain_translator.hpp>
 #include "controller/demo1.hpp"
 
 Demo1::Demo1(const std::string &title, int height, int width)
@@ -17,6 +18,7 @@ Demo1::Demo1(const std::string &title, int height, int width)
 {
 	//todo temporary
 	world.addEntity(std::shared_ptr<Cube>(new Cube(glm::vec3(0, 0, 0), 3, 3, 3)));
+	world.setTerrain(std::make_unique<Terrain>(8, 10));
 
 	//todo change default first view once menu or something is devised
 	currentView = std::make_unique<MainSceneView>();
@@ -26,6 +28,9 @@ Demo1::Demo1(const std::string &title, int height, int width)
 	{
 		dynamic_cast<MainSceneView*>(currentView.get())->addModel(std::make_shared<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW));
 	}
+
+	TerrainTranslator t;
+	dynamic_cast<MainSceneView*>(currentView.get())->addModel(std::make_shared<Mesh>(t.getVertices(*world.getTerrain()), t.getIndices(*world.getTerrain()), GL_STATIC_DRAW));
 }
 
 void Demo1::processEvents()

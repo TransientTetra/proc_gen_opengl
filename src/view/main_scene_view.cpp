@@ -6,7 +6,7 @@ MainSceneView::MainSceneView()
 : camera(glm::radians(45.0f), 800 / 600, .1f, 100.0f)
 {
 	//todo temporary below
-	camera.setPosition(glm::vec3(.0f, .0f, 10.0f));
+	camera.setPosition(glm::vec3(.0f, 3.0f, 10.0f));
 }
 
 void MainSceneView::draw()
@@ -15,8 +15,6 @@ void MainSceneView::draw()
 	for (auto model : models)
 	{
 		model->draw(camera.getViewMatrix(), camera.getProjectionMatrix());
-		//todo remove below demo
-		model->rotate(glm::radians(2.f), glm::vec3(0, 1, 1));
 	}
 }
 

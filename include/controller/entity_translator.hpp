@@ -11,8 +11,8 @@ class EntityTranslator
 private:
 protected:
 public:
-	std::vector<Vertex> getVertices(Entity &entity);
-	std::vector<unsigned int> getIndices(Entity &entity);
+	std::vector<Vertex> getVertices(const Entity &entity);
+	std::vector<unsigned int> getIndices(const Entity &entity);
 };
 
 
