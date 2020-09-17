@@ -1,7 +1,7 @@
 #include "model/terrain.hpp"
 
 Terrain::Terrain(float width, float length)
-: width(width), length(length), level(0), heightMap(2, 2)
+: width(width), length(length), level(0), heightMap(std::make_unique<HeightMap>(2, 2))
 {
 	calculatePoints();
 }
@@ -13,7 +13,7 @@ void Terrain::calculatePoints()
 		for (int j = 0; j < getNPointsWidth(); ++j)
 		{
 			float x = j * width / (getNPointsWidth() - 1) - width / 2;
-			float y = heightMap.at(i, j) + level;
+			float y = heightMap->at(i, j) + level;
 			float z = i * length / (getNPointsLength() - 1) - length / 2;
 			points.emplace_back(glm::vec3(x, y, z));
 		}
@@ -37,12 +37,12 @@ float Terrain::getLevel() const
 
 unsigned int Terrain::getNPointsLength() const
 {
-	return heightMap.getLength();
+	return heightMap->getLength();
 }
 
 unsigned int Terrain::getNPointsWidth() const
 {
-	return heightMap.getWidth();
+	return heightMap->getWidth();
 }
 
 const std::vector<glm::vec3> &Terrain::getPoints() const

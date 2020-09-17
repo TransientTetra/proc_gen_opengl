@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <glm/glm.hpp>
+#include <memory>
 #include "height_map.hpp"
 
 class Terrain
@@ -14,7 +15,7 @@ protected:
 	float width; //x axis
 	float level; //y axis
 
-	HeightMap heightMap;
+	std::unique_ptr<HeightMap> heightMap;
 	std::vector<glm::vec3> points;
 
 	void calculatePoints();
