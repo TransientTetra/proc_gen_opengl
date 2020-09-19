@@ -9,7 +9,8 @@ class SinusoidalMap : public HeightMap
 private:
 protected:
 public:
-	SinusoidalMap(unsigned int width, unsigned int length, float scale, float min, float max);
+	SinusoidalMap(unsigned int width, unsigned int length, float scale, float min, float max,
+	              unsigned int nWavesWidth, unsigned int nWavesLength);
 };
 
 
