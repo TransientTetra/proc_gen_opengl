@@ -18,6 +18,12 @@ HeightMap::HeightMap(unsigned int width, unsigned int length)
 	}
 }
 
+HeightMap::~HeightMap()
+{
+
+}
+
+
 float HeightMap::at(unsigned int x, unsigned int y)
 {
 	return points[y * width + x];

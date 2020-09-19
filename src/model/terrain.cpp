@@ -1,20 +1,24 @@
+#include <memory>
 #include <model/sinusoidal_map.hpp>
+#include <model/noise_map.hpp>
+#include <model/perlin_noise.hpp>
 #include "model/terrain.hpp"
 
-Terrain::Terrain(float width, float length)
-: width(width), length(length), level(0), heightMap(std::make_unique<SinusoidalMap>(256, 256, .2f, 0, 5, 5))
+Terrain::Terrain(float width, float length, int scale)
+: width(width), length(length), level(0), heightMap(std::make_unique<HeightMap>(2, 2))
 {
-	calculatePoints();
+	heightMap = std::make_unique<NoiseMap>(2, 2, std::make_unique<PerlinNoise>());
+	calculatePoints(scale);
 }
 
-void Terrain::calculatePoints()
+void Terrain::calculatePoints(int scale)
 {
 	for (int i = 0; i < getNPointsLength(); ++i)
 	{
 		for (int j = 0; j < getNPointsWidth(); ++j)
 		{
 			float x = j * width / (getNPointsWidth() - 1) - width / 2;
-			float y = heightMap->at(i, j) + level;
+			float y = scale * heightMap->at(i, j) + level;
 			float z = i * length / (getNPointsLength() - 1) - length / 2;
 			points.emplace_back(glm::vec3(x, y, z));
 		}

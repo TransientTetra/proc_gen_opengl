@@ -18,9 +18,9 @@ protected:
 	std::unique_ptr<HeightMap> heightMap;
 	std::vector<glm::vec3> points;
 
-	void calculatePoints();
+	void calculatePoints(int scale);
 public:
-	Terrain(float width, float length);
+	Terrain(float width, float length, int scale);
 
 	float getLength() const;
 

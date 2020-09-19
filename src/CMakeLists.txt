@@ -28,9 +28,11 @@ set(
         controller/entity_translator.cpp
         controller/terrain_translator.cpp
         model/height_map.cpp
-        model/perlin_map.cpp
         model/sinusoidal_map.cpp
-        model/simplex_map.cpp
+        model/noise.cpp
+        model/simplex_noise.cpp
+        model/noise_map.cpp
+        model/perlin_noise.cpp
 )
 set(SRC ${SRC})
 

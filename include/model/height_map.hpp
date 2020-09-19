@@ -16,6 +16,8 @@ public:
 
 	HeightMap(unsigned int width, unsigned int length);
 
+	virtual ~HeightMap();
+
 	float at(unsigned int x, unsigned int y);
 
 	unsigned int getWidth() const;

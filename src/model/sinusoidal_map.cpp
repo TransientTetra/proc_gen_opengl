@@ -1,7 +1,7 @@
 #include "model/sinusoidal_map.hpp"
 #include <cmath>
 
-SinusoidalMap::SinusoidalMap(unsigned int width, unsigned int length, float scale, float yOffset,
+SinusoidalMap::SinusoidalMap(unsigned int width, unsigned int length,
 			     unsigned int nWavesWidth, unsigned int nWavesLength)
 {
 	this->width = width;
@@ -11,8 +11,8 @@ SinusoidalMap::SinusoidalMap(unsigned int width, unsigned int length, float scal
 	{
 		for (int j = 0; j < width; ++j)
 		{
-			points.emplace_back(scale * -cos((static_cast<float>(i) / length) * nWavesWidth * cosPeriod)
-			* -cos((static_cast<float>(j) / width) * nWavesLength * cosPeriod) + yOffset);
+			points.emplace_back(-cos((static_cast<float>(i) / length) * nWavesWidth * cosPeriod)
+			* -cos((static_cast<float>(j) / width) * nWavesLength * cosPeriod));
 		}
 	}
 }
