@@ -2,7 +2,7 @@
 #include "model/terrain.hpp"
 
 Terrain::Terrain(float width, float length)
-: width(width), length(length), level(0), heightMap(std::make_unique<SinusoidalMap>(256, 256, .2f, -1, 1, 5, 5))
+: width(width), length(length), level(0), heightMap(std::make_unique<SinusoidalMap>(256, 256, .2f, 0, 5, 5))
 {
 	calculatePoints();
 }
