@@ -13,7 +13,7 @@ private:
 protected:
 public:
 	NoiseMap(unsigned int width, unsigned int length, std::unique_ptr<Noise> noise,
-		  unsigned int nGridsWidth, unsigned int nGridsLength);
+		  float noiseScale);
 };
 
 
