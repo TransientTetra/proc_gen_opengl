@@ -4,14 +4,14 @@
 #include <model/perlin_noise.hpp>
 #include "model/terrain.hpp"
 
-Terrain::Terrain(float width, float length, int scale)
+Terrain::Terrain(float width, float length, float scale)
 : width(width), length(length), level(0), heightMap(std::make_unique<HeightMap>(2, 2))
 {
 	heightMap = std::make_unique<NoiseMap>(256, 256, std::make_unique<PerlinNoise>(2020), 50);
 	calculatePoints(scale);
 }
 
-void Terrain::calculatePoints(int scale)
+void Terrain::calculatePoints(float scale)
 {
 	for (int i = 0; i < getNPointsLength(); ++i)
 	{
