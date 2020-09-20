@@ -30,6 +30,8 @@ private:
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage);
 
+	virtual ~Mesh();
+
 	void draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix);
 
 	void scale(glm::vec3 scale);
