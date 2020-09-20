@@ -7,6 +7,7 @@
 #include <memory>
 #include "height_map.hpp"
 
+//terrain translates 2d heightmap to 3d terrain
 class Terrain
 {
 private:
