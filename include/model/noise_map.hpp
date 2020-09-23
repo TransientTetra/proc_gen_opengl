@@ -12,8 +12,9 @@ private:
 	std::unique_ptr<Noise> noise;
 protected:
 public:
+	//persistence can only be between 0 and 1; is clamped in implementation
 	NoiseMap(unsigned int width, unsigned int length, std::unique_ptr<Noise> noise,
-		  float noiseScale);
+		  float horizontalScale, unsigned int nOctaves = 1.f, float persistence = .5f, float lacunarity = 2.f);
 };
 
 
