@@ -6,8 +6,8 @@ MainSceneView::MainSceneView()
     : View()
 {
     camera = new AboveCamera(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 0.05f);
-    camera->setPosition(glm::vec3(1.0f, .0f, 4.0f));
-    camera->setDirection(camera->getPosition() + camera->getForward());
+    camera->setPosition(glm::vec3(1.0f, 10.0f, 2.0f));
+    camera->setDirection(glm::vec3(.0f, .0f, .0f));
 
 	//todo temporary below
 	float vertices[] =
@@ -37,6 +37,7 @@ MainSceneView::MainSceneView()
 
 void MainSceneView::processEvents(SDL_Event &event)
 {
+
     switch(event.type) {
         case SDL_KEYDOWN:
             switch( event.key.keysym.sym ){
@@ -68,11 +69,12 @@ void MainSceneView::processEvents(SDL_Event &event)
 void MainSceneView::draw()
 {
 	View::draw();
+    ((AboveCamera*)camera)->changePosition();
 	for (auto model : models)
 	{
 		model->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 		//todo remove below demo
-		model->rotate(glm::radians(2.f), glm::vec3(0, 1, 1));
+//		model->rotate(glm::radians(2.f), glm::vec3(1, 0, 0));
 	}
 }
 

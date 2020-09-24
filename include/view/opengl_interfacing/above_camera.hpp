@@ -16,9 +16,9 @@ public:
     void moveHorizontally(bool isRight);
     void moveDeeper(bool deeper);
 
-    void changePosition(const glm::vec3 &shift);
+    void changePosition();
 
-    const float getSpeed() const;
+    float getSpeed() const;
 };
 
 #endif //PROC_GEN_OPENGL_ABOVE_CAMERA_HPP
