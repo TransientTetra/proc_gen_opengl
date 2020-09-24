@@ -1,37 +1,48 @@
-#include <cstdio>
+#include <glm/ext.hpp>
 #include "view/opengl_interfacing/above_camera.hpp"
 
 AboveCamera::AboveCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed)
-    : Camera(fov, aspectRatio, nearDraw, farDraw)
+: Camera(fov, aspectRatio, nearDraw, farDraw)
 {
-    AboveCamera::speed = speed;
-}
+	AboveCamera::speed = speed;
+	position = glm::vec3(.0f, .0f, .0f);
+	direction = glm::vec3(.0f, -1.0f, .0f);
+	up = glm::vec3(.0f, .0f, -1.0f);
 
-void AboveCamera::moveVertically(bool isUp)
-{
-    position += glm::vec3(1.0f, .0f, .0f) * speed * (isUp ? -1.0f : 1.0f);
-}
-
-void AboveCamera::moveHorizontally(bool isRight)
-{
-    position += glm::vec3(.0f, .0f, 1.0f) * speed * (isRight ? -1.0f : 1.0f);
-}
-
-void AboveCamera::moveDeeper(bool deeper)
-{
-    position += glm::vec3(.0f, 1.0f, .0f) * speed * (deeper ? -1.0f : 1.0f);
-}
-
-void AboveCamera::changePosition()
-{
-//    setDirection(glm::vec3(position + glm::vec3(.0f, -10.0f, .0f)));
-    setDirection(glm::vec3(1.0f, .0f, 2.0f));
-
-    printf("position - x: %f, y: %f, z: %f\n", position.x, position.y, position.z);
-//    printf("direction - x: %f, y: %f, z: %f\n", direction.x, direction.y, direction.z);
+	viewMatrix = glm::lookAt(position, direction, up);
 }
 
 float AboveCamera::getSpeed() const
 {
-    return speed;
+	return speed;
+}
+
+void AboveCamera::moveForward()
+{
+	setPosition(getPosition() + glm::vec3(.0f, .0f, 1.0f) * speed * -1.0f);
+}
+
+void AboveCamera::moveBackward()
+{
+	setPosition(getPosition() + glm::vec3(.0f, .0f, 1.0f) * speed);
+}
+
+void AboveCamera::moveLeft()
+{
+	setPosition(getPosition() + glm::vec3(1.0f, .0f, .0f) * speed * -1.0f);
+}
+
+void AboveCamera::moveRight()
+{
+	setPosition(getPosition() + glm::vec3(1.0f, .0f, .0f) * speed);
+}
+
+void AboveCamera::moveUp()
+{
+	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed);
+}
+
+void AboveCamera::moveDown()
+{
+	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * -1.0f);
 }

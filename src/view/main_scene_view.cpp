@@ -3,11 +3,10 @@
 #include "view/main_scene_view.hpp"
 
 MainSceneView::MainSceneView()
-    : View()
+: View()
 {
-    camera = new AboveCamera(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 0.05f);
-    camera->setPosition(glm::vec3(1.0f, 10.0f, 2.0f));
-    camera->setDirection(glm::vec3(.0f, .0f, .0f));
+	camera = new AboveCamera(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 0.05f);
+	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
 
 	//todo temporary below
 	float vertices[] =
@@ -23,6 +22,18 @@ MainSceneView::MainSceneView()
 			-.5f, -.5f, -.5f, //down left
 			.5f, -.5f, -.5f, //down right
 			.5f, .5f, -.5f, //up right
+
+			//up face
+			-.5f, .5f, -.5f, //up left
+			-.5f, .5f, .5f, //down left
+			.5f, .5f, .5f, //down right
+			.5f, .5f, -.5f, //up right
+
+			//down face
+			-.5f, -.5f, -.5f, //up left
+			-.5f, -.5f, .5f, //down left
+			.5f, -.5f, .5f, //down right
+			.5f, -.5f, -.5f, //up right
 		};
 	unsigned int indices[] =
 		{
@@ -30,34 +41,39 @@ MainSceneView::MainSceneView()
 			1, 2, 3,
 
 			4, 5, 7,
-			5, 6, 7
+			5, 6, 7,
+
+			8, 9, 11,
+			11, 9, 10,
+
+			12, 13, 15,
+			15, 13, 14
 		};
 	addModel(std::make_shared<Mesh>(vertices, sizeof(vertices), indices, sizeof(indices), GL_STATIC_DRAW));
 }
 
 void MainSceneView::processEvents(SDL_Event &event)
 {
-
     switch(event.type) {
         case SDL_KEYDOWN:
-            switch( event.key.keysym.sym ){
+            switch(event.key.keysym.sym){
                 case SDLK_a:
-                    ((AboveCamera*)camera)->moveHorizontally(true);
+                    camera->moveLeft();
                     break;
                 case SDLK_d:
-                    ((AboveCamera*)camera)->moveHorizontally(false);
+                    camera->moveRight();
                     break;
                 case SDLK_w:
-                    ((AboveCamera*)camera)->moveVertically(true);
+                    camera->moveUp();
                     break;
                 case SDLK_s:
-                    ((AboveCamera*)camera)->moveVertically(false);
+                    camera->moveDown();
                     break;
                 case SDLK_UP:
-                    ((AboveCamera*)camera)->moveDeeper(true);
+                    camera->moveForward();
                     break;
                 case SDLK_DOWN:
-                    ((AboveCamera*)camera)->moveDeeper(false);
+                    camera->moveBackward();
                     break;
                 default:
                     break;
@@ -69,12 +85,11 @@ void MainSceneView::processEvents(SDL_Event &event)
 void MainSceneView::draw()
 {
 	View::draw();
-    ((AboveCamera*)camera)->changePosition();
 	for (auto model : models)
 	{
 		model->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 		//todo remove below demo
-//		model->rotate(glm::radians(2.f), glm::vec3(1, 0, 0));
+//		model->rotate(glm::radians(2.f), glm::vec3(1, 0, 1));
 	}
 }
 
