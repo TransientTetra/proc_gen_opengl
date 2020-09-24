@@ -64,3 +64,8 @@ void Mesh::scaleRotateTranslate(glm::vec3 scale, float angle, glm::vec3 axis, gl
 	translate(trans);
 }
 
+Mesh::~Mesh()
+{
+
+}
+
