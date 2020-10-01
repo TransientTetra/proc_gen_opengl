@@ -54,37 +54,66 @@ MainSceneView::MainSceneView()
 
 void MainSceneView::processEvents(SDL_Event &event)
 {
-    switch(event.type) {
-        case SDL_KEYDOWN:
-            switch(event.key.keysym.sym){
-                case SDLK_a:
-                    camera->moveLeft();
-                    break;
-                case SDLK_d:
-                    camera->moveRight();
-                    break;
-                case SDLK_w:
-                    camera->moveUp();
-                    break;
-                case SDLK_s:
-                    camera->moveDown();
-                    break;
-                case SDLK_UP:
-                    camera->moveForward();
-                    break;
-                case SDLK_DOWN:
-                    camera->moveBackward();
-                    break;
-                default:
-                    break;
-            }
-            break;
-    }
+	AboveCamera* aboveCamera = (AboveCamera*)camera;
+
+	switch(event.type) {
+		case SDL_KEYDOWN:
+			switch(event.key.keysym.sym){
+				case SDLK_a:
+					aboveCamera->setMovingLeft(true);
+					break;
+				case SDLK_d:
+					aboveCamera->setMovingRight(true);
+					break;
+				case SDLK_w:
+					aboveCamera->setMovingForward(true);
+					break;
+				case SDLK_s:
+					aboveCamera->setMovingBackward(true);
+					break;
+				case SDLK_UP:
+					aboveCamera->setMovingUp(true);
+					break;
+				case SDLK_DOWN:
+					aboveCamera->setMovingDown(true);
+					break;
+				default:
+					break;
+			}
+			break;
+		case SDL_KEYUP:
+			switch(event.key.keysym.sym){
+				case SDLK_a:
+					aboveCamera->setMovingLeft(false);
+					break;
+				case SDLK_d:
+					aboveCamera->setMovingRight(false);
+					break;
+				case SDLK_w:
+					aboveCamera->setMovingForward(false);
+					break;
+				case SDLK_s:
+					aboveCamera->setMovingBackward(false);
+					break;
+				case SDLK_UP:
+					aboveCamera->setMovingUp(false);
+					break;
+				case SDLK_DOWN:
+					aboveCamera->setMovingDown(false);
+					break;
+				default:
+					break;
+			}
+			break;
+	}
 }
 
 void MainSceneView::draw()
 {
 	View::draw();
+
+	camera->move();
+
 	for (auto model : models)
 	{
 		model->draw(camera->getViewMatrix(), camera->getProjectionMatrix());

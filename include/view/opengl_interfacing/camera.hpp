@@ -36,6 +36,8 @@ public:
 	virtual void moveUp() = 0;
 	virtual void moveDown() = 0;
 	//heads up: here will almost certainly be rotation methods like the ones above
+
+	virtual void move() = 0;
 };
 
 
