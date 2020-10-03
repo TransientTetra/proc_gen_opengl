@@ -3,21 +3,25 @@
 
 
 #include <vector>
-#include "point.hpp"
+#include <glm/glm.hpp>
 
 class Entity
 {
 protected:
-	Point position;
-	std::vector<Point> vertices;
-	int nVertices;
+	glm::vec3 position;
+	std::vector<glm::vec3> vertices;
+	std::vector<unsigned int> indices;
 public:
 	Entity();
-	Entity(Point position);
+	Entity(glm::vec3 position);
 
-	const Point &getPosition() const;
+	const glm::vec3 &getPosition() const;
 
-	void setPosition(const Point &position);
+	void setPosition(const glm::vec3 &position);
+
+	const std::vector<glm::vec3> &getVertices() const;
+
+	const std::vector<unsigned int> &getIndices() const;
 };
 
 
