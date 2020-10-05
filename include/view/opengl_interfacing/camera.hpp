@@ -9,11 +9,19 @@ class Camera
 protected:
 	glm::vec3 position;
 	glm::vec3 direction;
-	glm::vec3 forward;
 	glm::vec3 up;
 
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
+
+	float speed;
+
+	bool movingForward;
+	bool movingBackward;
+	bool movingLeft;
+	bool movingRight;
+	bool movingUp;
+	bool movingDown;
 public:
 	//all angles in radians
 	Camera(float fov, float aspectRatio, float nearDraw, float farDraw);
@@ -23,21 +31,33 @@ public:
 
 	const glm::vec3 &getPosition() const;
 	const glm::vec3 &getDirection() const;
-	const glm::vec3 &getForward() const;
 	const glm::vec3 &getUp() const;
 
 	void setPosition(const glm::vec3 &position);
 	void setDirection(const glm::vec3 &direction, const glm::vec3 &up);
 
-	virtual void moveForward() = 0;
-	virtual void moveBackward() = 0;
-	virtual void moveLeft() = 0;
-	virtual void moveRight() = 0;
-	virtual void moveUp() = 0;
-	virtual void moveDown() = 0;
+	virtual void moveForward(float frameTime) = 0;
+	virtual void moveBackward(float frameTime) = 0;
+	virtual void moveLeft(float frameTime) = 0;
+	virtual void moveRight(float frameTime) = 0;
+	virtual void moveUp(float frameTime) = 0;
+	virtual void moveDown(float frameTime) = 0;
 	//heads up: here will almost certainly be rotation methods like the ones above
 
-	virtual void move() = 0;
+	virtual void startMovingForward();
+	virtual void stopMovingForward();
+	virtual void startMovingBackward();
+	virtual void stopMovingBackward();
+	virtual void startMovingLeft();
+	virtual void stopMovingLeft();
+	virtual void startMovingRight();
+	virtual void stopMovingRight();
+	virtual void startMovingUp();
+	virtual void stopMovingUp();
+	virtual void startMovingDown();
+	virtual void stopMovingDown();
+
+	virtual void move(float frameTime) = 0;
 };
 
 

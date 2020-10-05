@@ -1,11 +1,11 @@
 #include <iostream>
-#include <chrono>
 #include "view/main_scene_view.hpp"
+#include "controller/application.hpp"
 
 MainSceneView::MainSceneView()
 : View()
 {
-	camera = new AboveCamera(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 0.05f);
+	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 0.8f);
 	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
 
 	//todo temporary below
@@ -54,28 +54,26 @@ MainSceneView::MainSceneView()
 
 void MainSceneView::processEvents(SDL_Event &event)
 {
-	AboveCamera* aboveCamera = (AboveCamera*)camera;
-
 	switch(event.type) {
 		case SDL_KEYDOWN:
 			switch(event.key.keysym.sym){
 				case SDLK_a:
-					aboveCamera->setMovingLeft(true);
+					camera->startMovingLeft();
 					break;
 				case SDLK_d:
-					aboveCamera->setMovingRight(true);
+					camera->startMovingRight();
 					break;
 				case SDLK_w:
-					aboveCamera->setMovingForward(true);
+					camera->startMovingForward();
 					break;
 				case SDLK_s:
-					aboveCamera->setMovingBackward(true);
+					camera->startMovingBackward();
 					break;
 				case SDLK_UP:
-					aboveCamera->setMovingUp(true);
+					camera->startMovingUp();
 					break;
 				case SDLK_DOWN:
-					aboveCamera->setMovingDown(true);
+					camera->startMovingDown();
 					break;
 				default:
 					break;
@@ -84,22 +82,22 @@ void MainSceneView::processEvents(SDL_Event &event)
 		case SDL_KEYUP:
 			switch(event.key.keysym.sym){
 				case SDLK_a:
-					aboveCamera->setMovingLeft(false);
+					camera->stopMovingLeft();
 					break;
 				case SDLK_d:
-					aboveCamera->setMovingRight(false);
+					camera->stopMovingRight();
 					break;
 				case SDLK_w:
-					aboveCamera->setMovingForward(false);
+					camera->stopMovingForward();
 					break;
 				case SDLK_s:
-					aboveCamera->setMovingBackward(false);
+					camera->stopMovingBackward();
 					break;
 				case SDLK_UP:
-					aboveCamera->setMovingUp(false);
+					camera->stopMovingUp();
 					break;
 				case SDLK_DOWN:
-					aboveCamera->setMovingDown(false);
+					camera->stopMovingDown();
 					break;
 				default:
 					break;
@@ -112,7 +110,7 @@ void MainSceneView::draw()
 {
 	View::draw();
 
-	camera->move();
+	camera->move(Application::getFrameTime());
 
 	for (auto model : models)
 	{

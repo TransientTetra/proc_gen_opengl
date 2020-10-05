@@ -12,52 +12,47 @@ AboveCamera::AboveCamera(float fov, float aspectRatio, float nearDraw, float far
 	viewMatrix = glm::lookAt(position, direction, up);
 }
 
-float AboveCamera::getSpeed() const
+void AboveCamera::moveForward(float frameTime)
 {
-	return speed;
+	setPosition(getPosition() + glm::vec3(.0f, .0f, 1.0f) * speed * frameTime * -1.0f);
 }
 
-void AboveCamera::moveForward()
+void AboveCamera::moveBackward(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(.0f, .0f, 1.0f) * speed * -1.0f);
+	setPosition(getPosition() + glm::vec3(.0f, .0f, 1.0f) * speed * frameTime);
 }
 
-void AboveCamera::moveBackward()
+void AboveCamera::moveLeft(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(.0f, .0f, 1.0f) * speed);
+	setPosition(getPosition() + glm::vec3(1.0f, .0f, .0f) * speed * frameTime * -1.0f);
 }
 
-void AboveCamera::moveLeft()
+void AboveCamera::moveRight(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(1.0f, .0f, .0f) * speed * -1.0f);
+	setPosition(getPosition() + glm::vec3(1.0f, .0f, .0f) * speed * frameTime);
 }
 
-void AboveCamera::moveRight()
+void AboveCamera::moveUp(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(1.0f, .0f, .0f) * speed);
+	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime * -1.0f);
 }
 
-void AboveCamera::moveUp()
+void AboveCamera::moveDown(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * -1.0f);
+	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime);
 }
 
-void AboveCamera::moveDown()
-{
-	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed);
-}
-
-void AboveCamera::move()
+void AboveCamera::move(float frameTime)
 {
 	if(!movingForward || !movingBackward)
 	{
 		if(movingForward)
 		{
-			moveForward();
+			moveForward(frameTime);
 		}
 		else if(movingBackward)
 		{
-			moveBackward();
+			moveBackward(frameTime);
 		}
 	}
 
@@ -65,11 +60,11 @@ void AboveCamera::move()
 	{
 		if(movingUp)
 		{
-			moveUp();
+			moveUp(frameTime);
 		}
 		else if(movingDown)
 		{
-			moveDown();
+			moveDown(frameTime);
 		}
 	}
 
@@ -77,41 +72,11 @@ void AboveCamera::move()
 	{
 		if(movingRight)
 		{
-			moveRight();
+			moveRight(frameTime);
 		}
 		else if(movingLeft)
 		{
-			moveLeft();
+			moveLeft(frameTime);
 		}
 	}
-}
-
-void AboveCamera::setMovingForward(const bool movingForward)
-{
-	this->movingForward = movingForward;
-}
-
-void AboveCamera::setMovingBackward(const bool movingBackward)
-{
-	this->movingBackward = movingBackward;
-}
-
-void AboveCamera::setMovingLeft(const bool movingLeft)
-{
-	this->movingLeft = movingLeft;
-}
-
-void AboveCamera::setMovingRight(const bool movingRight)
-{
-	this->movingRight = movingRight;
-}
-
-void AboveCamera::setMovingUp(const bool movingUp)
-{
-	this->movingUp = movingUp;
-}
-
-void AboveCamera::setMovingDown(const bool movingDown)
-{
-	this->movingDown = movingDown;
 }

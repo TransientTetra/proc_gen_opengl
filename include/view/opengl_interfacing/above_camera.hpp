@@ -6,41 +6,24 @@
 class AboveCamera : public Camera
 {
 private:
-    float speed;
-
-    bool movingForward = false;
-    bool movingBackward = false;
-    bool movingLeft = false;
-    bool movingRight = false;
-    bool movingUp = false;
-    bool movingDown = false;
 protected:
 public:
-    //all angles in radians
-    AboveCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed);
+	//all angles in radians
+	AboveCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed);
 
-    void moveForward() override;
+	void moveForward(float frameTime) override;
 
-    void moveBackward() override;
+	void moveBackward(float frameTime) override;
 
-    void moveLeft() override;
+	void moveLeft(float frameTime) override;
 
-    void moveRight() override;
+	void moveRight(float frameTime) override;
 
-    void moveUp() override;
+	void moveUp(float frameTime) override;
 
-    void moveDown() override;
+	void moveDown(float frameTime) override;
 
-    void move() override;
-
-    void setMovingForward(bool movingForward);
-    void setMovingBackward(bool movingBackward);
-    void setMovingLeft(bool movingLeft);
-    void setMovingRight(bool movingRight);
-    void setMovingUp(bool movingUp);
-    void setMovingDown(bool movingDown);
-
-    float getSpeed() const;
+	void move(float frameTime) override;
 };
 
 #endif //PROC_GEN_OPENGL_ABOVE_CAMERA_HPP

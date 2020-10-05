@@ -12,7 +12,7 @@
 #include "controller/demo1.hpp"
 
 Demo1::Demo1(const std::string &title, int height, int width)
-: Application(title, height, width)
+	: Application(title, height, width)
 {
 	//todo temporary
 	world.addEntity(std::shared_ptr<Square>(new Square(Point(0, 0, 0), 10, 10)));
@@ -35,7 +35,7 @@ void Demo1::processEvents()
 			window.setClose();
 		}
 
-        currentView->processEvents(event);
+		currentView->processEvents(event);
 	}
 }
 

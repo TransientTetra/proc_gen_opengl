@@ -2,6 +2,7 @@
 
 View::View()
 {
+
 }
 
 void View::draw()

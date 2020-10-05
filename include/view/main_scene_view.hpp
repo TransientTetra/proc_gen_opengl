@@ -17,6 +17,8 @@ class MainSceneView : public View
 private:
 	std::vector<std::shared_ptr<Mesh>> models;
 
+	std::unique_ptr<Camera> camera;
+
 public:
 	MainSceneView();
 	void processEvents(SDL_Event& event) override;
