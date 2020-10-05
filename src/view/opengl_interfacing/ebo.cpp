@@ -11,7 +11,7 @@ void EBO::bind()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
 }
 
-void EBO::loadIndices(unsigned int *indices, int size, GLenum usage)
+void EBO::loadIndices(std::vector<unsigned int> indices, GLenum usage)
 {
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, usage);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), usage);
 }

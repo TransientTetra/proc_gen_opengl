@@ -18,3 +18,8 @@ void View::render()
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
+
+View::~View()
+{
+
+}

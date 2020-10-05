@@ -15,17 +15,20 @@
 class MainSceneView : public View
 {
 private:
-	std::vector<std::shared_ptr<Mesh>> models;
+	std::vector<std::unique_ptr<Mesh>> models;
 
 	std::unique_ptr<Camera> camera;
 
 public:
 	MainSceneView();
 	void processEvents(SDL_Event& event) override;
+	virtual ~MainSceneView();
+
 	void draw() override;
 	void render() override;
 
-	void addModel(std::shared_ptr<Mesh> model);
+	void addModel(std::unique_ptr<Mesh> model);
 };
+
 
 #endif //PROC_GEN_OPENGL_MAIN_SCENE_VIEW_HPP

@@ -12,6 +12,7 @@ protected:
 
 public:
 	View();
+	virtual ~View();
 
 	virtual void processEvents(SDL_Event& event) = 0;
 	//draw has to be called at the start of the overridden method

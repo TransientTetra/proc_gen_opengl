@@ -8,11 +8,11 @@ class Cube : public Entity
 {
 private:
 protected:
-	float width;
-	float height;
-	float depth;
+	float width; //x axis
+	float height; //y axis
+	float depth; //z axis
 public:
-	Cube(Point position, float width, float height, float depth);
+	Cube(glm::vec3 position, float width, float height, float depth);
 };
 
 
