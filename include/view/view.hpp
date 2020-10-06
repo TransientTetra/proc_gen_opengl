@@ -10,6 +10,8 @@ class View
 protected:
 	std::vector<Frame> frames;
 public:
+	virtual ~View();
+
 	//draw has to be called at the start of the overridden method
 	virtual void draw();
 	//render has to be called at the end of the overridden method

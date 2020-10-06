@@ -12,7 +12,7 @@ MainSceneView::MainSceneView()
 void MainSceneView::draw()
 {
 	View::draw();
-	for (auto model : models)
+	for (auto&& model : models)
 	{
 		model->draw(camera.getViewMatrix(), camera.getProjectionMatrix());
 	}
@@ -24,8 +24,13 @@ void MainSceneView::render()
 }
 
 //todo this function leaks! some weird things with smart pointers going on
-void MainSceneView::addModel(std::shared_ptr<Mesh> model)
+void MainSceneView::addModel(std::unique_ptr<Mesh> model)
 {
 	models.emplace_back(std::move(model));
+}
+
+MainSceneView::~MainSceneView()
+{
+
 }
 
