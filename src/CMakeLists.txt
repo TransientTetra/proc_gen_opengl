@@ -33,7 +33,9 @@ set(
         model/simplex_noise.cpp
         model/noise_map.cpp
         model/perlin_noise.cpp
-        model/white_noise.cpp ../include/model/white_noise.hpp)
+        model/white_noise.cpp
+        view/opengl_interfacing/above_camera.cpp
+)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)

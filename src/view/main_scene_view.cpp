@@ -1,20 +1,79 @@
 #include <iostream>
-#include <chrono>
 #include "view/main_scene_view.hpp"
+#include "controller/application.hpp"
 
-MainSceneView::MainSceneView()
-: camera(glm::radians(45.0f), 800 / 600, .1f, 100.0f)
+MainSceneView::MainSceneView(Application* application)
+: View(application)
 {
-	//todo temporary below
-	camera.setPosition(glm::vec3(.0f, 3.0f, 10.0f));
+	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
+	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
+
 }
+
+void MainSceneView::processEvents(SDL_Event &event)
+{
+	switch(event.type) {
+		case SDL_KEYDOWN:
+			switch(event.key.keysym.sym){
+				case SDLK_a:
+					camera->startMovingLeft();
+					break;
+				case SDLK_d:
+					camera->startMovingRight();
+					break;
+				case SDLK_w:
+					camera->startMovingForward();
+					break;
+				case SDLK_s:
+					camera->startMovingBackward();
+					break;
+				case SDLK_UP:
+					camera->startMovingUp();
+					break;
+				case SDLK_DOWN:
+					camera->startMovingDown();
+					break;
+				default:
+					break;
+			}
+			break;
+		case SDL_KEYUP:
+			switch(event.key.keysym.sym){
+				case SDLK_a:
+					camera->stopMovingLeft();
+					break;
+				case SDLK_d:
+					camera->stopMovingRight();
+					break;
+				case SDLK_w:
+					camera->stopMovingForward();
+					break;
+				case SDLK_s:
+					camera->stopMovingBackward();
+					break;
+				case SDLK_UP:
+					camera->stopMovingUp();
+					break;
+				case SDLK_DOWN:
+					camera->stopMovingDown();
+					break;
+				default:
+					break;
+			}
+			break;
+	}
+}
+
 
 void MainSceneView::draw()
 {
 	View::draw();
+
+	camera->move(application->getLastFrameDuration().count());
+
 	for (auto&& model : models)
 	{
-		model->draw(camera.getViewMatrix(), camera.getProjectionMatrix());
+		model->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	}
 }
 
@@ -33,4 +92,3 @@ MainSceneView::~MainSceneView()
 {
 
 }
-

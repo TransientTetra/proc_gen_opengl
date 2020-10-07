@@ -8,6 +8,7 @@
 #include <view/opengl_interfacing/fragment_shader.hpp>
 #include <view/opengl_interfacing/shader_program.hpp>
 #include <view/opengl_interfacing/camera.hpp>
+#include <view/opengl_interfacing/above_camera.hpp>
 #include "view.hpp"
 
 //the main view of the scene; the view where entities are rendered and where player can move and terrain is rendered
@@ -15,11 +16,12 @@ class MainSceneView : public View
 {
 private:
 	std::vector<std::unique_ptr<Mesh>> models;
-	Camera camera;
+
+	std::unique_ptr<Camera> camera;
 
 public:
-	MainSceneView();
-
+	MainSceneView(Application* application);
+	void processEvents(SDL_Event& event) override;
 	virtual ~MainSceneView();
 
 	void draw() override;
