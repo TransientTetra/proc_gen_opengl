@@ -27,11 +27,11 @@ Demo1::Demo1(const std::string &title, int height, int width)
 	for (auto entity : world.getEntities())
 	{
 		dynamic_cast<MainSceneView*>(currentView.get())->addModel(
-			std::make_shared<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW));
+			std::make_unique<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW));
 	}
 
 	TerrainTranslator t;
-	dynamic_cast<MainSceneView*>(currentView.get())->addModel(std::make_shared<Mesh>(
+	dynamic_cast<MainSceneView*>(currentView.get())->addModel(std::make_unique<Mesh>(
 		t.getVertices(*world.getTerrain()), t.getIndices(*world.getTerrain()), GL_STATIC_DRAW));
 }
 
