@@ -1,5 +1,10 @@
 #include "view/view.hpp"
 
+View::View(Application* application)
+{
+	this->application = application;
+}
+
 void View::draw()
 {
 	for (Frame frame : frames)
