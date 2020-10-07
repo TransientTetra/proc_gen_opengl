@@ -7,6 +7,7 @@
 #include <view/view.hpp>
 #include "view/window.hpp"
 #include "constants.hpp"
+#include <chrono>
 
 class Application
 {
@@ -17,8 +18,7 @@ protected:
 
 	std::unique_ptr<View> currentView;
 
-	static long int lastTimestamp;
-	static long int getCurrentTime();
+	std::chrono::duration<double> lastFrameDuration;
 
 public:
 	Application(std::string title, int height, int width);
@@ -26,7 +26,7 @@ public:
 	virtual void run() = 0;
 	virtual void processEvents() = 0;
 
-	static float getFrameTime();
+	std::chrono::duration<double> getLastFrameDuration();
 
 };
 

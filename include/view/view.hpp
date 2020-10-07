@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <view/frame.hpp>
-#include <view/opengl_interfacing/camera.hpp>
 class Application;
 
 class View

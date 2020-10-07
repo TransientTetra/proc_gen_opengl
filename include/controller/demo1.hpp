@@ -10,7 +10,6 @@ class Demo1 : public Application
 private:
 	World world;
 
-	std::chrono::duration<double> lastFrameDuration;
 public:
 	Demo1(const std::string &title, int height, int width);
 
