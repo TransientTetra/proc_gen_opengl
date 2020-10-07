@@ -4,14 +4,16 @@
 #include <vector>
 #include <view/frame.hpp>
 #include <view/opengl_interfacing/camera.hpp>
+class Application;
 
 class View
 {
 protected:
 	std::vector<Frame> frames;
+	Application* application;
 
 public:
-	View();
+	View(Application* application);
 	virtual ~View();
 
 	virtual void processEvents(SDL_Event& event) = 0;

@@ -1,8 +1,8 @@
 #include "view/view.hpp"
 
-View::View()
+View::View(Application* application)
 {
-
+	this->application = application;
 }
 
 void View::draw()

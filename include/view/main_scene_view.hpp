@@ -20,7 +20,7 @@ private:
 	std::unique_ptr<Camera> camera;
 
 public:
-	MainSceneView();
+	MainSceneView(Application* application);
 	void processEvents(SDL_Event& event) override;
 	virtual ~MainSceneView();
 

@@ -2,8 +2,8 @@
 #include "view/main_scene_view.hpp"
 #include "controller/application.hpp"
 
-MainSceneView::MainSceneView()
-: View()
+MainSceneView::MainSceneView(Application* application)
+: View(application)
 {
 	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 0.8f);
 	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
