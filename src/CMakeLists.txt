@@ -35,6 +35,7 @@ set(
         model/perlin_noise.cpp
         model/white_noise.cpp
         view/opengl_interfacing/above_camera.cpp
+        view/opengl_interfacing/first_person_camera.cpp
 )
 set(SRC ${SRC})
 
