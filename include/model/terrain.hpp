@@ -4,8 +4,10 @@
 
 #include <vector>
 #include <glm/glm.hpp>
+#include <memory>
 #include "height_map.hpp"
 
+//terrain translates 2d heightmap to 3d terrain
 class Terrain
 {
 private:
@@ -14,12 +16,12 @@ protected:
 	float width; //x axis
 	float level; //y axis
 
-	HeightMap heightMap;
+	std::unique_ptr<HeightMap> heightMap;
 	std::vector<glm::vec3> points;
 
-	void calculatePoints();
+	void calculatePoints(float scale);
 public:
-	Terrain(float width, float length);
+	Terrain(float width, float length, float scale);
 
 	float getLength() const;
 

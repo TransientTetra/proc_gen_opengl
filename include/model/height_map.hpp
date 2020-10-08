@@ -12,7 +12,11 @@ protected:
 	unsigned int length; //number of points vertical
 	std::vector<float> points;
 public:
+	HeightMap();
+
 	HeightMap(unsigned int width, unsigned int length);
+
+	virtual ~HeightMap();
 
 	float at(unsigned int x, unsigned int y);
 

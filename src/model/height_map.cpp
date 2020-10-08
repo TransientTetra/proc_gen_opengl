@@ -1,5 +1,11 @@
 #include "model/height_map.hpp"
 
+HeightMap::HeightMap()
+{
+	width = 0;
+	length = 0;
+}
+
 HeightMap::HeightMap(unsigned int width, unsigned int length)
 : width(width), length(length)
 {
@@ -11,6 +17,12 @@ HeightMap::HeightMap(unsigned int width, unsigned int length)
 		}
 	}
 }
+
+HeightMap::~HeightMap()
+{
+
+}
+
 
 float HeightMap::at(unsigned int x, unsigned int y)
 {
