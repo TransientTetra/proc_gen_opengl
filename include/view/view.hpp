@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <vector>
-#include <SDL_events.h>
 #include "frame.hpp"
 #include "view/window.hpp"
 

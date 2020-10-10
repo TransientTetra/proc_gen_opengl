@@ -8,16 +8,32 @@ class View;
 
 class Frame
 {
-private:
 protected:
 	View* view;
 	std::string name;
+
+	bool open;
+	int flags;
+	float opacity;
+	int height;
+	int width;
+
 	void beginDraw();
 	virtual void mainDraw() = 0;
 	void endDraw();
 public:
 	Frame(View* view, std::string name);
 	virtual void draw();
+
+	void setOpacity(float opacity);
+
+	int getHeight() const;
+
+	void setHeight(int height);
+
+	int getWidth() const;
+
+	void setWidth(int width);
 };
 
 
