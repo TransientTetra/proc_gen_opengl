@@ -20,12 +20,11 @@ private:
 	std::unique_ptr<Camera> camera;
 
 public:
-	MainSceneView(Application* application);
+	MainSceneView(Application* application, Window* window);
 	void processEvents(SDL_Event& event) override;
 	virtual ~MainSceneView();
 
 	void draw() override;
-	void render() override;
 
 	void addModel(std::unique_ptr<Mesh> model);
 };

@@ -21,7 +21,7 @@ Demo1::Demo1(const std::string &title, int height, int width)
 	world.setTerrain(std::make_unique<Terrain>(10, 10, 1));
 
 	//todo change default first view once menu or something is devised
-	currentView = std::make_unique<MainSceneView>(this);
+	currentView = std::make_unique<MainSceneView>(this, &window);
 
 	EntityTranslator e;
 	for (auto entity : world.getEntities())

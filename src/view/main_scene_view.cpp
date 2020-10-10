@@ -1,13 +1,16 @@
 #include <iostream>
+#include <view/terrain_control_frame.hpp>
 #include "view/main_scene_view.hpp"
 #include "controller/application.hpp"
 
-MainSceneView::MainSceneView(Application* application)
-: View(application)
+MainSceneView::MainSceneView(Application* application, Window* window)
+: View(application, window)
 {
 	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
 	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
 
+	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control"));
+	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control"));
 }
 
 void MainSceneView::processEvents(SDL_Event &event)
@@ -64,7 +67,6 @@ void MainSceneView::processEvents(SDL_Event &event)
 	}
 }
 
-
 void MainSceneView::draw()
 {
 	View::draw();
@@ -77,12 +79,6 @@ void MainSceneView::draw()
 	}
 }
 
-void MainSceneView::render()
-{
-	View::render();
-}
-
-//todo this function leaks! some weird things with smart pointers going on
 void MainSceneView::addModel(std::unique_ptr<Mesh> model)
 {
 	models.emplace_back(std::move(model));

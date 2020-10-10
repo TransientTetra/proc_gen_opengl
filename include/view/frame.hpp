@@ -2,16 +2,21 @@
 #define SAFE_SENDER_FRAME_HPP
 
 
-#include "window.hpp"
+#include <string>
+#include <imgui/imgui.h>
+class View;
 
 class Frame
 {
 private:
 protected:
-	Window* window;
+	View* view;
 	std::string name;
+	void beginDraw();
+	virtual void mainDraw() = 0;
+	void endDraw();
 public:
-	Frame(Window* window, std::string name);
+	Frame(View* view, std::string name);
 	virtual void draw();
 };
 
