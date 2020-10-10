@@ -10,6 +10,9 @@ View::View(Application* application, Window* window)
 
 void View::draw()
 {
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame(getWindow()->getSDLWindow());
+	ImGui::NewFrame();
 	for (auto&& frame : frames)
 	{
 		frame->draw();

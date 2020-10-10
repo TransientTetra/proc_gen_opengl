@@ -10,7 +10,6 @@ MainSceneView::MainSceneView(Application* application, Window* window)
 	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control"));
-	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control"));
 }
 
 void MainSceneView::processEvents(SDL_Event &event)

@@ -17,14 +17,10 @@ void Frame::draw()
 
 void Frame::beginDraw()
 {
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame(view->getWindow()->getSDLWindow());
-	ImGui::NewFrame();
 	ImGui::Begin(name.c_str());
 }
 
 void Frame::endDraw()
 {
 	ImGui::End();
-	ImGui::EndFrame();
 }
