@@ -12,7 +12,6 @@ protected:
 	View* view;
 	std::string name;
 
-	bool open;
 	int flags;
 	float opacity;
 	int height;

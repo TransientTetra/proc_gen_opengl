@@ -3,7 +3,7 @@
 #include "view/view.hpp"
 
 Frame::Frame(View* view, std::string name)
-: name(name), open(true), flags(ImGuiWindowFlags_None), opacity(.5f)
+: name(name), flags(ImGuiWindowFlags_None), opacity(.5f)
 {
 	this->view = view;
 }
@@ -18,7 +18,7 @@ void Frame::draw()
 void Frame::beginDraw()
 {
 	ImGui::SetNextWindowBgAlpha(opacity);
-	ImGui::Begin(name.c_str(), &open, flags);
+	ImGui::Begin(name.c_str(), nullptr, flags);
 }
 
 void Frame::endDraw()
