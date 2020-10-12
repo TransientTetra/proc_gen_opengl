@@ -18,6 +18,11 @@ private:
 
 	std::unique_ptr<Camera> camera;
 
+	bool firstMouse;
+	bool relativeMouseMode;
+	float yaw;
+	float pitch;
+
 public:
 	MainSceneView(Application* application);
 	void processEvents(SDL_Event& event) override;
