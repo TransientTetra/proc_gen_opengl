@@ -20,6 +20,7 @@ TerrainControlFrame::TerrainControlFrame(View *view, const std::string &name, Wo
 	lacunarity = 2;
 
 	currentAlgo = FLAT;
+	seedBuf[0] = '\0';
 }
 
 void TerrainControlFrame::mainDraw()
@@ -65,6 +66,12 @@ void TerrainControlFrame::mainDraw()
 		ImGui::SliderInt("N octaves", &nOctaves, 1, 10);
 		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
 		ImGui::SliderFloat("Lacunarity", &lacunarity, 1.f, 10.f);
+		ImGui::Text("Noise seed");
+
+		ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char));
+		if (ImGui::Button("Generate"))
+		{
+		}
 	}
 }
 

@@ -22,6 +22,8 @@ private:
 	float persistence;
 	float lacunarity;
 
+	char seedBuf[256];
+
 	void mainDraw() override;
 public:
 	TerrainControlFrame(View *view, const std::string &name, WorldManipulator* worldManipulator);
