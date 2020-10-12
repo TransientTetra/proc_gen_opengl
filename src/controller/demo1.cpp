@@ -7,7 +7,7 @@
 #include <view/opengl_interfacing/shader_program.hpp>
 #include <view/opengl_interfacing/ebo.hpp>
 #include <view/opengl_interfacing/mesh.hpp>
-#include <view/main_scene_view.hpp>
+#include <view/demo1_main_scene.hpp>
 #include <iostream>
 #include <controller/entity_translator.hpp>
 #include <controller/terrain_translator.hpp>
@@ -21,17 +21,17 @@ Demo1::Demo1(const std::string &title, int height, int width)
 	world.setTerrain(std::make_unique<Terrain>(10, 10, 1));
 
 	//todo change default first view once menu or something is devised
-	currentView = std::make_unique<MainSceneView>(this, &window);
+	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator);
 
 	EntityTranslator e;
 	for (auto entity : world.getEntities())
 	{
-		dynamic_cast<MainSceneView*>(currentView.get())->addModel(
+		dynamic_cast<Demo1MainScene*>(currentView.get())->addModel(
 			std::make_unique<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW));
 	}
 
 	TerrainTranslator t;
-	dynamic_cast<MainSceneView*>(currentView.get())->addModel(std::make_unique<Mesh>(
+	dynamic_cast<Demo1MainScene*>(currentView.get())->addModel(std::make_unique<Mesh>(
 		t.getVertices(*world.getTerrain()), t.getIndices(*world.getTerrain()), GL_STATIC_DRAW));
 }
 

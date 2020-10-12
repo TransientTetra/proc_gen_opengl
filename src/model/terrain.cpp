@@ -7,7 +7,6 @@
 Terrain::Terrain(float width, float length, float scale)
 : width(width), length(length), level(0), heightMap(std::make_unique<HeightMap>(2, 2))
 {
-	heightMap = std::make_unique<NoiseMap>(256, 256, std::make_unique<PerlinNoise>(2020), 50, 4);
 	calculatePoints(scale);
 }
 

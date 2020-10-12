@@ -4,12 +4,13 @@
 #include <chrono>
 #include <model/world.hpp>
 #include "application.hpp"
+#include "world_manipulator.hpp"
 
 class Demo1 : public Application
 {
 private:
 	World world;
-
+	WorldManipulator worldManipulator;
 public:
 	Demo1(const std::string &title, int height, int width);
 

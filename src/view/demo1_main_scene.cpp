@@ -1,18 +1,18 @@
 #include <iostream>
 #include <view/terrain_control_frame.hpp>
-#include "view/main_scene_view.hpp"
+#include "view/demo1_main_scene.hpp"
 #include "controller/application.hpp"
 
-MainSceneView::MainSceneView(Application* application, Window* window)
+Demo1MainScene::Demo1MainScene(Application* application, Window* window, WorldManipulator* modelManipulator)
 : View(application, window)
 {
 	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
 	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
 
-	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control"));
+	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
 }
 
-void MainSceneView::processEvents(SDL_Event &event)
+void Demo1MainScene::processEvents(SDL_Event &event)
 {
 	switch(event.type) {
 		case SDL_KEYDOWN:
@@ -66,7 +66,7 @@ void MainSceneView::processEvents(SDL_Event &event)
 	}
 }
 
-void MainSceneView::draw()
+void Demo1MainScene::draw()
 {
 	View::draw();
 
@@ -78,12 +78,12 @@ void MainSceneView::draw()
 	}
 }
 
-void MainSceneView::addModel(std::unique_ptr<Mesh> model)
+void Demo1MainScene::addModel(std::unique_ptr<Mesh> model)
 {
 	models.emplace_back(std::move(model));
 }
 
-MainSceneView::~MainSceneView()
+Demo1MainScene::~Demo1MainScene()
 {
 
 }

@@ -3,11 +3,13 @@
 
 
 #include <generation_algorithm.hpp>
+#include <controller/world_manipulator.hpp>
 #include "frame.hpp"
 
 class TerrainControlFrame : public Frame
 {
 private:
+	WorldManipulator* worldManipulator;
 	GenerationAlgorithm currentAlgo;
 	float widthTerrain;
 	float heightTerrain;
@@ -22,7 +24,7 @@ private:
 
 	void mainDraw() override;
 public:
-	TerrainControlFrame(View *view, const std::string &name);
+	TerrainControlFrame(View *view, const std::string &name, WorldManipulator* worldManipulator);
 };
 
 
