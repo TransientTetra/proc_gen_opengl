@@ -69,7 +69,12 @@ void MainSceneView::processEvents(SDL_Event &event)
 			}
 			break;
 		case SDL_MOUSEMOTION:
-			camera->rotate(event.motion.xrel, event.motion.yrel);
+			if (event.motion.xrel)
+				camera->rotateX(0.01f * event.motion.xrel);
+
+			if (event.motion.yrel)
+				camera->rotateY(0.005f * event.motion.yrel);
+
 			break;
 	}
 }

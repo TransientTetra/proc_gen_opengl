@@ -1,8 +1,9 @@
-#include <glm/ext.hpp>
 #include <cstdio>
 #include <sdl2/include/SDL2/SDL_quit.h>
 #include <sdl2/include/SDL2/SDL_mouse.h>
+//#include <glm/glm/ext.hpp>
 #include "view/opengl_interfacing/first_person_camera.hpp"
+#include <glm/gtx/transform.hpp>
 
 FirstPersonCamera::FirstPersonCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed)
 	: Camera(fov, aspectRatio, nearDraw, farDraw)
@@ -10,6 +11,7 @@ FirstPersonCamera::FirstPersonCamera(float fov, float aspectRatio, float nearDra
 	FirstPersonCamera::speed = speed;
 	position = glm::vec3(.0f, .0f, .0f);
 	direction = glm::vec3(.0f, -1.0f, .0f);
+	forward = glm::vec3(.0f, -1.0f, .0f);
 	up = glm::vec3(.0f, .0f, -1.0f);
 
 	viewMatrix = glm::lookAt(position, direction, up);
@@ -54,33 +56,24 @@ void FirstPersonCamera::moveDown(float frameTime)
 
 }
 
-void FirstPersonCamera::rotate(float xoffset, float yoffset)
+void FirstPersonCamera::rotateX(float xoffset)
 {
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
+	static const glm::vec3 _up(0.0f, 1.0f, 0.0f);
 
-	yaw += xoffset;
-	pitch += yoffset;
+	glm::mat4 rotation = glm::rotate(-xoffset, _up);
 
-	if(pitch > 89.0f)
-		pitch = 89.0f;
-	if(pitch < -89.0f)
-		pitch = -89.0f;
+	glm::vec3 newForward = glm::vec3(glm::normalize(rotation * glm::vec4(forward, 0.0)));
+	glm::vec3 newUp = glm::vec3(glm::normalize(rotation * glm::vec4(up, 0.0)));
+	setForward(newForward, newUp);
+}
 
-	glm::vec3 direction;
-	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	direction.y = sin(glm::radians(pitch));
-	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+void FirstPersonCamera::rotateY(float yoffset)
+{
+	glm::vec3 right = glm::normalize(glm::cross(up, forward));
 
-//	printf("direction (x = %f, y = %f, z = %f)\n", direction.x, direction.y, direction.z);
-
-	// TODO this up vector is shit
-	glm::vec3 directionNorm = glm::normalize(direction);
-	glm::vec3 cameraRight = glm::normalize(glm::cross(getUp(), directionNorm));
-	glm::vec3 cameraUp = glm::cross(directionNorm, cameraRight);
-	setForward(directionNorm, cameraUp);
-
-//	printf("rotation (pitch = %f, yaw = %f)\n", pitch, yaw);
+	glm::vec3 newForward = glm::vec3(glm::normalize(glm::rotate(yoffset, right) * glm::vec4(forward, 0.0)));
+	glm::vec3 newUp = glm::normalize(glm::cross(forward, right));
+	setForward(newForward, newUp);
 }
 
 void FirstPersonCamera::move(float frameTime)

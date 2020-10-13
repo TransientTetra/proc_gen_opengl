@@ -47,7 +47,12 @@ void AboveCamera::moveDown(float frameTime)
 	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime);
 }
 
-void AboveCamera::rotate(float xoffset, float yoffset)
+void AboveCamera::rotateX(float xoffset)
+{
+
+}
+
+void AboveCamera::rotateY(float yoffset)
 {
 
 }

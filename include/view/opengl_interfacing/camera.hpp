@@ -48,7 +48,8 @@ public:
 	virtual void moveRight(float frameTime) = 0;
 	virtual void moveUp(float frameTime) = 0;
 	virtual void moveDown(float frameTime) = 0;
-	virtual void rotate(float xoffset, float yoffset) = 0;
+	virtual void rotateX(float xoffset) = 0;
+	virtual void rotateY(float yoffset) = 0;
 	//heads up: here will almost certainly be rotation methods like the ones above
 
 	virtual void startMovingForward();

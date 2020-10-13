@@ -25,7 +25,9 @@ public:
 
 	void move(float frameTime) override;
 
-	void rotate(float xoffset, float yoffset) override;
+	void rotateX(float xoffset) override;
+
+	void rotateY(float yoffset) override;
 
 	void toggleMouseRelativity() override;
 };
