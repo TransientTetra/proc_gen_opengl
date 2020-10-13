@@ -6,6 +6,9 @@
 class FirstPersonCamera : public Camera
 {
 private:
+	float yaw;
+	float pitch;
+	float sensitivity;
 protected:
 public:
 	//all angles in radians
@@ -24,6 +27,8 @@ public:
 	void moveDown(float frameTime) override;
 
 	void move(float frameTime) override;
+
+	void rotate(float xoffset, float yoffset) override;
 };
 
 #endif //PROC_GEN_OPENGL_FIRST_PERSON_CAMERA_HPP

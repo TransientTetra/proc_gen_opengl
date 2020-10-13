@@ -9,6 +9,7 @@ class Camera
 protected:
 	glm::vec3 position;
 	glm::vec3 direction;
+	glm::vec3 forward;
 	glm::vec3 up;
 
 	glm::mat4 viewMatrix;
@@ -36,12 +37,16 @@ public:
 	void setPosition(const glm::vec3 &position);
 	void setDirection(const glm::vec3 &direction, const glm::vec3 &up);
 
+	// TODO meybe temporarry
+	void setForward(const glm::vec3 &, const glm::vec3 &up);
+
 	virtual void moveForward(float frameTime) = 0;
 	virtual void moveBackward(float frameTime) = 0;
 	virtual void moveLeft(float frameTime) = 0;
 	virtual void moveRight(float frameTime) = 0;
 	virtual void moveUp(float frameTime) = 0;
 	virtual void moveDown(float frameTime) = 0;
+	virtual void rotate(float xoffset, float yoffset) = 0;
 	//heads up: here will almost certainly be rotation methods like the ones above
 
 	virtual void startMovingForward();

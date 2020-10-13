@@ -24,6 +24,8 @@ public:
 	void moveDown(float frameTime) override;
 
 	void move(float frameTime) override;
+
+	void rotate(float xoffset, float yoffset) override;
 };
 
 #endif //PROC_GEN_OPENGL_ABOVE_CAMERA_HPP
