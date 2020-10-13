@@ -29,8 +29,6 @@ public:
 	void rotateX(float xoffset) override;
 
 	void rotateY(float yoffset) override;
-
-	void toggleMouseRelativity() override;
 };
 
 #endif //PROC_GEN_OPENGL_FIRST_PERSON_CAMERA_HPP

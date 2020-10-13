@@ -6,15 +6,9 @@ Application::Application(std::string title, int height, int width)
 {
 	this->title = title;
 	lastFrameDuration = std::chrono::duration<double>(1.0);
-	lastFrameDuration = std::chrono::duration<double>(1.0);
 }
 
 std::chrono::duration<double> Application::getLastFrameDuration()
 {
 	return lastFrameDuration;
-}
-
-Window Application::getWindow()
-{
-	return window;
 }

@@ -38,8 +38,6 @@ public:
 
 	void setPosition(const glm::vec3 &position);
 	void setDirection(const glm::vec3 &direction, const glm::vec3 &up);
-
-	// TODO meybe temporarry
 	void setForward(const glm::vec3 &, const glm::vec3 &up);
 
 	virtual void moveForward(float frameTime) = 0;
@@ -66,8 +64,6 @@ public:
 	virtual void stopMovingDown();
 
 	virtual void move(float frameTime) = 0;
-
-	virtual void toggleMouseRelativity() = 0;
 };
 
 

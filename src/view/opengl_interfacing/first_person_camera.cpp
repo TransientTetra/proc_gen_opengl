@@ -1,5 +1,3 @@
-#include <sdl2/include/SDL2/SDL_quit.h>
-#include <sdl2/include/SDL2/SDL_mouse.h>
 #include "view/opengl_interfacing/first_person_camera.hpp"
 #include <glm/gtx/transform.hpp>
 
@@ -80,17 +78,5 @@ void FirstPersonCamera::move(float frameTime)
 		{
 			moveBackward(frameTime);
 		}
-	}
-}
-
-void FirstPersonCamera::toggleMouseRelativity()
-{
-	if(relativeMouseMode) {
-		SDL_SetRelativeMouseMode(SDL_FALSE);
-		relativeMouseMode = false;
-	}
-	else {
-		SDL_SetRelativeMouseMode(SDL_TRUE);
-		relativeMouseMode = true;
 	}
 }

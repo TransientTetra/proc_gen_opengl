@@ -28,8 +28,6 @@ public:
 
 	std::chrono::duration<double> getLastFrameDuration();
 
-	// TODO probably temporary
-	Window getWindow();
 };
 
 
