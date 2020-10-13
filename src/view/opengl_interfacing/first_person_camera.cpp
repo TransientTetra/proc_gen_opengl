@@ -50,11 +50,9 @@ void FirstPersonCamera::moveDown(float frameTime)
 
 void FirstPersonCamera::rotateX(float xoffset)
 {
-	xoffset *= sensitivity;
-
 	static const glm::vec3 _up(0.0f, 1.0f, 0.0f);
 
-	glm::mat4 rotation = glm::rotate(-xoffset, _up);
+	glm::mat4 rotation = glm::rotate(-xoffset * sensitivity, _up);
 
 	glm::vec3 newForward = glm::vec3(glm::normalize(rotation * glm::vec4(forward, 0.0)));
 	glm::vec3 newUp = glm::vec3(glm::normalize(rotation * glm::vec4(up, 0.0)));
@@ -63,11 +61,9 @@ void FirstPersonCamera::rotateX(float xoffset)
 
 void FirstPersonCamera::rotateY(float yoffset)
 {
-	yoffset *= sensitivity;
-
 	glm::vec3 right = glm::normalize(glm::cross(up, forward));
 
-	glm::vec3 newForward = glm::vec3(glm::normalize(glm::rotate(yoffset, right) * glm::vec4(forward, 0.0)));
+	glm::vec3 newForward = glm::vec3(glm::normalize(glm::rotate(yoffset * sensitivity, right) * glm::vec4(forward, 0.0)));
 	glm::vec3 newUp = glm::normalize(glm::cross(forward, right));
 	setForward(newForward, newUp);
 }
