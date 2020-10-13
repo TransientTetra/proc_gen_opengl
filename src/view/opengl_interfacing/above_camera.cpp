@@ -1,4 +1,6 @@
 #include <glm/ext.hpp>
+#include <sdl2/include/SDL2/SDL_quit.h>
+#include <sdl2/include/SDL2/SDL_mouse.h>
 #include "view/opengl_interfacing/above_camera.hpp"
 
 AboveCamera::AboveCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed)
@@ -10,6 +12,9 @@ AboveCamera::AboveCamera(float fov, float aspectRatio, float nearDraw, float far
 	up = glm::vec3(.0f, .0f, -1.0f);
 
 	viewMatrix = glm::lookAt(position, direction, up);
+
+	SDL_SetRelativeMouseMode(SDL_FALSE);
+	relativeMouseMode = false;
 }
 
 void AboveCamera::moveForward(float frameTime)
@@ -84,4 +89,9 @@ void AboveCamera::move(float frameTime)
 			moveLeft(frameTime);
 		}
 	}
+}
+
+void AboveCamera::toggleMouseRelativity()
+{
+
 }

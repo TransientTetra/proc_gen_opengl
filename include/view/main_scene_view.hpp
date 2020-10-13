@@ -18,8 +18,6 @@ private:
 
 	std::unique_ptr<Camera> camera;
 
-	bool relativeMouseMode;
-
 public:
 	MainSceneView(Application* application);
 	void processEvents(SDL_Event& event) override;

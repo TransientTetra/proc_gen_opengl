@@ -12,12 +12,6 @@ MainSceneView::MainSceneView(Application* application)
 	camera = std::make_unique<FirstPersonCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
 //	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
 	camera->setPosition(glm::vec3(0.0f, .5f, 0.0f));
-
-	relativeMouseMode = true;
-	if(relativeMouseMode)
-		SDL_SetRelativeMouseMode(SDL_TRUE);
-	else
-		SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 
 void MainSceneView::processEvents(SDL_Event &event)
@@ -68,15 +62,8 @@ void MainSceneView::processEvents(SDL_Event &event)
 					camera->stopMovingDown();
 					break;
 				case SDLK_ESCAPE:
-					if(relativeMouseMode) {
-						SDL_SetRelativeMouseMode(SDL_FALSE);
-						relativeMouseMode = false;
-					}
-					else {
-						SDL_SetRelativeMouseMode(SDL_TRUE);
-						relativeMouseMode = true;
-					}
-
+					camera->toggleMouseRelativity();
+					break;
 				default:
 					break;
 			}

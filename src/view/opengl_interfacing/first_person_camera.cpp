@@ -1,5 +1,7 @@
 #include <glm/ext.hpp>
 #include <cstdio>
+#include <sdl2/include/SDL2/SDL_quit.h>
+#include <sdl2/include/SDL2/SDL_mouse.h>
 #include "view/opengl_interfacing/first_person_camera.hpp"
 
 FirstPersonCamera::FirstPersonCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed)
@@ -15,20 +17,21 @@ FirstPersonCamera::FirstPersonCamera(float fov, float aspectRatio, float nearDra
 	yaw = 90.0f;
 	pitch = .0f;
 	sensitivity = .1f;
+
+	relativeMouseMode = true;
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 void FirstPersonCamera::moveForward(float frameTime)
 {
 	setPosition(getPosition() + forward * speed * frameTime);
 	setDirection(position + forward, up);
-//	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime * -1.0f);
 }
 
 void FirstPersonCamera::moveBackward(float frameTime)
 {
 	setPosition(getPosition() + forward * speed * frameTime * -1.0f);
 	setDirection(position + forward, up);
-//	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime);
 }
 
 void FirstPersonCamera::moveLeft(float frameTime)
@@ -74,10 +77,8 @@ void FirstPersonCamera::rotate(float xoffset, float yoffset)
 	// TODO this up vector is shit
 	glm::vec3 directionNorm = glm::normalize(direction);
 	glm::vec3 cameraRight = glm::normalize(glm::cross(getUp(), directionNorm));
-//	glm::vec3 cameraRight = glm::normalize(glm::cross(camera->getUp(), directionNorm));
 	glm::vec3 cameraUp = glm::cross(directionNorm, cameraRight);
 	setForward(directionNorm, cameraUp);
-//	camera->setDirection(directionNorm, cameraUp);
 
 //	printf("rotation (pitch = %f, yaw = %f)\n", pitch, yaw);
 }
@@ -95,28 +96,16 @@ void FirstPersonCamera::move(float frameTime)
 			moveBackward(frameTime);
 		}
 	}
+}
 
-	if(!movingUp || !movingDown)
-	{
-		if(movingUp)
-		{
-			moveUp(frameTime);
-		}
-		else if(movingDown)
-		{
-			moveDown(frameTime);
-		}
+void FirstPersonCamera::toggleMouseRelativity()
+{
+	if(relativeMouseMode) {
+		SDL_SetRelativeMouseMode(SDL_FALSE);
+		relativeMouseMode = false;
 	}
-
-	if(!movingRight || !movingLeft)
-	{
-		if(movingRight)
-		{
-			moveRight(frameTime);
-		}
-		else if(movingLeft)
-		{
-			moveLeft(frameTime);
-		}
+	else {
+		SDL_SetRelativeMouseMode(SDL_TRUE);
+		relativeMouseMode = true;
 	}
 }

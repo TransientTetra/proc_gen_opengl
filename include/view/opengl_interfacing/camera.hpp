@@ -23,6 +23,8 @@ protected:
 	bool movingRight;
 	bool movingUp;
 	bool movingDown;
+
+	bool relativeMouseMode;
 public:
 	//all angles in radians
 	Camera(float fov, float aspectRatio, float nearDraw, float farDraw);
@@ -63,6 +65,8 @@ public:
 	virtual void stopMovingDown();
 
 	virtual void move(float frameTime) = 0;
+
+	virtual void toggleMouseRelativity() = 0;
 };
 
 
