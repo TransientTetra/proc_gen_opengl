@@ -1,27 +1,19 @@
-#include <cstdio>
 #include <sdl2/include/SDL2/SDL_quit.h>
 #include <sdl2/include/SDL2/SDL_mouse.h>
-//#include <glm/glm/ext.hpp>
 #include "view/opengl_interfacing/first_person_camera.hpp"
 #include <glm/gtx/transform.hpp>
 
-FirstPersonCamera::FirstPersonCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed)
+FirstPersonCamera::FirstPersonCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed, float sensitivity)
 	: Camera(fov, aspectRatio, nearDraw, farDraw)
 {
 	FirstPersonCamera::speed = speed;
+	FirstPersonCamera::sensitivity = sensitivity;
 	position = glm::vec3(.0f, .0f, .0f);
 	direction = glm::vec3(.0f, -1.0f, .0f);
 	forward = glm::vec3(.0f, -1.0f, .0f);
 	up = glm::vec3(.0f, .0f, -1.0f);
 
 	viewMatrix = glm::lookAt(position, direction, up);
-
-	yaw = 90.0f;
-	pitch = .0f;
-	sensitivity = .1f;
-
-	relativeMouseMode = true;
-	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 void FirstPersonCamera::moveForward(float frameTime)
@@ -58,6 +50,8 @@ void FirstPersonCamera::moveDown(float frameTime)
 
 void FirstPersonCamera::rotateX(float xoffset)
 {
+	xoffset *= sensitivity;
+
 	static const glm::vec3 _up(0.0f, 1.0f, 0.0f);
 
 	glm::mat4 rotation = glm::rotate(-xoffset, _up);
@@ -69,6 +63,8 @@ void FirstPersonCamera::rotateX(float xoffset)
 
 void FirstPersonCamera::rotateY(float yoffset)
 {
+	yoffset *= sensitivity;
+
 	glm::vec3 right = glm::normalize(glm::cross(up, forward));
 
 	glm::vec3 newForward = glm::vec3(glm::normalize(glm::rotate(yoffset, right) * glm::vec4(forward, 0.0)));

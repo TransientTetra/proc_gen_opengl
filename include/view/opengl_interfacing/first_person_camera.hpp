@@ -6,13 +6,11 @@
 class FirstPersonCamera : public Camera
 {
 private:
-	float yaw;
-	float pitch;
 	float sensitivity;
 protected:
 public:
 	//all angles in radians
-	FirstPersonCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed);
+	FirstPersonCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed, float sensitivity);
 
 	void moveForward(float frameTime) override;
 

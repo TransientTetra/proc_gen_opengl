@@ -9,9 +9,12 @@
 MainSceneView::MainSceneView(Application* application)
 : View(application)
 {
-	camera = std::make_unique<FirstPersonCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
+	camera = std::make_unique<FirstPersonCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f, 0.005f);
 //	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
 	camera->setPosition(glm::vec3(0.0f, .5f, 0.0f));
+
+	relativeMouseMode = true;
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 void MainSceneView::processEvents(SDL_Event &event)
@@ -31,9 +34,11 @@ void MainSceneView::processEvents(SDL_Event &event)
 				case SDLK_s:
 					camera->startMovingBackward();
 					break;
+				case SDLK_LCTRL:
 				case SDLK_UP:
 					camera->startMovingUp();
 					break;
+				case SDLK_LSHIFT:
 				case SDLK_DOWN:
 					camera->startMovingDown();
 					break;
@@ -55,14 +60,21 @@ void MainSceneView::processEvents(SDL_Event &event)
 				case SDLK_s:
 					camera->stopMovingBackward();
 					break;
+				case SDLK_LCTRL:
 				case SDLK_UP:
 					camera->stopMovingUp();
 					break;
+				case SDLK_LSHIFT:
 				case SDLK_DOWN:
 					camera->stopMovingDown();
 					break;
 				case SDLK_ESCAPE:
-					camera->toggleMouseRelativity();
+					if (relativeMouseMode)
+						SDL_SetRelativeMouseMode(SDL_FALSE);
+					else
+						SDL_SetRelativeMouseMode(SDL_TRUE);
+
+					relativeMouseMode = !relativeMouseMode;
 					break;
 				default:
 					break;
@@ -70,10 +82,10 @@ void MainSceneView::processEvents(SDL_Event &event)
 			break;
 		case SDL_MOUSEMOTION:
 			if (event.motion.xrel)
-				camera->rotateX(0.01f * event.motion.xrel);
+				camera->rotateX(event.motion.xrel);
 
 			if (event.motion.yrel)
-				camera->rotateY(0.005f * event.motion.yrel);
+				camera->rotateY(event.motion.yrel);
 
 			break;
 	}
