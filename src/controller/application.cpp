@@ -1,8 +1,5 @@
 #include <iostream>
-#include <sys/time.h>
 #include "controller/application.hpp"
-
-//long int Application::lastTimestamp = Application::getCurrentTime();
 
 Application::Application(std::string title, int height, int width)
 : window(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, height, width)

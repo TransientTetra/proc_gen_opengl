@@ -7,6 +7,7 @@ AboveCamera::AboveCamera(float fov, float aspectRatio, float nearDraw, float far
 	AboveCamera::speed = speed;
 	position = glm::vec3(.0f, .0f, .0f);
 	direction = glm::vec3(.0f, -1.0f, .0f);
+	forward = glm::vec3(.0f, -1.0f, .0f);
 	up = glm::vec3(.0f, .0f, -1.0f);
 
 	viewMatrix = glm::lookAt(position, direction, up);
@@ -34,12 +35,22 @@ void AboveCamera::moveRight(float frameTime)
 
 void AboveCamera::moveUp(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime * -1.0f);
+	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime);
 }
 
 void AboveCamera::moveDown(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime);
+	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime * -1.0f);
+}
+
+void AboveCamera::rotateX(float xoffset)
+{
+
+}
+
+void AboveCamera::rotateY(float yoffset)
+{
+
 }
 
 void AboveCamera::move(float frameTime)

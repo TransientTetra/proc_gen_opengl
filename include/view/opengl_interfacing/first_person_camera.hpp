@@ -1,15 +1,17 @@
-#ifndef PROC_GEN_OPENGL_ABOVE_CAMERA_HPP
-#define PROC_GEN_OPENGL_ABOVE_CAMERA_HPP
+#ifndef PROC_GEN_OPENGL_FIRST_PERSON_CAMERA_HPP
+#define PROC_GEN_OPENGL_FIRST_PERSON_CAMERA_HPP
 
 #include "camera.hpp"
 
-class AboveCamera : public Camera
+class FirstPersonCamera : public Camera
 {
 private:
+	float sensitivity;
+	float angle;
 protected:
 public:
 	//all angles in radians
-	AboveCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed);
+	FirstPersonCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed, float sensitivity);
 
 	void moveForward(float frameTime) override;
 
@@ -30,4 +32,4 @@ public:
 	void rotateY(float yoffset) override;
 };
 
-#endif //PROC_GEN_OPENGL_ABOVE_CAMERA_HPP
+#endif //PROC_GEN_OPENGL_FIRST_PERSON_CAMERA_HPP
