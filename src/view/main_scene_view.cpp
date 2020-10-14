@@ -81,11 +81,14 @@ void MainSceneView::processEvents(SDL_Event &event)
 			}
 			break;
 		case SDL_MOUSEMOTION:
-			if (event.motion.xrel)
-				camera->rotateX(event.motion.xrel);
+			if(relativeMouseMode)
+			{
+				if (event.motion.xrel)
+					camera->rotateX(event.motion.xrel);
 
-			if (event.motion.yrel)
-				camera->rotateY(event.motion.yrel);
+				if (event.motion.yrel)
+					camera->rotateY(event.motion.yrel);
+			}
 
 			break;
 	}

@@ -35,12 +35,12 @@ void AboveCamera::moveRight(float frameTime)
 
 void AboveCamera::moveUp(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime * -1.0f);
+	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime);
 }
 
 void AboveCamera::moveDown(float frameTime)
 {
-	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime);
+	setPosition(getPosition() + glm::vec3(.0f, 1.0f, .0f) * speed * frameTime * -1.0f);
 }
 
 void AboveCamera::rotateX(float xoffset)

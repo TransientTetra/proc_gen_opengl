@@ -7,6 +7,7 @@ class FirstPersonCamera : public Camera
 {
 private:
 	float sensitivity;
+	float angle;
 protected:
 public:
 	//all angles in radians
