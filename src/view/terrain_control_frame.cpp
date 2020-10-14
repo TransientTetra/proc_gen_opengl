@@ -5,7 +5,7 @@ TerrainControlFrame::TerrainControlFrame(View *view, const std::string &name, Wo
 : Frame(view, name), worldManipulator(worldManipulator)
 {
 	flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
-	width = 400;
+	width = 500;
 	height = 500;
 
 	widthTerrain = 10;
@@ -68,7 +68,7 @@ void TerrainControlFrame::mainDraw()
 						      nWavesWidth, nWavesHeight);
 
 	tempF = scale;
-	ImGui::SliderFloat("Scale", &scale, .1f, 10);
+	ImGui::SliderFloat("Scale", &scale, 0, 10);
 	if (tempF != scale)
 		worldManipulator->setTerrainScale(scale);
 
