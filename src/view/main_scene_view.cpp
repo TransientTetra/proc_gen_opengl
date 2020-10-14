@@ -9,7 +9,7 @@
 MainSceneView::MainSceneView(Application* application)
 : View(application)
 {
-	camera = std::make_unique<FirstPersonCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f, 0.005f);
+	camera = std::make_unique<FirstPersonCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f, 0.003f);
 //	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
 	camera->setPosition(glm::vec3(0.0f, .5f, 0.0f));
 
@@ -34,11 +34,11 @@ void MainSceneView::processEvents(SDL_Event &event)
 				case SDLK_s:
 					camera->startMovingBackward();
 					break;
-				case SDLK_LCTRL:
+				case SDLK_SPACE:
 				case SDLK_UP:
 					camera->startMovingUp();
 					break;
-				case SDLK_LSHIFT:
+				case SDLK_LCTRL:
 				case SDLK_DOWN:
 					camera->startMovingDown();
 					break;
@@ -60,11 +60,11 @@ void MainSceneView::processEvents(SDL_Event &event)
 				case SDLK_s:
 					camera->stopMovingBackward();
 					break;
-				case SDLK_LCTRL:
+				case SDLK_SPACE:
 				case SDLK_UP:
 					camera->stopMovingUp();
 					break;
-				case SDLK_LSHIFT:
+				case SDLK_LCTRL:
 				case SDLK_DOWN:
 					camera->stopMovingDown();
 					break;

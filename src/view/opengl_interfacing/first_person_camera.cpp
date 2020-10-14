@@ -71,8 +71,8 @@ void FirstPersonCamera::rotateY(float yoffset)
 	if(angle > .0f) {
 		angle = .0f;
 	}
-	else if(angle < -600.0f) {
-		angle = -600.0f;
+	else if(angle < -900.0f) {
+		angle = -900.0f;
 	}
 	else {
 		glm::vec3 right = glm::normalize(glm::cross(up, forward));
