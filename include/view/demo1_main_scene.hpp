@@ -10,6 +10,7 @@
 #include <view/opengl_interfacing/camera.hpp>
 #include <view/opengl_interfacing/above_camera.hpp>
 #include <controller/world_manipulator.hpp>
+#include <controller/terrain_translator.hpp>
 #include "view.hpp"
 
 //the main view of the scene; the view where entities are rendered and where player can move and terrain is rendered
@@ -17,11 +18,13 @@ class Demo1MainScene : public View
 {
 private:
 	std::vector<std::unique_ptr<Mesh>> models;
-
+	TerrainTranslator* terrainTranslator;
+	std::unique_ptr<Mesh> terrain;
 	std::unique_ptr<Camera> camera;
 
 public:
-	Demo1MainScene(Application* application, Window* window, WorldManipulator* modelManipulator);
+	Demo1MainScene(Application* application, Window* window,
+		WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator);
 	void processEvents(SDL_Event& event) override;
 	virtual ~Demo1MainScene();
 

@@ -3,13 +3,16 @@
 #include "view/demo1_main_scene.hpp"
 #include "controller/application.hpp"
 
-Demo1MainScene::Demo1MainScene(Application* application, Window* window, WorldManipulator* modelManipulator)
+Demo1MainScene::Demo1MainScene(Application* application, Window* window,
+			       WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator)
 : View(application, window)
 {
+	Demo1MainScene::terrainTranslator = terrainTranslator;
 	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
 	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
+	terrain = terrainTranslator->getMesh();
 }
 
 void Demo1MainScene::processEvents(SDL_Event &event)
@@ -69,13 +72,15 @@ void Demo1MainScene::processEvents(SDL_Event &event)
 void Demo1MainScene::draw()
 {
 	View::draw();
+	terrain = terrainTranslator->getMesh();
 
 	camera->move(application->getLastFrameDuration().count());
-
+	terrain->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	for (auto&& model : models)
 	{
 		model->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	}
+
 }
 
 void Demo1MainScene::addModel(std::unique_ptr<Mesh> model)

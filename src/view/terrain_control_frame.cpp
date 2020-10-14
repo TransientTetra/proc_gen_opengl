@@ -11,8 +11,7 @@ TerrainControlFrame::TerrainControlFrame(View *view, const std::string &name, Wo
 	widthTerrain = 10;
 	heightTerrain = 10;
 
-	nVerticesHeight = 256;
-	nVerticesWidth = 256;
+	nVerticesSide = 256;
 	scale = 1;
 	horizontalScale = 50;
 	nOctaves = 1;
@@ -21,6 +20,14 @@ TerrainControlFrame::TerrainControlFrame(View *view, const std::string &name, Wo
 
 	currentAlgo = FLAT;
 	seedBuf[0] = '\0';
+
+	nWavesWidth = 1;
+	nWavesHeight = 1;
+
+	worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+					      nVerticesSide, horizontalScale,
+					      nOctaves, persistence, lacunarity,
+					      nWavesWidth, nWavesHeight);
 }
 
 void TerrainControlFrame::mainDraw()
@@ -34,7 +41,10 @@ void TerrainControlFrame::mainDraw()
 	if (ImGui::RadioButton("Sinusoidal", currentAlgo == SINUSOIDAL)) currentAlgo = SINUSOIDAL;
 	if (ImGui::RadioButton("Perlin Noise", currentAlgo == PERLIN_NOISE)) currentAlgo = PERLIN_NOISE;
 	if (tempA != currentAlgo)
-		worldManipulator->setTerrainAlgorithm(currentAlgo);
+		worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+						      nVerticesSide, horizontalScale,
+						      nOctaves, persistence, lacunarity,
+						      nWavesWidth, nWavesHeight);
 	ImGui::NewLine();
 
 	ImGui::Text("Generation algorithm parameters");
@@ -47,31 +57,84 @@ void TerrainControlFrame::mainDraw()
 	tempF = heightTerrain;
 	ImGui::SliderFloat("Height", &heightTerrain, 1, 1000);
 	if (tempF != heightTerrain)
-		worldManipulator->setTerrainHeight(heightTerrain);
+		worldManipulator->setTerrainLength(heightTerrain);
 
-	int tempI = nVerticesWidth;
-	ImGui::SliderInt("N vertices width", &nVerticesWidth, 2, 1024);
-	if (tempI != nVerticesWidth)
-		worldManipulator->setTerrainNVerticesWidth(nVerticesWidth);
+	int tempI = nVerticesSide;
+	ImGui::SliderInt("N vertices per side", &nVerticesSide, 2, 1024);
+	if (tempI != nVerticesSide)
+		worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+						      nVerticesSide, horizontalScale,
+						      nOctaves, persistence, lacunarity,
+						      nWavesWidth, nWavesHeight);
 
-	tempI = nVerticesHeight;
-	ImGui::SliderInt("N vertices height", &nVerticesHeight, 2, 1024);
-	if (tempI != nVerticesHeight)
-		worldManipulator->setTerrainNVerticesHeight(nVerticesHeight);
-
+	tempF = scale;
 	ImGui::SliderFloat("Scale", &scale, .1f, 10);
+	if (tempF != scale)
+		worldManipulator->setTerrainScale(scale);
+
+	if (currentAlgo == PERLIN_NOISE)
+	{
+		tempF = horizontalScale;
+		ImGui::SliderFloat("Horizontal scale", &horizontalScale, 1.f, 100.f);
+		if (tempF != horizontalScale)
+			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+							      nVerticesSide, horizontalScale,
+							      nOctaves, persistence, lacunarity,
+							      nWavesWidth, nWavesHeight);
+
+		tempF = persistence;
+		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
+		if (tempF != persistence)
+			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+							      nVerticesSide, horizontalScale,
+							      nOctaves, persistence, lacunarity,
+							      nWavesWidth, nWavesHeight);
+
+		tempF = lacunarity;
+		ImGui::SliderFloat("Lacunarity", &lacunarity, 1.f, 10.f);
+		if (tempF != lacunarity)
+			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+							      nVerticesSide, horizontalScale,
+							      nOctaves, persistence, lacunarity,
+							      nWavesWidth, nWavesHeight);
+	}
+
 	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE)
 	{
-		ImGui::SliderFloat("Horizontal scale", &horizontalScale, 1.f, 100.f);
+		tempI = nOctaves;
 		ImGui::SliderInt("N octaves", &nOctaves, 1, 10);
-		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
-		ImGui::SliderFloat("Lacunarity", &lacunarity, 1.f, 10.f);
-		ImGui::Text("Noise seed");
+		if (tempI != nOctaves)
+			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+							      nVerticesSide, horizontalScale,
+							      nOctaves, persistence, lacunarity,
+							      nWavesWidth, nWavesHeight);
 
-		ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char));
-		if (ImGui::Button("Generate"))
+		ImGui::Text("Noise seed");
+		if (ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char)))
 		{
+			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+							      nVerticesSide, horizontalScale,
+							      nOctaves, persistence, lacunarity,
+							      nWavesWidth, nWavesHeight);
 		}
+	}
+	if (currentAlgo == SINUSOIDAL)
+	{
+		tempI = nWavesWidth;
+		ImGui::SliderInt("N waves width", &nWavesWidth, 1, 10);
+		if (tempI != nWavesWidth)
+			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+							      nVerticesSide, horizontalScale,
+							      nOctaves, persistence, lacunarity,
+							      nWavesWidth, nWavesHeight);
+
+		tempI = nWavesHeight;
+		ImGui::SliderInt("N waves height", &nWavesHeight, 1, 10);
+		if (tempI != nWavesHeight)
+			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+							      nVerticesSide, horizontalScale,
+							      nOctaves, persistence, lacunarity,
+							      nWavesWidth, nWavesHeight);
 	}
 }
 

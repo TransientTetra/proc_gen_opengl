@@ -1,27 +1,16 @@
 #include <memory>
-#include <model/square.hpp>
 #include <view/opengl_interfacing/vertex_shader.hpp>
-#include <view/opengl_interfacing/fragment_shader.hpp>
-#include <view/opengl_interfacing/vao.hpp>
-#include <view/opengl_interfacing/vbo.hpp>
-#include <view/opengl_interfacing/shader_program.hpp>
-#include <view/opengl_interfacing/ebo.hpp>
 #include <view/opengl_interfacing/mesh.hpp>
 #include <view/demo1_main_scene.hpp>
 #include <iostream>
 #include <controller/entity_translator.hpp>
-#include <controller/terrain_translator.hpp>
 #include "controller/demo1.hpp"
 
 Demo1::Demo1(const std::string &title, int height, int width)
-	: Application(title, height, width)
+: Application(title, height, width), worldManipulator(&world), terrainTranslator(world.getTerrain().get())
 {
-	//todo temporary
-//	world.addEntity(std::shared_ptr<Cube>(new Cube(glm::vec3(0, 0, 0), 3, 3, 3)));
-	world.setTerrain(std::make_unique<Terrain>(10, 10, 1));
-
 	//todo change default first view once menu or something is devised
-	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator);
+	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator, &terrainTranslator);
 
 	EntityTranslator e;
 	for (auto entity : world.getEntities())
@@ -29,10 +18,6 @@ Demo1::Demo1(const std::string &title, int height, int width)
 		dynamic_cast<Demo1MainScene*>(currentView.get())->addModel(
 			std::make_unique<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW));
 	}
-
-	TerrainTranslator t;
-	dynamic_cast<Demo1MainScene*>(currentView.get())->addModel(std::make_unique<Mesh>(
-		t.getVertices(*world.getTerrain()), t.getIndices(*world.getTerrain()), GL_STATIC_DRAW));
 }
 
 void Demo1::processEvents()

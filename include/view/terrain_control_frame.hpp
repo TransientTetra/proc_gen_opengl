@@ -11,18 +11,23 @@ class TerrainControlFrame : public Frame
 private:
 	WorldManipulator* worldManipulator;
 	GenerationAlgorithm currentAlgo;
+
+	//common variables
 	float widthTerrain;
 	float heightTerrain;
-	int nVerticesWidth;
-	int nVerticesHeight;
+	int nVerticesSide;
 	float scale;
 
+	//noise map variables
 	float horizontalScale;
 	int nOctaves;
 	float persistence;
 	float lacunarity;
-
 	char seedBuf[256];
+
+	//sinusoidal map variables
+	int nWavesWidth;
+	int nWavesHeight;
 
 	void mainDraw() override;
 public:

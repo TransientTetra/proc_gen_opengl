@@ -1,21 +1,25 @@
 #include "controller/terrain_translator.hpp"
 
-std::vector<Vertex> TerrainTranslator::getVertices(const Terrain &terrain)
+TerrainTranslator::TerrainTranslator(Terrain *terrain)
+: terrain(terrain)
+{}
+
+std::vector<Vertex> TerrainTranslator::getVertices()
 {
 	std::vector<Vertex> ret;
-	for (auto point : terrain.getPoints())
+	for (auto point : terrain->getPoints())
 	{
 		ret.emplace_back(Vertex(point));
 	}
 	return ret;
 }
 
-std::vector<unsigned int> TerrainTranslator::getIndices(const Terrain &terrain)
+std::vector<unsigned int> TerrainTranslator::getIndices()
 {
 	unsigned int currIndex = 0;
 	std::vector<unsigned int> ret;
-	unsigned int nPointsWidth = terrain.getNPointsWidth();
-	for (int i = 0; i < terrain.getNPointsLength() - 1; ++i)
+	unsigned int nPointsWidth = terrain->getNPointsWidth();
+	for (int i = 0; i < terrain->getNPointsLength() - 1; ++i)
 	{
 		for (int j = 0; j < nPointsWidth - 1; ++j)
 		{
@@ -32,3 +36,9 @@ std::vector<unsigned int> TerrainTranslator::getIndices(const Terrain &terrain)
 	}
 	return ret;
 }
+
+std::unique_ptr<Mesh> TerrainTranslator::getMesh()
+{
+	return std::make_unique<Mesh>(getVertices(), getIndices(), GL_STATIC_DRAW);
+}
+
