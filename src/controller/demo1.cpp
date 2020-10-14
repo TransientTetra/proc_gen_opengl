@@ -13,7 +13,7 @@ Demo1::Demo1(const std::string &title, int height, int width)
 	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator, &terrainTranslator);
 
 	EntityTranslator e;
-	for (auto entity : world.getEntities())
+	for (auto&& entity : world.getEntities())
 	{
 		dynamic_cast<Demo1MainScene*>(currentView.get())->addModel(
 			std::make_unique<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW));

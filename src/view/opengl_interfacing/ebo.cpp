@@ -6,6 +6,11 @@ EBO::EBO()
 	glGenBuffers(1, &id);
 }
 
+EBO::~EBO()
+{
+	glDeleteBuffers(1, &id);
+}
+
 void EBO::bind()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);

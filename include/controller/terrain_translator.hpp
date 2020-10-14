@@ -13,10 +13,13 @@ private:
 	Terrain* terrain;
 	std::vector<Vertex> getVertices();
 	std::vector<unsigned int> getIndices();
-public:
-	TerrainTranslator(Terrain *terrain);
+	void updateVertices(std::vector<Vertex> &vertices);
+	void updateIndices(std::vector<unsigned int> &indices);
 
-	std::unique_ptr<Mesh> getMesh();
+public:
+	explicit TerrainTranslator(Terrain *terrain);
+
+	void updateMesh(Mesh *mesh);
 };
 
 

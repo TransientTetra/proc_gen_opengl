@@ -12,7 +12,9 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 	camera->setPosition(glm::vec3(0.0f, 3.0f, 0.0f));
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
-	terrain = terrainTranslator->getMesh();
+
+	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW);
+	terrainTranslator->updateMesh(terrain.get());
 }
 
 void Demo1MainScene::processEvents(SDL_Event &event)
@@ -72,9 +74,9 @@ void Demo1MainScene::processEvents(SDL_Event &event)
 void Demo1MainScene::draw()
 {
 	View::draw();
-	terrain = terrainTranslator->getMesh();
-
 	camera->move(application->getLastFrameDuration().count());
+
+	terrainTranslator->updateMesh(terrain.get());
 	terrain->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	for (auto&& model : models)
 	{

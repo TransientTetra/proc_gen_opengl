@@ -4,41 +4,40 @@ TerrainTranslator::TerrainTranslator(Terrain *terrain)
 : terrain(terrain)
 {}
 
-std::vector<Vertex> TerrainTranslator::getVertices()
+void TerrainTranslator::updateMesh(Mesh *mesh)
 {
-	std::vector<Vertex> ret;
-	for (auto point : terrain->getPoints())
-	{
-		ret.emplace_back(Vertex(point));
-	}
-	return ret;
+	updateVertices(mesh->getVertices());
+	updateIndices(mesh->getIndices());
+	mesh->update();
 }
 
-std::vector<unsigned int> TerrainTranslator::getIndices()
+void TerrainTranslator::updateVertices(std::vector<Vertex> &vertices)
 {
+	vertices.clear();
+	for (auto&& point : terrain->getPoints())
+	{
+		vertices.emplace_back(Vertex(point));
+	}
+}
+
+void TerrainTranslator::updateIndices(std::vector<unsigned int> &indices)
+{
+	indices.clear();
 	unsigned int currIndex = 0;
-	std::vector<unsigned int> ret;
 	unsigned int nPointsWidth = terrain->getNPointsWidth();
 	for (int i = 0; i < terrain->getNPointsLength() - 1; ++i)
 	{
 		for (int j = 0; j < nPointsWidth - 1; ++j)
 		{
-			ret.emplace_back(currIndex + nPointsWidth);
-			ret.emplace_back(currIndex + 1);
-			ret.emplace_back(currIndex);
+			indices.emplace_back(currIndex + nPointsWidth);
+			indices.emplace_back(currIndex + 1);
+			indices.emplace_back(currIndex);
 
-			ret.emplace_back(currIndex + 1);
-			ret.emplace_back(currIndex + nPointsWidth);
-			ret.emplace_back(currIndex + nPointsWidth + 1);
+			indices.emplace_back(currIndex + 1);
+			indices.emplace_back(currIndex + nPointsWidth);
+			indices.emplace_back(currIndex + nPointsWidth + 1);
 			currIndex += 1;
 		}
 		currIndex += 1;
 	}
-	return ret;
 }
-
-std::unique_ptr<Mesh> TerrainTranslator::getMesh()
-{
-	return std::make_unique<Mesh>(getVertices(), getIndices(), GL_STATIC_DRAW);
-}
-

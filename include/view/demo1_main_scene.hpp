@@ -18,8 +18,8 @@ class Demo1MainScene : public View
 {
 private:
 	std::vector<std::unique_ptr<Mesh>> models;
-	TerrainTranslator* terrainTranslator;
 	std::unique_ptr<Mesh> terrain;
+	TerrainTranslator* terrainTranslator;
 	std::unique_ptr<Camera> camera;
 
 public:
