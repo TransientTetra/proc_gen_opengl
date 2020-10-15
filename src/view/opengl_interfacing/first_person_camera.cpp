@@ -1,4 +1,5 @@
 #include "view/opengl_interfacing/first_person_camera.hpp"
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/transform.hpp>
 
 FirstPersonCamera::FirstPersonCamera(float fov, float aspectRatio, float nearDraw, float farDraw, float speed, float sensitivity)
