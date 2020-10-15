@@ -2,8 +2,8 @@
 #define WINDOW_HPP
 
 #include "imgui/imgui.h"
-#include "imgui/examples/imgui_impl_sdl.h"
-#include "imgui/examples/imgui_impl_opengl3.h"
+#include "imgui/backends/imgui_impl_sdl.h"
+#include "imgui/backends/imgui_impl_opengl3.h"
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <string>
