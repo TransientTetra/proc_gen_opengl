@@ -12,3 +12,8 @@ std::chrono::duration<double> Application::getLastFrameDuration()
 {
 	return lastFrameDuration;
 }
+
+Window *Application::getWindow()
+{
+	return &window;
+}

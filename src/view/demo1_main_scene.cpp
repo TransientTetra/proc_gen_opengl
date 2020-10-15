@@ -1,23 +1,30 @@
 #include <iostream>
-#include "view/main_scene_view.hpp"
+#include <view/terrain_control_frame.hpp>
+#include "view/demo1_main_scene.hpp"
 #include "controller/application.hpp"
 #include <view/opengl_interfacing/above_camera.hpp>
 #include <view/opengl_interfacing/first_person_camera.hpp>
 
 
 
-MainSceneView::MainSceneView(Application* application)
-: View(application)
+Demo1MainScene::Demo1MainScene(Application* application, Window* window,
+			       WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator)
+: View(application, window)
 {
+	Demo1MainScene::terrainTranslator = terrainTranslator;
 	camera = std::make_unique<FirstPersonCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f, 0.003f);
 //	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
 	camera->setPosition(glm::vec3(0.0f, .5f, 0.0f));
 
+	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
+
+	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW);
+	terrainTranslator->updateMesh(terrain.get());
 	relativeMouseMode = true;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
-void MainSceneView::processEvents(SDL_Event &event)
+void Demo1MainScene::processEvents(SDL_Event &event)
 {
 	switch(event.type) {
 		case SDL_KEYDOWN:
@@ -94,31 +101,26 @@ void MainSceneView::processEvents(SDL_Event &event)
 	}
 }
 
-
-void MainSceneView::draw()
+void Demo1MainScene::draw()
 {
 	View::draw();
-
 	camera->move(application->getLastFrameDuration().count());
 
+	terrainTranslator->updateMesh(terrain.get());
+	terrain->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	for (auto&& model : models)
 	{
 		model->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	}
+
 }
 
-void MainSceneView::render()
-{
-	View::render();
-}
-
-//todo this function leaks! some weird things with smart pointers going on
-void MainSceneView::addModel(std::unique_ptr<Mesh> model)
+void Demo1MainScene::addModel(std::unique_ptr<Mesh> model)
 {
 	models.emplace_back(std::move(model));
 }
 
-MainSceneView::~MainSceneView()
+Demo1MainScene::~Demo1MainScene()
 {
 
 }

@@ -1,7 +1,9 @@
 #include "view/opengl_interfacing/mesh.hpp"
 
+#include <memory>
+
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage)
-: vertices(vertices), indices(indices)
+: vertices(vertices), indices(indices), usage(usage)
 {
 	modelMatrix = glm::mat4(1.0f);
 
@@ -15,16 +17,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLen
 	shader.attachVertexAndFragmentShaders(vs, fs);
 	shader.linkProgram();
 
-	vao.bind();
-
-	vbo.bind();
-	vbo.loadVertices(vertices, usage);
-
-	ebo.bind();
-	ebo.loadIndices(indices, usage);
-
-	vao.setVertexAttributePointers(0, 3, 3 * sizeof(float), 0);
-	//vao.setVertexAttributePointers(1, 3, 3 * sizeof(float), offsetof(Vertex, normal)) //for adding new fields to Vertex
+	update();
 }
 
 void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
@@ -36,7 +29,7 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 	shader.sendUniformMatrix("viewMatrix", viewMatrix);
 	shader.sendUniformMatrix("projectionMatrix", projectionMatrix);
 
-	vao.bind();
+	vao->bind();
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
@@ -67,5 +60,33 @@ void Mesh::scaleRotateTranslate(glm::vec3 scale, float angle, glm::vec3 axis, gl
 Mesh::~Mesh()
 {
 
+}
+
+std::vector<Vertex> &Mesh::getVertices()
+{
+	return vertices;
+}
+
+std::vector<unsigned int> &Mesh::getIndices()
+{
+	return indices;
+}
+
+void Mesh::update()
+{
+	vao = std::make_unique<VAO>();
+	vbo = std::make_unique<VBO>();
+	ebo = std::make_unique<EBO>();
+
+	vao->bind();
+
+	vbo->bind();
+	vbo->loadVertices(vertices, usage);
+
+	ebo->bind();
+	ebo->loadIndices(indices, usage);
+
+	vao->setVertexAttributePointers(0, 3, 3 * sizeof(float), 0);
+	//vao.setVertexAttributePointers(1, 3, 3 * sizeof(float), offsetof(Vertex, normal)) //for adding new fields to Vertex
 }
 

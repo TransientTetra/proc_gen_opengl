@@ -15,11 +15,13 @@ private:
 
 protected:
 public:
+	World();
+
 	void addEntity(std::shared_ptr<Entity> entity);
 
 	const std::vector<std::shared_ptr<Entity>> &getEntities() const;
 
-	const std::unique_ptr<Terrain> &getTerrain() const;
+	std::unique_ptr<Terrain> &getTerrain();
 
 	void setTerrain(std::unique_ptr<Terrain> terrain);
 };

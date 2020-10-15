@@ -15,7 +15,12 @@ void World::setTerrain(std::unique_ptr<Terrain> terrain)
 	this->terrain = std::move(terrain);
 }
 
-const std::unique_ptr<Terrain> &World::getTerrain() const
+std::unique_ptr<Terrain> &World::getTerrain()
 {
 	return terrain;
+}
+
+World::World()
+{
+	terrain = std::make_unique<Terrain>(10, 10, 1, 0);
 }

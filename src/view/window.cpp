@@ -6,6 +6,8 @@ Window::Window(std::string title, int posX, int posY, int height, int width)
 {
 	assert(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) == 0);
 
+	bgColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
 	// GL 3.3 + GLSL 130
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -94,7 +96,8 @@ SDL_Window *Window::getSDLWindow()
 
 void Window::render()
 {
-	//todo should this be here or in View?
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	SDL_GL_SwapWindow(sdlWindow);
 }
 

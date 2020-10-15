@@ -12,6 +12,8 @@ private:
 public:
 	VBO();
 
+	virtual ~VBO();
+
 	void bind();
 	void loadVertices(std::vector<Vertex> vertices, GLenum usage);
 };

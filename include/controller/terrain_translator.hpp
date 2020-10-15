@@ -5,14 +5,21 @@
 #include <vector>
 #include <view/opengl_interfacing/vertex.hpp>
 #include <model/terrain.hpp>
+#include <view/opengl_interfacing/mesh.hpp>
 
 class TerrainTranslator
 {
 private:
-protected:
+	Terrain* terrain;
+	std::vector<Vertex> getVertices();
+	std::vector<unsigned int> getIndices();
+	void updateVertices(std::vector<Vertex> &vertices);
+	void updateIndices(std::vector<unsigned int> &indices);
+
 public:
-	std::vector<Vertex> getVertices(const Terrain &terrain);
-	std::vector<unsigned int> getIndices(const Terrain &terrain);
+	explicit TerrainTranslator(Terrain *terrain);
+
+	void updateMesh(Mesh *mesh);
 };
 
 

@@ -1,25 +1,30 @@
+#include <imgui/imgui.h>
+#include <imgui/backends/imgui_impl_opengl3.h>
 #include "view/view.hpp"
 
-View::View(Application* application)
+View::View(Application* application, Window* window)
 {
 	this->application = application;
+	this->window = window;
 }
 
 void View::draw()
 {
-	for (Frame frame : frames)
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame(getWindow()->getSDLWindow());
+	ImGui::NewFrame();
+	for (auto&& frame : frames)
 	{
-		frame.draw();
+		frame->draw();
 	}
-}
-
-void View::render()
-{
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 View::~View()
 {
 
+}
+
+Window *View::getWindow() const
+{
+	return window;
 }

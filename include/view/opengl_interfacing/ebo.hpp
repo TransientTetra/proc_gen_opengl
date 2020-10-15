@@ -11,6 +11,8 @@ private:
 public:
 	EBO();
 
+	virtual ~EBO();
+
 	void bind();
 	void loadIndices(std::vector<unsigned int> indices, GLenum usage);
 };

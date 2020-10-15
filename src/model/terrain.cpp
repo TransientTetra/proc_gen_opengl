@@ -4,15 +4,21 @@
 #include <model/perlin_noise.hpp>
 #include "model/terrain.hpp"
 
-Terrain::Terrain(float width, float length, float scale)
-: width(width), length(length), level(0), heightMap(std::make_unique<HeightMap>(2, 2))
+Terrain::Terrain(float width, float length, float scale, float level)
+: width(width), length(length), level(level), scale(scale), heightMap(std::make_unique<HeightMap>(2, 2))
 {
-	heightMap = std::make_unique<NoiseMap>(256, 256, std::make_unique<PerlinNoise>(2020), 50, 4);
-	calculatePoints(scale);
+	calculatePoints();
 }
 
-void Terrain::calculatePoints(float scale)
+void Terrain::setHeightMap(std::unique_ptr<HeightMap> heightMap)
 {
+	Terrain::heightMap = std::move(heightMap);
+	calculatePoints();
+}
+
+void Terrain::calculatePoints()
+{
+	points.clear();
 	for (int i = 0; i < getNPointsLength(); ++i)
 	{
 		for (int j = 0; j < getNPointsWidth(); ++j)
@@ -53,4 +59,28 @@ unsigned int Terrain::getNPointsWidth() const
 const std::vector<glm::vec3> &Terrain::getPoints() const
 {
 	return points;
+}
+
+void Terrain::setLength(float length)
+{
+	Terrain::length = length;
+	calculatePoints();
+}
+
+void Terrain::setWidth(float width)
+{
+	Terrain::width = width;
+	calculatePoints();
+}
+
+void Terrain::setLevel(float level)
+{
+	Terrain::level = level;
+	calculatePoints();
+}
+
+void Terrain::setScale(float scale)
+{
+	Terrain::scale = scale;
+	calculatePoints();
 }
