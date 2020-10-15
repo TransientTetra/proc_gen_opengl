@@ -22,7 +22,7 @@ set(
         view/opengl_interfacing/vao.cpp
         view/opengl_interfacing/ebo.cpp
         view/opengl_interfacing/mesh.cpp
-        view/demo1_main_scene.cpp
+        view/main_scene_view.cpp
         view/opengl_interfacing/camera.cpp
         view/opengl_interfacing/vertex.cpp
         controller/entity_translator.cpp
@@ -38,6 +38,7 @@ set(
         view/terrain_control_frame.cpp
         controller/world_manipulator.cpp
         controller/model_manipulator.cpp
+        view/opengl_interfacing/first_person_camera.cpp
 )
 set(SRC ${SRC})
 

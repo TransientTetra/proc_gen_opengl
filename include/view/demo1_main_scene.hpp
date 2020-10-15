@@ -8,7 +8,6 @@
 #include <view/opengl_interfacing/fragment_shader.hpp>
 #include <view/opengl_interfacing/shader_program.hpp>
 #include <view/opengl_interfacing/camera.hpp>
-#include <view/opengl_interfacing/above_camera.hpp>
 #include <controller/world_manipulator.hpp>
 #include <controller/terrain_translator.hpp>
 #include "view.hpp"
@@ -21,6 +20,8 @@ private:
 	std::unique_ptr<Mesh> terrain;
 	TerrainTranslator* terrainTranslator;
 	std::unique_ptr<Camera> camera;
+
+	bool relativeMouseMode;
 
 public:
 	Demo1MainScene(Application* application, Window* window,

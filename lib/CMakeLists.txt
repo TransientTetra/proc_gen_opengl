@@ -10,8 +10,8 @@ set(
         imgui/imgui.cpp
         imgui/imgui_draw.cpp
         imgui/imgui_widgets.cpp
-        imgui/examples/imgui_impl_sdl.cpp
-        imgui/examples/imgui_impl_opengl3.cpp
+        imgui/backends/imgui_impl_sdl.cpp
+        imgui/backends/imgui_impl_opengl3.cpp
 )
 set(IMGUI_SRC ${IMGUI_SRC})
 add_library(imgui ${IMGUI_SRC})
