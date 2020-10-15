@@ -22,7 +22,7 @@ set(
         view/opengl_interfacing/vao.cpp
         view/opengl_interfacing/ebo.cpp
         view/opengl_interfacing/mesh.cpp
-        view/main_scene_view.cpp
+        view/demo1_main_scene.cpp
         view/opengl_interfacing/camera.cpp
         view/opengl_interfacing/vertex.cpp
         controller/entity_translator.cpp

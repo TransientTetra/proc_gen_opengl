@@ -1,4 +1,4 @@
-#include <imgui/examples/imgui_impl_opengl3.h>
+#include <imgui/backends/imgui_impl_opengl3.h>
 #include "view/frame.hpp"
 #include "view/view.hpp"
 
