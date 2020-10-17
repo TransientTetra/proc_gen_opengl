@@ -16,7 +16,7 @@ Demo1::Demo1(const std::string &title, int height, int width)
 	for (auto&& entity : world.getEntities())
 	{
 		dynamic_cast<Demo1MainScene*>(currentView.get())->addModel(
-			std::make_unique<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW));
+			std::make_unique<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW, glm::vec3(1.0f, 1.0f, 1.0f)));
 	}
 }
 

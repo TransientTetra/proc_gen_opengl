@@ -24,13 +24,16 @@ private:
 	//todo shader should probably not belong to the mesh class
 	ShaderProgram shader;
 
+	// todo probably only temporary
+	glm::vec3 color;
+
 	glm::mat4 modelMatrix;
 
 	std::unique_ptr<VAO> vao;
 	std::unique_ptr<VBO> vbo;
 	std::unique_ptr<EBO> ebo;
 public:
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color);
 
 	virtual ~Mesh();
 

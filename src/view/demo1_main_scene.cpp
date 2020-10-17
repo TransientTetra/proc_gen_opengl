@@ -18,7 +18,7 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
 
-	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW);
+	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW, glm::vec3(.376f, .502f, .22f)); // color of grass mmm...
 	terrainTranslator->updateMesh(terrain.get());
 	relativeMouseMode = true;
 	SDL_SetRelativeMouseMode(SDL_TRUE);

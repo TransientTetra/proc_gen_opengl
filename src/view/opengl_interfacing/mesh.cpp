@@ -2,8 +2,8 @@
 
 #include <memory>
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage)
-: vertices(vertices), indices(indices), usage(usage)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color)
+: vertices(vertices), indices(indices), usage(usage), color(color)
 {
 	modelMatrix = glm::mat4(1.0f);
 
@@ -33,8 +33,8 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 	shader.sendUniformMatrix("view", viewMatrix);
 	shader.sendUniformMatrix("projection", projectionMatrix);
 
-	shader.sendUniformVector("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
-	shader.sendUniformVector("lightColor", glm::vec3(1.0f, 0.1f, 1.0f));
+	shader.sendUniformVector("objectColor", color);
+	shader.sendUniformVector("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// todo previous uniform matrixes. Gonna keep it here until I ensure that above ones are correct
 //	shader.sendUniformMatrix("modelMatrix", modelMatrix);
