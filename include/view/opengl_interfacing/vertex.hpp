@@ -8,6 +8,7 @@ class Vertex
 {
 private:
 	glm::vec3 position;
+	glm::vec3 normal;
 public:
 	Vertex(glm::vec3 position);
 

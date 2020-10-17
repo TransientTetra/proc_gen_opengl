@@ -98,7 +98,8 @@ void Mesh::update()
 	ebo->bind();
 	ebo->loadIndices(indices, usage);
 
-	vao->setVertexAttributePointers(0, 3, 3 * sizeof(float), 0);
+	vao->setVertexAttributePointers(0, 3, 6 * sizeof(float), 0);
 	//vao.setVertexAttributePointers(1, 3, 3 * sizeof(float), offsetof(Vertex, normal)) //for adding new fields to Vertex
+	vao->setVertexAttributePointers(1, 3, 6 * sizeof(float), 3 * sizeof(float));
 }
 
