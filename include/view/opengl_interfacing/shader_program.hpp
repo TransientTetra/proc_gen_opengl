@@ -18,6 +18,7 @@ public:
 	void useProgram();
 
 	unsigned int getId() const;
+	void sendUniformVector(std::string uniformName, const glm::vec3 &vector);
 	void sendUniformMatrix(std::string uniformName, const glm::mat4 &matrix);
 };
 

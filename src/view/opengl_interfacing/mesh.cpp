@@ -11,8 +11,12 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLen
 	//parametrized easily
 	VertexShader vs;
 	FragmentShader fs;
-	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_transform.glsl");
-	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic.glsl");
+	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_color.glsl");
+	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic_color.glsl");
+
+	// todo previous paths to glsl files. Gonna keep it here until I ensure that above ones are correct
+//	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_transform.glsl");
+//	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic.glsl");
 
 	shader.attachVertexAndFragmentShaders(vs, fs);
 	shader.linkProgram();
@@ -25,9 +29,17 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 	shader.useProgram();
 
 	//first parameter has to be exactly the same as the uniform's name in the shader used
-	shader.sendUniformMatrix("modelMatrix", modelMatrix);
-	shader.sendUniformMatrix("viewMatrix", viewMatrix);
-	shader.sendUniformMatrix("projectionMatrix", projectionMatrix);
+	shader.sendUniformMatrix("model", modelMatrix);
+	shader.sendUniformMatrix("view", viewMatrix);
+	shader.sendUniformMatrix("projection", projectionMatrix);
+
+	shader.sendUniformVector("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.sendUniformVector("lightColor", glm::vec3(1.0f, 0.1f, 1.0f));
+
+	// todo previous uniform matrixes. Gonna keep it here until I ensure that above ones are correct
+//	shader.sendUniformMatrix("modelMatrix", modelMatrix);
+//	shader.sendUniformMatrix("viewMatrix", viewMatrix);
+//	shader.sendUniformMatrix("projectionMatrix", projectionMatrix);
 
 	vao->bind();
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
