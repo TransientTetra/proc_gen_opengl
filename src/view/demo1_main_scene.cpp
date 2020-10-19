@@ -17,6 +17,7 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 	camera->setPosition(glm::vec3(0.0f, .5f, 0.0f));
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
+	terrainFrameIndex = 0;
 
 	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW);
 	terrainTranslator->updateMesh(terrain.get());
@@ -106,7 +107,8 @@ void Demo1MainScene::draw()
 	View::draw();
 	camera->move(application->getLastFrameDuration().count());
 
-	terrainTranslator->updateMesh(terrain.get());
+	if (not dynamic_cast<TerrainControlFrame*>(frames[terrainFrameIndex].get())->isGenLock())
+		terrainTranslator->updateMesh(terrain.get());
 	terrain->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	for (auto&& model : models)
 	{

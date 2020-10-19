@@ -21,6 +21,7 @@ private:
 	TerrainTranslator* terrainTranslator;
 	std::unique_ptr<Camera> camera;
 
+	int terrainFrameIndex;
 	bool relativeMouseMode;
 
 public:
