@@ -4,7 +4,7 @@
 TerrainControlFrame::TerrainControlFrame(View *view, const std::string &name, WorldManipulator* worldManipulator)
 : Frame(view, name), worldManipulator(worldManipulator)
 {
-	flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
+	flags = ImGuiWindowFlags_NoResize;
 	width = 500;
 	height = 500;
 
