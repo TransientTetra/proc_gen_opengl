@@ -11,15 +11,15 @@
 #include <controller/world_manipulator.hpp>
 #include <controller/terrain_translator.hpp>
 #include "view.hpp"
+#include "camera_view.hpp"
 
 //the main view of the scene; the view where entities are rendered and where player can move and terrain is rendered
-class Demo1MainScene : public View
+class Demo1MainScene : public CameraView
 {
 private:
 	std::vector<std::unique_ptr<Mesh>> models;
 	std::unique_ptr<Mesh> terrain;
 	TerrainTranslator* terrainTranslator;
-	std::unique_ptr<Camera> camera;
 
 	bool relativeMouseMode;
 
