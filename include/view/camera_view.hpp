@@ -5,6 +5,7 @@
 #include <view/opengl_interfacing/camera.hpp>
 #include "view.hpp"
 #include "camera_type.hpp"
+#include "rendering_mode.hpp"
 
 class CameraView : public View
 {
@@ -18,17 +19,16 @@ public:
 
 	void draw() override;
 
+	void setRenderingMode(RenderingMode renderingMode);
+
 	void setCamera(CameraType cameraType);
 	void setCameraPosition(glm::vec3 position);
-
 	void setCameraSpeed(float cameraSpeed);
-
-	void setCameraSensitivity(float sensitivity);
-
-	void setCameraFov(float fov);
 	void setCameraAspectRatio(float aspectRatio);
 	void setCameraDrawDistance(float drawDistance);
 
+	void setCameraSensitivity(float sensitivity);
+	void setCameraFOV(float fov); //radians
 };
 
 

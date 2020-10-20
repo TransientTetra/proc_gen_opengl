@@ -1,6 +1,6 @@
 #include <view/opengl_interfacing/first_person_camera.hpp>
 #include <view/opengl_interfacing/above_camera.hpp>
-#include "camera_view.hpp"
+#include "view/camera_view.hpp"
 
 CameraView::CameraView(Application *application, Window *window)
 : View(application, window)
@@ -13,6 +13,7 @@ CameraView::CameraView(Application *application, Window *window)
 void CameraView::setCamera(CameraType cameraType)
 {
 	//todo when camera internals are reworked to not include speed and sensitivity change below
+	glm::vec3 position = camera->getPosition();
 	switch(cameraType)
 	{
 		case FPS_CAMERA:
@@ -28,6 +29,7 @@ void CameraView::setCamera(CameraType cameraType)
 		default:
 			break;
 	}
+	camera->setPosition(position);
 }
 
 void CameraView::setCameraPosition(glm::vec3 position)
@@ -50,7 +52,7 @@ void CameraView::setCameraSensitivity(float sensitivity)
 	CameraView::sensitivity = sensitivity;
 }
 
-void CameraView::setCameraFov(float fov)
+void CameraView::setCameraFOV(float fov)
 {
 	camera->setFOV(fov);
 }
@@ -63,4 +65,19 @@ void CameraView::setCameraAspectRatio(float aspectRatio)
 void CameraView::setCameraDrawDistance(float drawDistance)
 {
 	camera->setFarDraw(drawDistance);
+}
+
+void CameraView::setRenderingMode(RenderingMode renderingMode)
+{
+	switch(renderingMode)
+	{
+		case WIREFRAME:
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			break;
+		case FILLED_WITH_LIGHTING:
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			break;
+		default:
+			break;
+	}
 }

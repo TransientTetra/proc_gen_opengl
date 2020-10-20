@@ -39,8 +39,8 @@ set(
         controller/world_manipulator.cpp
         controller/model_manipulator.cpp
         view/opengl_interfacing/first_person_camera.cpp
-        ../include/view/camera_control_frame.cpp
-        ../include/view/camera_view.cpp
+        view/camera_control_frame.cpp
+        view/camera_view.cpp
 )
 set(SRC ${SRC})
 
