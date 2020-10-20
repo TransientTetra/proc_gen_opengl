@@ -3,7 +3,7 @@
 #include <memory>
 #include <algorithm>
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color, Lightsource* light)
 : vertices(vertices), indices(indices), usage(usage), color(color)
 {
 	modelMatrix = glm::mat4(1.0f);
@@ -15,14 +15,10 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLen
 	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_color.glsl");
 	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic_color.glsl");
 
-	light = Light(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-	// todo previous paths to glsl files. Gonna keep it here until I ensure that above ones are correct
-//	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_transform.glsl");
-//	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic.glsl");
-
 	shader.attachVertexAndFragmentShaders(vs, fs);
 	shader.linkProgram();
+
+	this->light = light;
 
 	update();
 }
@@ -36,14 +32,9 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 	shader.sendUniformMatrix("view", viewMatrix);
 	shader.sendUniformMatrix("projection", projectionMatrix);
 
-	shader.sendUniformVector("lightPos", light.getPosition());
-	shader.sendUniformVector("lightColor", light.getColor());
+	shader.sendUniformVector("lightPos", light->getPosition());
+	shader.sendUniformVector("lightColor", light->getColor());
 	shader.sendUniformVector("objectColor", color);
-
-	// todo previous uniform matrixes. Gonna keep it here until I ensure that above ones are correct
-//	shader.sendUniformMatrix("modelMatrix", modelMatrix);
-//	shader.sendUniformMatrix("viewMatrix", viewMatrix);
-//	shader.sendUniformMatrix("projectionMatrix", projectionMatrix);
 
 	vao->bind();
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

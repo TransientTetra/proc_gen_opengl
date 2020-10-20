@@ -13,7 +13,7 @@
 #include "fragment_shader.hpp"
 #include "shader_program.hpp"
 #include "vertex.hpp"
-#include "light.hpp"
+#include "lightsource.hpp"
 #include <memory>
 
 class Mesh
@@ -27,7 +27,7 @@ private:
 	ShaderProgram shader;
 
 	// todo probably only temporary
-	Light light;
+	Lightsource* light;
 	glm::vec3 color;
 
 	glm::mat4 modelMatrix;
@@ -36,7 +36,7 @@ private:
 	std::unique_ptr<VBO> vbo;
 	std::unique_ptr<EBO> ebo;
 public:
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color, Lightsource* light);
 
 	virtual ~Mesh();
 

@@ -71,7 +71,7 @@ void TerrainTranslator::updateVertices(std::vector<Vertex> &vertices)
 		glm::vec3 t5_norm = calcTriangleNormal(v, v_left, v_down_left);
 		glm::vec3 t6_norm = calcTriangleNormal(v, v_down_left, v_left);
 
-		glm::vec3 norm = glm::normalize(t1_norm + t2_norm + t3_norm + t4_norm + t5_norm + t6_norm);
+		glm::vec3 norm = -glm::normalize(t1_norm + t2_norm + t3_norm + t4_norm + t5_norm + t6_norm);
 
 		vertices.emplace_back(Vertex(v, norm));
 	}

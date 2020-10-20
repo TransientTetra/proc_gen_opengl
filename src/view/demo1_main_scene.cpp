@@ -5,10 +5,8 @@
 #include <view/opengl_interfacing/above_camera.hpp>
 #include <view/opengl_interfacing/first_person_camera.hpp>
 
-
-
 Demo1MainScene::Demo1MainScene(Application* application, Window* window,
-			       WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator)
+			       WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator, Lightsource* light)
 : View(application, window)
 {
 	Demo1MainScene::terrainTranslator = terrainTranslator;
@@ -18,10 +16,13 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
 
-	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW, glm::vec3(.376f, .502f, .22f)); // color of grass mmm...
+	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW, glm::vec3(.376f, .502f, .22f), light); // color of grass mmm...
 	terrainTranslator->updateMesh(terrain.get());
+
 	relativeMouseMode = true;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
+
+	this->light = light;
 }
 
 void Demo1MainScene::processEvents(SDL_Event &event)
@@ -112,7 +113,6 @@ void Demo1MainScene::draw()
 	{
 		model->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	}
-
 }
 
 void Demo1MainScene::addModel(std::unique_ptr<Mesh> model)

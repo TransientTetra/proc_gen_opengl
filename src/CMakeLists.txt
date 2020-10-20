@@ -39,7 +39,7 @@ set(
         controller/world_manipulator.cpp
         controller/model_manipulator.cpp
         view/opengl_interfacing/first_person_camera.cpp
-        view/opengl_interfacing/light.cpp
+        view/opengl_interfacing/lightsource.cpp
 )
 set(SRC ${SRC})
 

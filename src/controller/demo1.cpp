@@ -9,14 +9,16 @@
 Demo1::Demo1(const std::string &title, int height, int width)
 : Application(title, height, width), worldManipulator(&world), terrainTranslator(world.getTerrain().get())
 {
+	Lightsource* light = new Lightsource(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+
 	//todo change default first view once menu or something is devised
-	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator, &terrainTranslator);
+	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator, &terrainTranslator, light);
 
 	EntityTranslator e;
 	for (auto&& entity : world.getEntities())
 	{
 		dynamic_cast<Demo1MainScene*>(currentView.get())->addModel(
-			std::make_unique<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW, glm::vec3(1.0f, 1.0f, 1.0f)));
+			std::make_unique<Mesh>(e.getVertices(*entity), e.getIndices(*entity), GL_STATIC_DRAW, glm::vec3(1.0f, 1.0f, 1.0f), light));
 	}
 }
 
