@@ -1,6 +1,7 @@
 #include "view/opengl_interfacing/mesh.hpp"
 
 #include <memory>
+#include <algorithm>
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color)
 : vertices(vertices), indices(indices), usage(usage), color(color)
@@ -84,6 +85,11 @@ std::vector<unsigned int> &Mesh::getIndices()
 	return indices;
 }
 
+std::vector<glm::vec3> &Mesh::getNormals()
+{
+	return normals;
+}
+
 void Mesh::update()
 {
 	vao = std::make_unique<VAO>();
@@ -98,8 +104,50 @@ void Mesh::update()
 	ebo->bind();
 	ebo->loadIndices(indices, usage);
 
-	vao->setVertexAttributePointers(0, 3, 6 * sizeof(float), 0);
+	vao->setVertexAttributePointers(0, 3, 6 * sizeof(float),0);
 	//vao.setVertexAttributePointers(1, 3, 3 * sizeof(float), offsetof(Vertex, normal)) //for adding new fields to Vertex
 	vao->setVertexAttributePointers(1, 3, 6 * sizeof(float), 3 * sizeof(float));
+
 }
 
+std::vector<Vertex> Mesh::findConnectedVerticles(int vertexIndex)
+{
+//	std::vector<Vertex> connectedVerticlesTest;
+//	std::vector<Vertex> connectedVerticles;
+//
+//	for(int i = 0; i < indices.size(); i++)
+//	{
+//		if(indices.at(i) == vertexIndex)
+//		{
+//			if(i % 2 == 0)
+//			{
+//				connectedVerticlesTest.push_back(vertices.at(indices.at(i + 1)));
+//			}
+//			else
+//			{
+//				connectedVerticlesTest.push_back(vertices.at(indices.at(i - 1)));
+//			}
+//		}
+//	}
+//
+//	if(vertexIndex > 0)
+//		connectedVerticles.push_back(vertices.at(vertexIndex - 1));
+//	if(vertexIndex < vertices.size() - 1)
+//		connectedVerticles.push_back(vertices.at(vertexIndex + 1));
+//
+//	printf("vertex: ");
+//	printf("x = %f, y = %f, z = %f\n", vertices.at(vertexIndex).getPosition().x, vertices.at(vertexIndex).getPosition().y, vertices.at(vertexIndex).getPosition().z);
+//	printf("znalezione iteracja:\n");
+//	for (Vertex vertex : connectedVerticlesTest)
+//	{
+//		printf("x = %f, y = %f, z = %f\n", vertex.getPosition().x, vertex.getPosition().y, vertex.getPosition().z);
+//	}
+//
+//	printf("znalezione wyliczone:\n");
+//	for (Vertex vertex : connectedVerticles)
+//	{
+//		printf("x = %f, y = %f, z = %f\n", vertex.getPosition().x, vertex.getPosition().y, vertex.getPosition().z);
+//	}
+
+//	return connectedVerticlesTest;
+}
