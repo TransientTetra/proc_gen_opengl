@@ -13,6 +13,7 @@
 #include "fragment_shader.hpp"
 #include "shader_program.hpp"
 #include "vertex.hpp"
+#include "light.hpp"
 #include <memory>
 
 class Mesh
@@ -26,6 +27,7 @@ private:
 	ShaderProgram shader;
 
 	// todo probably only temporary
+	Light light;
 	glm::vec3 color;
 
 	glm::mat4 modelMatrix;

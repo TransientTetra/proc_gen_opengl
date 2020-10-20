@@ -15,6 +15,8 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLen
 	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_color.glsl");
 	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic_color.glsl");
 
+	light = Light(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+
 	// todo previous paths to glsl files. Gonna keep it here until I ensure that above ones are correct
 //	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_transform.glsl");
 //	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic.glsl");
@@ -34,8 +36,8 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 	shader.sendUniformMatrix("view", viewMatrix);
 	shader.sendUniformMatrix("projection", projectionMatrix);
 
-	shader.sendUniformVector("lightPos", glm::vec3(4.0f, 1.0f, 10.0f));
-	shader.sendUniformVector("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.sendUniformVector("lightPos", light.getPosition());
+	shader.sendUniformVector("lightColor", light.getColor());
 	shader.sendUniformVector("objectColor", color);
 
 	// todo previous uniform matrixes. Gonna keep it here until I ensure that above ones are correct
