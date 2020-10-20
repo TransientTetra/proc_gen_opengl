@@ -23,6 +23,7 @@ public:
 
 	void setCamera(CameraType cameraType);
 	void setCameraPosition(glm::vec3 position);
+	const glm::vec3& getCameraPosition() const;
 	void setCameraSpeed(float cameraSpeed);
 	void setCameraAspectRatio(float aspectRatio);
 	void setCameraDrawDistance(float drawDistance);

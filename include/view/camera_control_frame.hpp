@@ -19,6 +19,9 @@ private:
 	float fov; //degrees!!
 	float drawDistance;
 	float speed;
+	float xpos;
+	float ypos;
+	float zpos;
 public:
 	CameraControlFrame(CameraView *view, const std::string &name);
 };

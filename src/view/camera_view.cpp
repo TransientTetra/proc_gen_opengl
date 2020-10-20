@@ -81,3 +81,8 @@ void CameraView::setRenderingMode(RenderingMode renderingMode)
 			break;
 	}
 }
+
+const glm::vec3& CameraView::getCameraPosition() const
+{
+	return camera->getPosition();
+}
