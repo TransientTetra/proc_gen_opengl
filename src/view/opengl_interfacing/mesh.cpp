@@ -34,8 +34,9 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 	shader.sendUniformMatrix("view", viewMatrix);
 	shader.sendUniformMatrix("projection", projectionMatrix);
 
-	shader.sendUniformVector("objectColor", color);
+	shader.sendUniformVector("lightPos", glm::vec3(4.0f, 1.0f, 10.0f));
 	shader.sendUniformVector("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.sendUniformVector("objectColor", color);
 
 	// todo previous uniform matrixes. Gonna keep it here until I ensure that above ones are correct
 //	shader.sendUniformMatrix("modelMatrix", modelMatrix);
@@ -108,46 +109,4 @@ void Mesh::update()
 	//vao.setVertexAttributePointers(1, 3, 3 * sizeof(float), offsetof(Vertex, normal)) //for adding new fields to Vertex
 	vao->setVertexAttributePointers(1, 3, 6 * sizeof(float), 3 * sizeof(float));
 
-}
-
-std::vector<Vertex> Mesh::findConnectedVerticles(int vertexIndex)
-{
-//	std::vector<Vertex> connectedVerticlesTest;
-//	std::vector<Vertex> connectedVerticles;
-//
-//	for(int i = 0; i < indices.size(); i++)
-//	{
-//		if(indices.at(i) == vertexIndex)
-//		{
-//			if(i % 2 == 0)
-//			{
-//				connectedVerticlesTest.push_back(vertices.at(indices.at(i + 1)));
-//			}
-//			else
-//			{
-//				connectedVerticlesTest.push_back(vertices.at(indices.at(i - 1)));
-//			}
-//		}
-//	}
-//
-//	if(vertexIndex > 0)
-//		connectedVerticles.push_back(vertices.at(vertexIndex - 1));
-//	if(vertexIndex < vertices.size() - 1)
-//		connectedVerticles.push_back(vertices.at(vertexIndex + 1));
-//
-//	printf("vertex: ");
-//	printf("x = %f, y = %f, z = %f\n", vertices.at(vertexIndex).getPosition().x, vertices.at(vertexIndex).getPosition().y, vertices.at(vertexIndex).getPosition().z);
-//	printf("znalezione iteracja:\n");
-//	for (Vertex vertex : connectedVerticlesTest)
-//	{
-//		printf("x = %f, y = %f, z = %f\n", vertex.getPosition().x, vertex.getPosition().y, vertex.getPosition().z);
-//	}
-//
-//	printf("znalezione wyliczone:\n");
-//	for (Vertex vertex : connectedVerticles)
-//	{
-//		printf("x = %f, y = %f, z = %f\n", vertex.getPosition().x, vertex.getPosition().y, vertex.getPosition().z);
-//	}
-
-//	return connectedVerticlesTest;
 }
