@@ -1,10 +1,10 @@
 #include "view/terrain_control_frame.hpp"
 #include "view/view.hpp"
 
-TerrainControlFrame::TerrainControlFrame(View *view, const std::string &name, WorldManipulator* worldManipulator)
+TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::string &name, WorldManipulator* worldManipulator)
 : Frame(view, name), worldManipulator(worldManipulator)
 {
-	flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
+	flags = ImGuiWindowFlags_NoResize;
 	width = 500;
 	height = 500;
 
@@ -24,10 +24,7 @@ TerrainControlFrame::TerrainControlFrame(View *view, const std::string &name, Wo
 	nWavesWidth = 1;
 	nWavesHeight = 1;
 
-	worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-					      nVerticesSide, horizontalScale,
-					      nOctaves, persistence, lacunarity,
-					      nWavesWidth, nWavesHeight);
+	sendUpdateSignal();
 }
 
 void TerrainControlFrame::mainDraw()
@@ -42,10 +39,7 @@ void TerrainControlFrame::mainDraw()
 	if (ImGui::RadioButton("Perlin Noise", currentAlgo == PERLIN_NOISE)) currentAlgo = PERLIN_NOISE;
 	if (ImGui::RadioButton("Diamond Square", currentAlgo == DIAMOND_SQUARE)) currentAlgo = DIAMOND_SQUARE;
 	if (tempA != currentAlgo)
-		worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-						      nVerticesSide, horizontalScale,
-						      nOctaves, persistence, lacunarity,
-						      nWavesWidth, nWavesHeight);
+		sendUpdateSignal();
 	ImGui::NewLine();
 
 	ImGui::Text("Generation algorithm parameters");
@@ -53,43 +47,43 @@ void TerrainControlFrame::mainDraw()
 	float tempF = widthTerrain;
 	ImGui::SliderFloat("Width", &widthTerrain, 1, 1000);
 	if (tempF != widthTerrain)
+	{
 		worldManipulator->setTerrainWidth(widthTerrain);
+		dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
+	}
 
 	tempF = heightTerrain;
 	ImGui::SliderFloat("Height", &heightTerrain, 1, 1000);
 	if (tempF != heightTerrain)
+	{
 		worldManipulator->setTerrainLength(heightTerrain);
+		dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
+	}
 
 	int tempI = nVerticesSide;
 	ImGui::SliderInt("N vertices per side", &nVerticesSide, 2, 1024);
 	if (tempI != nVerticesSide)
-		worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-						      nVerticesSide, horizontalScale,
-						      nOctaves, persistence, lacunarity,
-						      nWavesWidth, nWavesHeight);
+		sendUpdateSignal();
 
 	tempF = scale;
 	ImGui::SliderFloat("Scale", &scale, 0, 10);
 	if (tempF != scale)
+	{
 		worldManipulator->setTerrainScale(scale);
+		dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
+	}
 
 	if (currentAlgo == PERLIN_NOISE)
 	{
 		tempF = horizontalScale;
 		ImGui::SliderFloat("Horizontal scale", &horizontalScale, 1.f, 100.f);
 		if (tempF != horizontalScale)
-			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-							      nVerticesSide, horizontalScale,
-							      nOctaves, persistence, lacunarity,
-							      nWavesWidth, nWavesHeight);
+			sendUpdateSignal();
 
 		tempF = lacunarity;
 		ImGui::SliderFloat("Lacunarity", &lacunarity, 1.f, 10.f);
 		if (tempF != lacunarity)
-			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-							      nVerticesSide, horizontalScale,
-							      nOctaves, persistence, lacunarity,
-							      nWavesWidth, nWavesHeight);
+			sendUpdateSignal();
 	}
 
 	if (currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE)
@@ -97,10 +91,7 @@ void TerrainControlFrame::mainDraw()
 		tempF = persistence;
 		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
 		if (tempF != persistence)
-			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-							      nVerticesSide, horizontalScale,
-							      nOctaves, persistence, lacunarity,
-							      nWavesWidth, nWavesHeight);
+			sendUpdateSignal();
 	}
 
 	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE)
@@ -108,10 +99,7 @@ void TerrainControlFrame::mainDraw()
 		tempI = nOctaves;
 		ImGui::SliderInt("N octaves", &nOctaves, 1, 10);
 		if (tempI != nOctaves)
-			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-							      nVerticesSide, horizontalScale,
-							      nOctaves, persistence, lacunarity,
-							      nWavesWidth, nWavesHeight);
+			sendUpdateSignal();
 	}
 
 	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE)
@@ -119,10 +107,7 @@ void TerrainControlFrame::mainDraw()
 		ImGui::Text("Noise seed");
 		if (ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char)))
 		{
-			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-							      nVerticesSide, horizontalScale,
-							      nOctaves, persistence, lacunarity,
-							      nWavesWidth, nWavesHeight);
+			sendUpdateSignal();
 		}
 	}
 	if (currentAlgo == SINUSOIDAL)
@@ -130,18 +115,21 @@ void TerrainControlFrame::mainDraw()
 		tempI = nWavesWidth;
 		ImGui::SliderInt("N waves width", &nWavesWidth, 1, 10);
 		if (tempI != nWavesWidth)
-			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-							      nVerticesSide, horizontalScale,
-							      nOctaves, persistence, lacunarity,
-							      nWavesWidth, nWavesHeight);
+			sendUpdateSignal();
 
 		tempI = nWavesHeight;
 		ImGui::SliderInt("N waves height", &nWavesHeight, 1, 10);
 		if (tempI != nWavesHeight)
-			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
-							      nVerticesSide, horizontalScale,
-							      nOctaves, persistence, lacunarity,
-							      nWavesWidth, nWavesHeight);
+			sendUpdateSignal();
 	}
+}
+
+void TerrainControlFrame::sendUpdateSignal()
+{
+	worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+					      nVerticesSide, horizontalScale,
+					      nOctaves, persistence, lacunarity,
+					      nWavesWidth, nWavesHeight);
+	dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
 }
 

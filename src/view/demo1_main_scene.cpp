@@ -4,22 +4,20 @@
 #include "controller/application.hpp"
 #include <view/opengl_interfacing/above_camera.hpp>
 #include <view/opengl_interfacing/first_person_camera.hpp>
-
+#include <view/camera_control_frame.hpp>
 
 
 Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 			       WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator)
-: View(application, window)
+: TerrainModelsView(application, window, terrainTranslator)
 {
 	Demo1MainScene::terrainTranslator = terrainTranslator;
-	camera = std::make_unique<FirstPersonCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f, 0.003f);
-//	camera = std::make_unique<AboveCamera>(glm::radians(45.0f), 800 / 600, .1f, 100.0f, 2.8f);
-	camera->setPosition(glm::vec3(0.0f, .5f, 0.0f));
+	setCamera(FPS_CAMERA);
+	setCameraPosition(glm::vec3(0.0f, .5f, 0.0f));
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
+	frames.emplace_back(std::make_unique<CameraControlFrame>(this, "Camera Control"));
 
-	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW);
-	terrainTranslator->updateMesh(terrain.get());
 	relativeMouseMode = true;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
@@ -103,10 +101,9 @@ void Demo1MainScene::processEvents(SDL_Event &event)
 
 void Demo1MainScene::draw()
 {
-	View::draw();
+	TerrainModelsView::draw();
 	camera->move(application->getLastFrameDuration().count());
 
-	terrainTranslator->updateMesh(terrain.get());
 	terrain->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	for (auto&& model : models)
 	{
