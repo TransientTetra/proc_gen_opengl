@@ -13,8 +13,8 @@ public:
 
 	virtual ~Lightsource();
 
-	glm::vec3 getPosition();
-	glm::vec3 getColor();
+	const glm::vec3& getPosition() const;
+	const glm::vec3& getColor() const;
 };
 
 #endif //PROC_GEN_OPENGL_LIGHTSOURCE_HPP

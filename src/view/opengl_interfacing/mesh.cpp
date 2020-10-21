@@ -12,8 +12,8 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLen
 	//parametrized easily
 	VertexShader vs;
 	FragmentShader fs;
-	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_color.glsl");
-	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic_color.glsl");
+	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_lighting.glsl");
+	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic_lighting.glsl");
 
 	shader.attachVertexAndFragmentShaders(vs, fs);
 	shader.linkProgram();

@@ -11,12 +11,12 @@ Lightsource::~Lightsource()
 
 }
 
-glm::vec3 Lightsource::getPosition()
+const glm::vec3& Lightsource::getPosition() const
 {
 	return position;
 }
 
-glm::vec3 Lightsource::getColor()
+const glm::vec3& Lightsource::getColor() const
 {
 	return color;
 }

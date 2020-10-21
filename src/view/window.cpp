@@ -38,8 +38,6 @@ Window::Window(std::string title, int posX, int posY, int height, int width)
 	}
 
 	glEnable(GL_DEPTH_TEST);
-	//todo delete this to change default mode back to fill once lighting is implemented
-//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	setupImGui();
 }

@@ -20,13 +20,12 @@ private:
 	std::unique_ptr<Mesh> terrain;
 	TerrainTranslator* terrainTranslator;
 	std::unique_ptr<Camera> camera;
-	Lightsource* light;
 
 	bool relativeMouseMode;
 
 public:
 	Demo1MainScene(Application* application, Window* window,
-		WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator, Lightsource* light);
+		WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator);
 	void processEvents(SDL_Event& event) override;
 	virtual ~Demo1MainScene();
 
