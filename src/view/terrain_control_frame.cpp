@@ -24,8 +24,6 @@ TerrainControlFrame::TerrainControlFrame(View *view, const std::string &name, Wo
 	nWavesWidth = 1;
 	nWavesHeight = 1;
 
-	genLock = false;
-
 	worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
 					      nVerticesSide, horizontalScale,
 					      nOctaves, persistence, lacunarity,
@@ -138,27 +136,5 @@ void TerrainControlFrame::mainDraw()
 							      nOctaves, persistence, lacunarity,
 							      nWavesWidth, nWavesHeight);
 	}
-
-	ImGui::NewLine();
-	ImGui::Text("Real time generation toggle");
-	if (genLock)
-	{
-		if (ImGui::Button("Turn On"))
-		{
-			genLock = false;
-		}
-	}
-	else
-	{
-		if (ImGui::Button("Turn Off"))
-		{
-			genLock = true;
-		}
-	}
-}
-
-bool TerrainControlFrame::isGenLock() const
-{
-	return genLock;
 }
 

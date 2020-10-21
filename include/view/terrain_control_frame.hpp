@@ -17,7 +17,6 @@ private:
 	float heightTerrain;
 	int nVerticesSide;
 	float scale;
-	bool genLock;
 
 	//noise map variables
 	float horizontalScale;
@@ -33,8 +32,6 @@ private:
 	void mainDraw() override;
 public:
 	TerrainControlFrame(View *view, const std::string &name, WorldManipulator* worldManipulator);
-
-	bool isGenLock() const;
 };
 
 
