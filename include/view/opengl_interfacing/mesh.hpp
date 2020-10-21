@@ -13,6 +13,7 @@
 #include "fragment_shader.hpp"
 #include "shader_program.hpp"
 #include "vertex.hpp"
+#include "lightsource.hpp"
 #include <memory>
 
 class Mesh
@@ -21,8 +22,13 @@ private:
 	GLenum usage;
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
+	std::vector<glm::vec3> normals;
 	//todo shader should probably not belong to the mesh class
 	ShaderProgram shader;
+
+	// todo probably only temporary
+	Lightsource* light;
+	glm::vec3 color;
 
 	glm::mat4 modelMatrix;
 
@@ -30,7 +36,7 @@ private:
 	std::unique_ptr<VBO> vbo;
 	std::unique_ptr<EBO> ebo;
 public:
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color, Lightsource* light);
 
 	virtual ~Mesh();
 
@@ -46,10 +52,14 @@ public:
 
 	std::vector<unsigned int> &getIndices();
 
+	std::vector<glm::vec3> &getNormals();
+
 	void update();
 
 	//angle in radians!; when possible use this function, it has the correct order of matrix operations
 	void scaleRotateTranslate(glm::vec3 scale, float angle, glm::vec3 axis, glm::vec3 trans);
+
+	std::vector<Vertex> findConnectedVerticles(int vertexIndex);
 };
 
 

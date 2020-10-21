@@ -6,7 +6,6 @@
 #include <view/opengl_interfacing/first_person_camera.hpp>
 #include <view/camera_control_frame.hpp>
 
-
 Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 			       WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator)
 : TerrainModelsView(application, window, terrainTranslator)
@@ -15,9 +14,11 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 	setCamera(FPS_CAMERA);
 	setCameraPosition(glm::vec3(0.0f, .5f, 0.0f));
 
+	light = std::make_unique<Lightsource>(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
 	frames.emplace_back(std::make_unique<CameraControlFrame>(this, "Camera Control"));
-
+  
 	relativeMouseMode = true;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
@@ -109,7 +110,6 @@ void Demo1MainScene::draw()
 	{
 		model->draw(camera->getViewMatrix(), camera->getProjectionMatrix());
 	}
-
 }
 
 void Demo1MainScene::addModel(std::unique_ptr<Mesh> model)
