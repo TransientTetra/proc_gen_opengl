@@ -22,7 +22,7 @@ protected:
 	void endDraw();
 public:
 	Frame(View* view, std::string name);
-	virtual void draw();
+	virtual void draw() final;
 
 	void setOpacity(float opacity);
 

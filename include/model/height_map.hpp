@@ -11,6 +11,7 @@ protected:
 	unsigned int width ; //number of points horizontal
 	unsigned int length; //number of points vertical
 	std::vector<float> points;
+	void setAt(unsigned int x, unsigned int y, float v);
 public:
 	HeightMap();
 
@@ -18,7 +19,7 @@ public:
 
 	virtual ~HeightMap();
 
-	float at(unsigned int x, unsigned int y);
+	const float& at(unsigned int x, unsigned int y) const;
 
 	unsigned int getWidth() const;
 

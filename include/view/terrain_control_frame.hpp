@@ -5,6 +5,7 @@
 #include <generation_algorithm.hpp>
 #include <controller/world_manipulator.hpp>
 #include "frame.hpp"
+#include "terrain_models_view.hpp"
 
 class TerrainControlFrame : public Frame
 {
@@ -30,8 +31,9 @@ private:
 	int nWavesHeight;
 
 	void mainDraw() override;
+	void sendUpdateSignal();
 public:
-	TerrainControlFrame(View *view, const std::string &name, WorldManipulator* worldManipulator);
+	TerrainControlFrame(TerrainModelsView *view, const std::string &name, WorldManipulator* worldManipulator);
 };
 
 
