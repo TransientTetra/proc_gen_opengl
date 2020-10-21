@@ -12,6 +12,8 @@ private:
 	std::uniform_real_distribution<float> distribution;
 
 	unsigned int findSmallestSquareSide();
+	void diamondStep(unsigned int tileWidth, unsigned int halfSide, float amplitude);
+	void squareStep(unsigned int tileWidth, unsigned int halfSide, float amplitude);
 public:
 	DiamondSquareMap(unsigned int width, unsigned int length, unsigned int seed, float persistence);
 };

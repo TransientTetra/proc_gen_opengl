@@ -83,17 +83,20 @@ void TerrainControlFrame::mainDraw()
 							      nOctaves, persistence, lacunarity,
 							      nWavesWidth, nWavesHeight);
 
-		tempF = persistence;
-		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
-		if (tempF != persistence)
+		tempF = lacunarity;
+		ImGui::SliderFloat("Lacunarity", &lacunarity, 1.f, 10.f);
+		if (tempF != lacunarity)
 			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
 							      nVerticesSide, horizontalScale,
 							      nOctaves, persistence, lacunarity,
 							      nWavesWidth, nWavesHeight);
+	}
 
-		tempF = lacunarity;
-		ImGui::SliderFloat("Lacunarity", &lacunarity, 1.f, 10.f);
-		if (tempF != lacunarity)
+	if (currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE)
+	{
+		tempF = persistence;
+		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
+		if (tempF != persistence)
 			worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
 							      nVerticesSide, horizontalScale,
 							      nOctaves, persistence, lacunarity,
@@ -109,7 +112,10 @@ void TerrainControlFrame::mainDraw()
 							      nVerticesSide, horizontalScale,
 							      nOctaves, persistence, lacunarity,
 							      nWavesWidth, nWavesHeight);
+	}
 
+	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE)
+	{
 		ImGui::Text("Noise seed");
 		if (ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char)))
 		{
