@@ -37,6 +37,7 @@ void TerrainControlFrame::mainDraw()
 	if (ImGui::RadioButton("White Noise", currentAlgo == WHITE_NOISE)) currentAlgo = WHITE_NOISE;
 	if (ImGui::RadioButton("Sinusoidal", currentAlgo == SINUSOIDAL)) currentAlgo = SINUSOIDAL;
 	if (ImGui::RadioButton("Perlin Noise", currentAlgo == PERLIN_NOISE)) currentAlgo = PERLIN_NOISE;
+	if (ImGui::RadioButton("Diamond Square", currentAlgo == DIAMOND_SQUARE)) currentAlgo = DIAMOND_SQUARE;
 	if (tempA != currentAlgo)
 		sendUpdateSignal();
 	ImGui::NewLine();
@@ -79,14 +80,17 @@ void TerrainControlFrame::mainDraw()
 		if (tempF != horizontalScale)
 			sendUpdateSignal();
 
-		tempF = persistence;
-		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
-		if (tempF != persistence)
-			sendUpdateSignal();
-
 		tempF = lacunarity;
 		ImGui::SliderFloat("Lacunarity", &lacunarity, 1.f, 10.f);
 		if (tempF != lacunarity)
+			sendUpdateSignal();
+	}
+
+	if (currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE)
+	{
+		tempF = persistence;
+		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
+		if (tempF != persistence)
 			sendUpdateSignal();
 	}
 
@@ -96,7 +100,10 @@ void TerrainControlFrame::mainDraw()
 		ImGui::SliderInt("N octaves", &nOctaves, 1, 10);
 		if (tempI != nOctaves)
 			sendUpdateSignal();
+	}
 
+	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE)
+	{
 		ImGui::Text("Noise seed");
 		if (ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char)))
 		{

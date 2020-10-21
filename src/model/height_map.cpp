@@ -7,16 +7,8 @@ HeightMap::HeightMap()
 }
 
 HeightMap::HeightMap(unsigned int width, unsigned int length)
-: width(width), length(length)
-{
-	for (int i = 0; i < length; ++i)
-	{
-		for (int j = 0; j < width; ++j)
-		{
-			points.emplace_back(0);
-		}
-	}
-}
+: width(width), length(length), points(width * length)
+{}
 
 HeightMap::~HeightMap()
 {
@@ -24,9 +16,9 @@ HeightMap::~HeightMap()
 }
 
 
-float HeightMap::at(unsigned int x, unsigned int y)
+const float& HeightMap::at(unsigned int x, unsigned int y) const
 {
-	return points[y * width + x];
+	return points.at(y * width + x);
 }
 
 unsigned int HeightMap::getWidth() const
@@ -37,4 +29,9 @@ unsigned int HeightMap::getWidth() const
 unsigned int HeightMap::getLength() const
 {
 	return length;
+}
+
+void HeightMap::setAt(unsigned int x, unsigned int y, float v)
+{
+	points.at(y * width + x) = v;
 }
