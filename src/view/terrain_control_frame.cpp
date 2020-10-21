@@ -40,6 +40,7 @@ void TerrainControlFrame::mainDraw()
 	if (ImGui::RadioButton("White Noise", currentAlgo == WHITE_NOISE)) currentAlgo = WHITE_NOISE;
 	if (ImGui::RadioButton("Sinusoidal", currentAlgo == SINUSOIDAL)) currentAlgo = SINUSOIDAL;
 	if (ImGui::RadioButton("Perlin Noise", currentAlgo == PERLIN_NOISE)) currentAlgo = PERLIN_NOISE;
+	if (ImGui::RadioButton("Diamond Square", currentAlgo == DIAMOND_SQUARE)) currentAlgo = DIAMOND_SQUARE;
 	if (tempA != currentAlgo)
 		worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
 						      nVerticesSide, horizontalScale,

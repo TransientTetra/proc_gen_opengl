@@ -2,6 +2,7 @@
 #include <model/perlin_noise.hpp>
 #include <model/white_noise.hpp>
 #include <model/sinusoidal_map.hpp>
+#include <model/diamond_square_map.hpp>
 #include "controller/world_manipulator.hpp"
 
 WorldManipulator::WorldManipulator(World *world)
@@ -38,6 +39,10 @@ void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, std::s
 		case SINUSOIDAL:
 			heightMap = std::make_unique<SinusoidalMap>(nVerticesSide, nVerticesSide,
 					       nWavesWidth, nWavesLength);
+			break;
+		case DIAMOND_SQUARE:
+			heightMap = std::make_unique<DiamondSquareMap>(nVerticesSide, nVerticesSide, seedI,
+						  persistence);
 			break;
 		case FLAT:
 		default:
