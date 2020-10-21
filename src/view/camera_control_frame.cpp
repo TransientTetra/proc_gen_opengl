@@ -86,4 +86,9 @@ void CameraControlFrame::mainDraw()
 	ImGui::SliderFloat("Draw distance", &drawDistance, 1, 500);
 	if (tempF != drawDistance)
 		dynamic_cast<CameraView*>(view)->setCameraDrawDistance(drawDistance);
+
+	tempF = speed;
+	ImGui::SliderFloat("Movement speed", &speed, 1.f, 5.f);
+	if (tempF != speed)
+		dynamic_cast<CameraView*>(view)->setCameraSpeed(speed);
 }
