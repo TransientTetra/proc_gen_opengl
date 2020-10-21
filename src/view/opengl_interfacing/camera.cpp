@@ -2,6 +2,7 @@
 #include "view/opengl_interfacing/camera.hpp"
 
 Camera::Camera(float fov, float aspectRatio, float nearDraw, float farDraw)
+: fov(fov), aspectRatio(aspectRatio), nearDraw(nearDraw), farDraw(farDraw)
 {
 	position = glm::vec3(.0f, .0f, .0f);
 	direction = glm::vec3(.0f, .0f, -1.0f);
@@ -125,4 +126,48 @@ void Camera::startMovingDown()
 void Camera::stopMovingDown()
 {
 	movingDown = false;
+}
+
+float Camera::getFOV() const
+{
+	return fov;
+}
+
+void Camera::setFOV(float fov)
+{
+	Camera::fov = fov;
+	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
+}
+
+float Camera::getAspectRatio() const
+{
+	return aspectRatio;
+}
+
+void Camera::setAspectRatio(float aspectRatio)
+{
+	Camera::aspectRatio = aspectRatio;
+	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
+}
+
+float Camera::getNearDraw() const
+{
+	return nearDraw;
+}
+
+void Camera::setNearDraw(float nearDraw)
+{
+	Camera::nearDraw = nearDraw;
+	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
+}
+
+float Camera::getFarDraw() const
+{
+	return farDraw;
+}
+
+void Camera::setFarDraw(float farDraw)
+{
+	Camera::farDraw = farDraw;
+	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
 }

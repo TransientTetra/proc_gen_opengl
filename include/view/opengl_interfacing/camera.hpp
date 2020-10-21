@@ -7,6 +7,11 @@
 class Camera
 {
 protected:
+	float fov; //radians
+	float aspectRatio;
+	float nearDraw;
+	float farDraw;
+
 	glm::vec3 position;
 	glm::vec3 direction;
 	glm::vec3 forward;
@@ -26,6 +31,22 @@ protected:
 public:
 	//all angles in radians
 	Camera(float fov, float aspectRatio, float nearDraw, float farDraw);
+
+	float getFOV() const;
+
+	void setFOV(float fov);
+
+	float getAspectRatio() const;
+
+	void setAspectRatio(float aspectRatio);
+
+	float getNearDraw() const;
+
+	void setNearDraw(float nearDraw);
+
+	float getFarDraw() const;
+
+	void setFarDraw(float farDraw);
 
 	const glm::mat4 &getViewMatrix() const;
 	const glm::mat4 &getProjectionMatrix() const;
