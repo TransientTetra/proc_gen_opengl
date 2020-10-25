@@ -44,6 +44,7 @@ set(
         view/camera_control_frame.cpp
         view/camera_view.cpp
         view/terrain_models_view.cpp
+        controller/terrain_colorer.cpp
 )
 set(SRC ${SRC})
 

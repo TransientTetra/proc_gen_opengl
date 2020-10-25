@@ -3,6 +3,7 @@
 TerrainTranslator::TerrainTranslator(Terrain *terrain)
 : terrain(terrain)
 {
+	colorer = new TerrainColorer();
 }
 
 void TerrainTranslator::updateMesh(Mesh *mesh)
@@ -74,17 +75,7 @@ void TerrainTranslator::updateVertices(std::vector<Vertex> &vertices)
 
 		glm::vec3 norm = -glm::normalize(t1_norm + t2_norm + t3_norm + t4_norm + t5_norm + t6_norm);
 
-		float diff = (v.y - minHeight) / (maxHeight - minHeight);
-		diff = diff < .0f ? .0f : diff > 1.0f ? 1.0f : diff;
-
-		glm::vec3 col = glm::vec3(
-			highColor.r > lowColor.r ? (highColor.r - lowColor.r) * diff + lowColor.r : lowColor.r - (lowColor.r - highColor.r) * diff,
-			highColor.g > lowColor.g ? (highColor.g - lowColor.g) * diff + lowColor.g : lowColor.g - (lowColor.g - highColor.g) * diff,
-			highColor.b > lowColor.b ? (highColor.b - lowColor.b) * diff + lowColor.b : lowColor.b - (lowColor.b - highColor.b) * diff
-			);
-
-
-		vertices.emplace_back(Vertex(v, norm, col));
+		vertices.emplace_back(Vertex(v, norm, colorer->getPointColor(v)));
 	}
 }
 
