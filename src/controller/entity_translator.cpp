@@ -5,7 +5,8 @@ std::vector<Vertex> EntityTranslator::getVertices(const Entity &entity)
 	std::vector<Vertex> ret;
 	for (auto&& point : entity.getVertices())
 	{
-		ret.emplace_back(Vertex(point));
+		// todo add color and norm
+//		ret.emplace_back(Vertex(point));
 	}
 	return ret;
 }

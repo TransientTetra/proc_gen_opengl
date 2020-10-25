@@ -12,8 +12,6 @@ private:
 	glm::vec3 color;
 public:
 	Vertex(glm::vec3 position, glm::vec3 normal, glm::vec3 color);
-	Vertex(glm::vec3 position, glm::vec3 normal);
-	Vertex(glm::vec3 position);
 
 	glm::vec3 getPosition();
 
