@@ -34,6 +34,10 @@ public:
 	bool isOpen();
 	void setClose();
 	SDL_Window* getSDLWindow();
+
+	int getHeight() const;
+
+	int getWidth() const;
 };
 
 

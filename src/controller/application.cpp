@@ -8,9 +8,9 @@ Application::Application(std::string title, int height, int width)
 	lastFrameDuration = std::chrono::duration<double>(1.0);
 }
 
-std::chrono::duration<double> Application::getLastFrameDuration()
+double Application::getLastFrameDuration()
 {
-	return lastFrameDuration;
+	return lastFrameDuration.count();
 }
 
 Window *Application::getWindow()

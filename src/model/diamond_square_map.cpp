@@ -1,5 +1,5 @@
 #include <complex>
-#include "diamond_square_map.hpp"
+#include "model/diamond_square_map.hpp"
 
 DiamondSquareMap::DiamondSquareMap(unsigned int width, unsigned int length, unsigned int seed, float persistence)
 : HeightMap(), generator(seed), distribution(-1.f, 1.f)
