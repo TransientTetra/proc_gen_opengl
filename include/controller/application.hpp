@@ -26,7 +26,7 @@ public:
 	virtual void run() = 0;
 	virtual void processEvents() = 0;
 
-	std::chrono::duration<double> getLastFrameDuration();
+	double getLastFrameDuration();
 	Window* getWindow();
 
 };

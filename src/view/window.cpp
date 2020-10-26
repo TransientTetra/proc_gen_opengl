@@ -105,3 +105,13 @@ void Window::updateViewportAndClear()
 	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+
+int Window::getHeight() const
+{
+	return height;
+}
+
+int Window::getWidth() const
+{
+	return width;
+}
