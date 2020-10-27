@@ -1,9 +1,10 @@
 #include "view/standard_fps_movement.hpp"
+#include <SDL.h>
 
 StandardFPSMovement::StandardFPSMovement(CameraController *cameraController)
 : Movement(cameraController)
 {
-	mouseSensitivity = .005f;
+	mouseDelta = .005f;
 	speedMultiplier = 3;
 	relativeMouseMode = false;
 	keyPressed[SDLK_w] = false;
@@ -158,17 +159,19 @@ void StandardFPSMovement::processMouseEvent(SDL_Event &event)
 			{
 				if (event.motion.xrel)
 				{
+					float accel = abs(static_cast<float>(event.motion.xrel));
 					if (event.motion.xrel > 0)
-						cameraController->yawRight(mouseSensitivity);
+						cameraController->yawRight(accel * mouseDelta);
 					if (event.motion.xrel < 0)
-						cameraController->yawLeft(mouseSensitivity);
+						cameraController->yawLeft(accel * mouseDelta);
 				}
 				if (event.motion.yrel)
 				{
+					float accel = abs(static_cast<float>(event.motion.yrel));
 					if (event.motion.yrel < 0)
-						cameraController->pitchUp(mouseSensitivity);
+						cameraController->pitchUp(accel * mouseDelta);
 					if (event.motion.yrel > 0)
-						cameraController->pitchDown(mouseSensitivity);
+						cameraController->pitchDown(accel * mouseDelta);
 				}
 			}
 			break;

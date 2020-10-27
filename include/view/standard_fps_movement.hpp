@@ -12,7 +12,7 @@ class StandardFPSMovement : public Movement
 private:
 	bool relativeMouseMode;
 	float speedMultiplier;
-	float mouseSensitivity;
+	float mouseDelta;
 
 	std::map<SDL_KeyCode, bool> keyPressed;
 public:
