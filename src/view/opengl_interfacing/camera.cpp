@@ -38,6 +38,12 @@ const glm::vec3 &Camera::getUp() const
     return up;
 }
 
+glm::vec3 Camera::getRight()
+{
+	return glm::normalize(glm::cross(up, direction));;
+}
+
+
 void Camera::setPosition(const glm::vec3 &position)
 {
 	direction += (position - Camera::position);
@@ -96,44 +102,46 @@ void Camera::setFarDraw(float farDraw)
 	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
 }
 
+void Camera::move(const float &delta, const glm::vec3 &vec)
+{
+	position += glm::normalize(vec) * delta;
+	direction += glm::normalize(vec) * delta;
+	viewMatrix = glm::lookAt(position, direction, up);
+}
+
+void Camera::rotate(const float &angle, const glm::vec3 &vec)
+{
+	direction = glm::rotate(direction, angle, vec);
+	up = glm::rotate(up, angle, vec);
+	viewMatrix = glm::lookAt(position, direction, up);
+}
+
 void Camera::moveX(const float &delta)
 {
-	position.x += delta;
-	direction.x += delta;
-	viewMatrix = glm::lookAt(position, direction, up);
+	move(delta, glm::vec3(1, 0, 0));
 }
 
 void Camera::moveY(const float &delta)
 {
-	position.y += delta;
-	direction.y += delta;
-	viewMatrix = glm::lookAt(position, direction, up);
+	move(delta, glm::vec3(0, 1, 0));
 }
 
 void Camera::moveZ(const float &delta)
 {
-	position.z += delta;
-	direction.z += delta;
-	viewMatrix = glm::lookAt(position, direction, up);
+	move(delta, glm::vec3(0, 0, 1));
 }
 
 void Camera::rotateX(const float &angle)
 {
-	direction = glm::rotate(direction, angle, glm::vec3(1, 0, 0));
-	up = glm::rotate(up, angle, glm::vec3(1, 0, 0));
-	viewMatrix = glm::lookAt(position, direction, up);
+	rotate(angle, glm::vec3(1, 0, 0));
 }
 
 void Camera::rotateY(const float &angle)
 {
-	direction = glm::rotate(direction, angle, glm::vec3(0, 1, 0));
-	up = glm::rotate(up, angle, glm::vec3(0, 1, 0));
-	viewMatrix = glm::lookAt(position, direction, up);
+	rotate(angle, glm::vec3(0, 1, 0));
 }
 
 void Camera::rotateZ(const float &angle)
 {
-	direction = glm::rotate(direction, angle, glm::vec3(0, 0, 1));
-	up = glm::rotate(up, angle, glm::vec3(0, 0, 1));
-	viewMatrix = glm::lookAt(position, direction, up);
+	rotate(angle, glm::vec3(0, 0, 1));
 }

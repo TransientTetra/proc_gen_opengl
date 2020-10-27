@@ -16,12 +16,12 @@ void FlyingFPSCameraController::moveBackward(float deltaT)
 
 void FlyingFPSCameraController::moveLeft(float deltaT)
 {
-
+//	camera->move(deltaT * -movementSpeed, camera->getRight());
 }
 
 void FlyingFPSCameraController::moveRight(float deltaT)
 {
-
+//	camera->move(deltaT * movementSpeed, camera->getRight());
 }
 
 void FlyingFPSCameraController::moveUp(float deltaT)
@@ -34,32 +34,17 @@ void FlyingFPSCameraController::moveDown(float deltaT)
 
 }
 
-void FlyingFPSCameraController::pitchUp(float deltaT)
+void FlyingFPSCameraController::pitch(float deltaT)
 {
 
 }
 
-void FlyingFPSCameraController::pitchDown(float deltaT)
+void FlyingFPSCameraController::yaw(float deltaT)
 {
 
 }
 
-void FlyingFPSCameraController::yawLeft(float deltaT)
-{
-
-}
-
-void FlyingFPSCameraController::yawRight(float deltaT)
-{
-
-}
-
-void FlyingFPSCameraController::rollLeft(float deltaT)
-{
-
-}
-
-void FlyingFPSCameraController::rollRight(float deltaT)
+void FlyingFPSCameraController::roll(float deltaT)
 {
 
 }

@@ -20,12 +20,12 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 
 void Demo1MainScene::processEvents(SDL_Event &event)
 {
-	inputProcessor.processInput(event, cameraController.get());
+	inputProcessor.processInput(event);
 }
 
 void Demo1MainScene::draw()
 {
-	cameraController->update(application->getLastFrameDuration());
+	inputProcessor.updateController(cameraController.get(), application->getLastFrameDuration());
 	TerrainModelsView::draw();
 
 	terrain->draw(camera.getViewMatrix(), camera.getProjectionMatrix());

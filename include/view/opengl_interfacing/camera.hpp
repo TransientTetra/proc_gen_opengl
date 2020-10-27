@@ -40,9 +40,13 @@ public:
 	const glm::vec3 &getPosition() const;
 	const glm::vec3 &getDirection() const;
 	const glm::vec3 &getUp() const;
+	glm::vec3 getRight();
 
 	void setPosition(const glm::vec3 &position);
 	void setDirection(const glm::vec3 &direction, const glm::vec3 &up);
+
+	void move(const float& delta, const glm::vec3& vec);
+	void rotate(const float& angle, const glm::vec3& vec);
 
 	void moveX(const float& delta);
 	void moveY(const float& delta);

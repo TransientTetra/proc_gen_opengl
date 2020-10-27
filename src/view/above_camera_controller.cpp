@@ -37,32 +37,17 @@ void AboveCameraController::moveDown(float deltaT)
 	camera->moveY(deltaT * -movementSpeed);
 }
 
-void AboveCameraController::pitchUp(float deltaT)
+void AboveCameraController::pitch(float deltaT)
 {
 
 }
 
-void AboveCameraController::pitchDown(float deltaT)
+void AboveCameraController::yaw(float deltaT)
 {
 
 }
 
-void AboveCameraController::yawLeft(float deltaT)
-{
-
-}
-
-void AboveCameraController::yawRight(float deltaT)
-{
-
-}
-
-void AboveCameraController::rollLeft(float deltaT)
-{
-
-}
-
-void AboveCameraController::rollRight(float deltaT)
+void AboveCameraController::roll(float deltaT)
 {
 
 }

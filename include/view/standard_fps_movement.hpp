@@ -2,6 +2,8 @@
 #define PROC_GEN_OPENGL_STANDARD_FPS_MOVEMENT_HPP
 
 
+#include <string>
+#include <map>
 #include "movement.hpp"
 #include "camera_controller.hpp"
 
@@ -9,10 +11,14 @@ class StandardFPSMovement : public Movement
 {
 private:
 	bool relativeMouseMode;
+
+	std::map<SDL_KeyCode, bool> keyPressed;
 public:
 	StandardFPSMovement();
 
-	void processInput(SDL_Event &e, CameraController *cameraController) override;
+	void processInput(SDL_Event &e) override;
+
+	void updateController(CameraController *cameraController, float deltaT) override;
 };
 
 

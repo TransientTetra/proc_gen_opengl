@@ -34,32 +34,17 @@ void StaticCameraController::moveDown(float deltaT)
 
 }
 
-void StaticCameraController::pitchUp(float deltaT)
+void StaticCameraController::pitch(float deltaT)
 {
 
 }
 
-void StaticCameraController::pitchDown(float deltaT)
+void StaticCameraController::yaw(float deltaT)
 {
 
 }
 
-void StaticCameraController::yawLeft(float deltaT)
-{
-
-}
-
-void StaticCameraController::yawRight(float deltaT)
-{
-
-}
-
-void StaticCameraController::rollLeft(float deltaT)
-{
-
-}
-
-void StaticCameraController::rollRight(float deltaT)
+void StaticCameraController::roll(float deltaT)
 {
 
 }
