@@ -1,13 +1,12 @@
-#include "view/standard_fps_input_processor.hpp"
+#include "view/standard_fps_movement.hpp"
 
-StandardFPSInputProcessor::StandardFPSInputProcessor(CameraController *cameraController)
-: cameraController(cameraController)
+StandardFPSMovement::StandardFPSMovement()
 {
 	relativeMouseMode = true;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
-void StandardFPSInputProcessor::processInput(SDL_Event &event)
+void StandardFPSMovement::processInput(SDL_Event &event, CameraController *cameraController)
 {
 	switch(event.type) {
 		case SDL_KEYDOWN:
@@ -75,9 +74,4 @@ void StandardFPSInputProcessor::processInput(SDL_Event &event)
 
 			break;
 	}
-}
-
-void StandardFPSInputProcessor::setCameraController(CameraController *cameraController)
-{
-	StandardFPSInputProcessor::cameraController = cameraController;
 }

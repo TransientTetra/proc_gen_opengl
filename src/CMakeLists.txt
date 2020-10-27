@@ -46,8 +46,8 @@ set(
         view/above_camera_controller.cpp
         view/flying_fps_camera_controller.cpp
         view/static_camera_controller.cpp
-        view/input_processor.cpp
-        view/standard_fps_input_processor.cpp
+        view/movement.cpp
+        view/standard_fps_movement.cpp
 )
 set(SRC ${SRC})
 
