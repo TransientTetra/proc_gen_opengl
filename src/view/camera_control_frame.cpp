@@ -17,8 +17,8 @@ CameraControlFrame::CameraControlFrame(CameraView *view, const std::string &name
 	drawDistance = 100;
 
 	xpos = 0;
-	ypos = 0.5;
-	zpos = 0;
+	ypos = 1;
+	zpos = 10;
 
 	//init view
 	dynamic_cast<CameraView*>(view)->setCameraController(cameraType);
