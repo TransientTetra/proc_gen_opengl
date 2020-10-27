@@ -3,8 +3,7 @@
 AboveCameraController::AboveCameraController(Camera *camera, float movementSpeed, float rotationSpeed)
 : CameraController(camera, movementSpeed, rotationSpeed)
 {
-	glm::vec3 pos = camera->getPosition();
-	camera->setDirection(glm::vec3(pos.x, -1.0f, pos.z), glm::vec3(.0f, .0f, -1.0f));
+	camera->setDirection(glm::vec3(0, -1.0f, 0), glm::vec3(.0f, .0f, -1.0f));
 }
 
 void AboveCameraController::moveForward(float deltaT)

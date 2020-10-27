@@ -6,7 +6,7 @@
 
 Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 			       WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator)
-: TerrainModelsView(application, window, terrainTranslator)
+: TerrainModelsView(application, window, terrainTranslator), inputProcessor(cameraController.get())
 {
 	Demo1MainScene::terrainTranslator = terrainTranslator;
 
@@ -20,7 +20,9 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 
 void Demo1MainScene::processEvents(SDL_Event &event)
 {
-	inputProcessor.processInput(event);
+	inputProcessor.setCameraController(cameraController.get());
+	inputProcessor.processKeyboardEvent(event);
+	inputProcessor.processMouseEvent(event);
 }
 
 void Demo1MainScene::draw()

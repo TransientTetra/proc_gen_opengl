@@ -7,6 +7,10 @@ FlyingFPSCameraController::FlyingFPSCameraController(Camera *camera, float movem
 void FlyingFPSCameraController::moveForward(float deltaT)
 {
 	glm::vec3 directionPlane = camera->getDirection();
+	if (directionPlane.y > 0)
+		directionPlane -= camera->getUp();
+	else
+		directionPlane += camera->getUp();
 	directionPlane.y = 0;
 	camera->move(deltaT * movementSpeed, directionPlane);
 }
@@ -14,6 +18,10 @@ void FlyingFPSCameraController::moveForward(float deltaT)
 void FlyingFPSCameraController::moveBackward(float deltaT)
 {
 	glm::vec3 directionPlane = camera->getDirection();
+	if (directionPlane.y > 0)
+		directionPlane -= camera->getUp();
+	else
+		directionPlane += camera->getUp();
 	directionPlane.y = 0;
 	camera->move(deltaT * -movementSpeed, directionPlane);
 }
@@ -44,12 +52,20 @@ void FlyingFPSCameraController::moveDown(float deltaT)
 
 void FlyingFPSCameraController::pitchUp(float deltaT)
 {
-	camera->rotate(deltaT * rotationSpeed, camera->getRight());
+	glm::vec3 down(0, -1, 0);
+	float dirDot = glm::dot(camera->getDirection(), down);
+	float upDot = glm::dot(camera->getUp(), down);
+	if (dirDot > 0 or (dirDot > -1 and upDot < 0))
+		camera->rotate(deltaT * rotationSpeed, camera->getRight());
 }
 
 void FlyingFPSCameraController::pitchDown(float deltaT)
 {
-	camera->rotate(deltaT * -rotationSpeed, camera->getRight());
+	glm::vec3 down(0, -1, 0);
+	float dirDot = glm::dot(camera->getDirection(), down);
+	float upDot = glm::dot(camera->getUp(), down);
+	if (dirDot < 0 or (dirDot < 1 and upDot < 0))
+		camera->rotate(deltaT * -rotationSpeed, camera->getRight());
 }
 
 void FlyingFPSCameraController::yawLeft(float deltaT)

@@ -8,9 +8,15 @@
 class Movement
 {
 protected:
+	CameraController* cameraController;
 public:
-	virtual void processInput(SDL_Event &e) = 0;
+	Movement(CameraController *cameraController);
+
+	virtual void processKeyboardEvent(SDL_Event &e) = 0;
+	virtual void processMouseEvent(SDL_Event &e) = 0;
 	virtual void updateController(CameraController* cameraController, float deltaT) = 0;
+
+	void setCameraController(CameraController *cameraController);
 };
 
 

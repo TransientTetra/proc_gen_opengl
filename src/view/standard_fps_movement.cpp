@@ -1,10 +1,11 @@
 #include "view/standard_fps_movement.hpp"
 
-StandardFPSMovement::StandardFPSMovement()
+StandardFPSMovement::StandardFPSMovement(CameraController *cameraController)
+: Movement(cameraController)
 {
+	mouseSensitivity = .005f;
 	speedMultiplier = 3;
-	relativeMouseMode = true;
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	relativeMouseMode = false;
 	keyPressed[SDLK_w] = false;
 	keyPressed[SDLK_a] = false;
 	keyPressed[SDLK_s] = false;
@@ -15,12 +16,12 @@ StandardFPSMovement::StandardFPSMovement()
 	keyPressed[SDLK_UP] = false;
 	keyPressed[SDLK_DOWN] = false;
 	keyPressed[SDLK_LEFT] = false;
-	keyPressed[SDLK_RIGHT] = false;
-}
+	keyPressed[SDLK_RIGHT] = false;}
 
-void StandardFPSMovement::processInput(SDL_Event &event)
+
+void StandardFPSMovement::processKeyboardEvent(SDL_Event &event)
 {
-	switch(event.type)
+	switch (event.type)
 	{
 		case SDL_KEYDOWN:
 			switch(event.key.keysym.sym)
@@ -113,19 +114,6 @@ void StandardFPSMovement::processInput(SDL_Event &event)
 					break;
 			}
 			break;
-		case SDL_MOUSEMOTION:
-			if(relativeMouseMode)
-			{
-				if (event.motion.xrel)
-				{
-//					cameraController->yaw(event.motion.xrel);
-				}
-				if (event.motion.yrel)
-				{
-//					cameraController->pitch(event.motion.yrel);
-				}
-			}
-			break;
 	}
 }
 
@@ -158,5 +146,31 @@ void StandardFPSMovement::updateController(CameraController *cameraController, f
 	if (keyPressed[SDLK_LCTRL] or keyPressed[SDLK_DOWN])
 	{
 		cameraController->moveDown(deltaT);
+	}
+}
+
+void StandardFPSMovement::processMouseEvent(SDL_Event &event)
+{
+	switch (event.type)
+	{
+		case SDL_MOUSEMOTION:
+			if(relativeMouseMode)
+			{
+				if (event.motion.xrel)
+				{
+					if (event.motion.xrel > 0)
+						cameraController->yawRight(mouseSensitivity);
+					if (event.motion.xrel < 0)
+						cameraController->yawLeft(mouseSensitivity);
+				}
+				if (event.motion.yrel)
+				{
+					if (event.motion.yrel < 0)
+						cameraController->pitchUp(mouseSensitivity);
+					if (event.motion.yrel > 0)
+						cameraController->pitchDown(mouseSensitivity);
+				}
+			}
+			break;
 	}
 }

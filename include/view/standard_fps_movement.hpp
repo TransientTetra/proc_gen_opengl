@@ -12,12 +12,15 @@ class StandardFPSMovement : public Movement
 private:
 	bool relativeMouseMode;
 	float speedMultiplier;
+	float mouseSensitivity;
 
 	std::map<SDL_KeyCode, bool> keyPressed;
 public:
-	StandardFPSMovement();
+	StandardFPSMovement(CameraController *cameraController);
 
-	void processInput(SDL_Event &e) override;
+	void processKeyboardEvent(SDL_Event &e) override;
+
+	void processMouseEvent(SDL_Event &e) override;
 
 	void updateController(CameraController *cameraController, float deltaT) override;
 };
