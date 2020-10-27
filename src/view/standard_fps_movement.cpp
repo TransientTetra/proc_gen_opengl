@@ -2,6 +2,7 @@
 
 StandardFPSMovement::StandardFPSMovement()
 {
+	speedMultiplier = 3;
 	relativeMouseMode = true;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	keyPressed[SDLK_w] = false;
@@ -130,6 +131,10 @@ void StandardFPSMovement::processInput(SDL_Event &event)
 
 void StandardFPSMovement::updateController(CameraController *cameraController, float deltaT)
 {
+	if (keyPressed[SDLK_LSHIFT])
+	{
+		deltaT *= speedMultiplier;
+	}
 	if (keyPressed[SDLK_w])
 	{
 		cameraController->moveForward(deltaT);
@@ -153,9 +158,5 @@ void StandardFPSMovement::updateController(CameraController *cameraController, f
 	if (keyPressed[SDLK_LCTRL] or keyPressed[SDLK_DOWN])
 	{
 		cameraController->moveDown(deltaT);
-	}
-	if (keyPressed[SDLK_LSHIFT])
-	{
-//		cameraController->
 	}
 }
