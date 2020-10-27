@@ -3,7 +3,7 @@
 TerrainTranslator::TerrainTranslator(Terrain *terrain)
 : terrain(terrain)
 {
-	colorer = new TerrainColorer();
+	colorer = TerrainColorer();
 }
 
 void TerrainTranslator::updateMesh(Mesh *mesh)
@@ -75,7 +75,7 @@ void TerrainTranslator::updateVertices(std::vector<Vertex> &vertices)
 
 		glm::vec3 norm = -glm::normalize(t1_norm + t2_norm + t3_norm + t4_norm + t5_norm + t6_norm);
 
-		vertices.emplace_back(Vertex(v, norm, colorer->getPointColor(v)));
+		vertices.emplace_back(Vertex(v, norm, colorer.getPointColor(v)));
 	}
 }
 

@@ -12,7 +12,7 @@ class TerrainTranslator
 {
 private:
 	Terrain* terrain;
-	TerrainColorer* colorer;
+	TerrainColorer colorer;
 	std::vector<Vertex> getVertices();
 	std::vector<unsigned int> getIndices();
 	void updateVertices(std::vector<Vertex> &vertices);
