@@ -29,9 +29,12 @@ public:
 	virtual void moveUp(float deltaT) = 0;
 	virtual void moveDown(float deltaT) = 0;
 
-	virtual void pitch(float deltaT) = 0;
-	virtual void yaw(float deltaT) = 0;
-	virtual void roll(float deltaT) = 0;
+	virtual void pitchUp(float deltaT) = 0;
+	virtual void pitchDown(float deltaT) = 0;
+	virtual void yawLeft(float deltaT) = 0;
+	virtual void yawRight(float deltaT) = 0;
+	virtual void rollLeft(float deltaT) = 0;
+	virtual void rollRight(float deltaT) = 0;
 };
 
 

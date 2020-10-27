@@ -9,45 +9,60 @@ AboveCameraController::AboveCameraController(Camera *camera, float movementSpeed
 
 void AboveCameraController::moveForward(float deltaT)
 {
-	camera->moveZ(deltaT * -movementSpeed);
+	camera->move(deltaT * -movementSpeed, glm::vec3(0, 0, 1));
 }
 
 void AboveCameraController::moveBackward(float deltaT)
 {
-	camera->moveZ(deltaT * movementSpeed);
+	camera->move(deltaT * movementSpeed, glm::vec3(0, 0, 1));
 }
 
 void AboveCameraController::moveLeft(float deltaT)
 {
-	camera->moveX(deltaT * -movementSpeed);
+	camera->move(deltaT * -movementSpeed, glm::vec3(1, 0, 0));
 }
 
 void AboveCameraController::moveRight(float deltaT)
 {
-	camera->moveX(deltaT * movementSpeed);
+	camera->move(deltaT * movementSpeed, glm::vec3(1, 0, 0));
 }
 
 void AboveCameraController::moveUp(float deltaT)
 {
-	camera->moveY(deltaT * movementSpeed);
+	camera->move(deltaT * movementSpeed, glm::vec3(0, 1, 0));
 }
 
 void AboveCameraController::moveDown(float deltaT)
 {
-	camera->moveY(deltaT * -movementSpeed);
+	camera->move(deltaT * -movementSpeed, glm::vec3(0, 1, 0));
 }
 
-void AboveCameraController::pitch(float deltaT)
+void AboveCameraController::pitchUp(float deltaT)
 {
 
 }
 
-void AboveCameraController::yaw(float deltaT)
+void AboveCameraController::pitchDown(float deltaT)
 {
 
 }
 
-void AboveCameraController::roll(float deltaT)
+void AboveCameraController::yawLeft(float deltaT)
+{
+
+}
+
+void AboveCameraController::yawRight(float deltaT)
+{
+
+}
+
+void AboveCameraController::rollLeft(float deltaT)
+{
+
+}
+
+void AboveCameraController::rollRight(float deltaT)
 {
 
 }

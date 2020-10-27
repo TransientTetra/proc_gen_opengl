@@ -45,16 +45,9 @@ public:
 	void setPosition(const glm::vec3 &position);
 	void setDirection(const glm::vec3 &direction, const glm::vec3 &up);
 
+	//the vector in below two methods is relative to the camera!
 	void move(const float& delta, const glm::vec3& vec);
 	void rotate(const float& angle, const glm::vec3& vec);
-
-	void moveX(const float& delta);
-	void moveY(const float& delta);
-	void moveZ(const float& delta);
-
-	void rotateX(const float& angle); //radians
-	void rotateY(const float& angle); //radians
-	void rotateZ(const float& angle); //radians
 };
 
 

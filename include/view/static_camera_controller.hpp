@@ -10,9 +10,6 @@ protected:
 public:
 	StaticCameraController(Camera *camera);
 
-	void pitch(float deltaT) override;
-	void yaw(float deltaT) override;
-	void roll(float deltaT) override;
 	void moveForward(float deltaT) override;
 
 	void moveBackward(float deltaT) override;
@@ -24,6 +21,18 @@ public:
 	void moveUp(float deltaT) override;
 
 	void moveDown(float deltaT) override;
+
+	void pitchUp(float deltaT) override;
+
+	void pitchDown(float deltaT) override;
+
+	void yawLeft(float deltaT) override;
+
+	void yawRight(float deltaT) override;
+
+	void rollLeft(float deltaT) override;
+
+	void rollRight(float deltaT) override;
 };
 
 

@@ -19,7 +19,6 @@ StandardFPSMovement::StandardFPSMovement()
 
 void StandardFPSMovement::processInput(SDL_Event &event)
 {
-
 	switch(event.type)
 	{
 		case SDL_KEYDOWN:
@@ -99,8 +98,16 @@ void StandardFPSMovement::processInput(SDL_Event &event)
 					keyPressed[SDLK_LSHIFT] = false;
 					break;
 				case SDLK_ESCAPE:
-					relativeMouseMode = false;
-					SDL_SetRelativeMouseMode(SDL_FALSE);
+					if (relativeMouseMode)
+					{
+						relativeMouseMode = false;
+						SDL_SetRelativeMouseMode(SDL_FALSE);
+					}
+					else
+					{
+						relativeMouseMode = true;
+						SDL_SetRelativeMouseMode(SDL_TRUE);
+					}
 				default:
 					break;
 			}
@@ -139,31 +146,15 @@ void StandardFPSMovement::updateController(CameraController *cameraController, f
 	{
 		cameraController->moveRight(deltaT);
 	}
-	if (keyPressed[SDLK_SPACE])
+	if (keyPressed[SDLK_SPACE] or keyPressed[SDLK_UP])
 	{
 		cameraController->moveUp(deltaT);
 	}
-	if (keyPressed[SDLK_LSHIFT])
-	{
-//		cameraController->
-	}
-	if (keyPressed[SDLK_LCTRL])
+	if (keyPressed[SDLK_LCTRL] or keyPressed[SDLK_DOWN])
 	{
 		cameraController->moveDown(deltaT);
 	}
-	if (keyPressed[SDLK_UP])
-	{
-//		cameraController->
-	}
-	if (keyPressed[SDLK_DOWN])
-	{
-//		cameraController->
-	}
-	if (keyPressed[SDLK_LEFT])
-	{
-//		cameraController->
-	}
-	if (keyPressed[SDLK_RIGHT])
+	if (keyPressed[SDLK_LSHIFT])
 	{
 //		cameraController->
 	}

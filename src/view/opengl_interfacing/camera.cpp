@@ -10,7 +10,7 @@ Camera::Camera(float fov, float aspectRatio, float nearDraw, float farDraw)
 	up = glm::vec3(.0f, 1.0f, .0f);
 	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
 
-	viewMatrix = glm::lookAt(position, direction, up);
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }
 
 const glm::mat4 &Camera::getViewMatrix() const
@@ -40,22 +40,21 @@ const glm::vec3 &Camera::getUp() const
 
 glm::vec3 Camera::getRight()
 {
-	return glm::normalize(glm::cross(up, direction));;
+	return glm::normalize(glm::cross(direction, up));;
 }
 
 
 void Camera::setPosition(const glm::vec3 &position)
 {
-	direction += (position - Camera::position);
 	Camera::position = position;
-	viewMatrix = glm::lookAt(position, direction, up);
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }
 
 void Camera::setDirection(const glm::vec3 &direction, const glm::vec3 &up)
 {
 	Camera::direction = direction;
 	Camera::up = up;
-	viewMatrix = glm::lookAt(position, direction, up);
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }
 
 float Camera::getFOV() const
@@ -105,43 +104,13 @@ void Camera::setFarDraw(float farDraw)
 void Camera::move(const float &delta, const glm::vec3 &vec)
 {
 	position += glm::normalize(vec) * delta;
-	direction += glm::normalize(vec) * delta;
-	viewMatrix = glm::lookAt(position, direction, up);
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }
 
 void Camera::rotate(const float &angle, const glm::vec3 &vec)
 {
-	direction = glm::rotate(direction, angle, vec);
-	up = glm::rotate(up, angle, vec);
-	viewMatrix = glm::lookAt(position, direction, up);
-}
-
-void Camera::moveX(const float &delta)
-{
-	move(delta, glm::vec3(1, 0, 0));
-}
-
-void Camera::moveY(const float &delta)
-{
-	move(delta, glm::vec3(0, 1, 0));
-}
-
-void Camera::moveZ(const float &delta)
-{
-	move(delta, glm::vec3(0, 0, 1));
-}
-
-void Camera::rotateX(const float &angle)
-{
-	rotate(angle, glm::vec3(1, 0, 0));
-}
-
-void Camera::rotateY(const float &angle)
-{
-	rotate(angle, glm::vec3(0, 1, 0));
-}
-
-void Camera::rotateZ(const float &angle)
-{
-	rotate(angle, glm::vec3(0, 0, 1));
+	glm::mat4 rotation = glm::rotate(angle, vec);
+	direction = glm::vec3(glm::normalize(rotation * glm::vec4(direction, 0.0)));
+	up = glm::vec3(glm::normalize(rotation * glm::vec4(up, 0.0)));
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }
