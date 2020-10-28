@@ -34,7 +34,7 @@ unsigned VoronoiMap::getClosest(unsigned int x, unsigned int y, const std::vecto
 	{
 		unsigned px = points.at(i).first;
 		unsigned py = points.at(i).second;
-		float dist = sqrtf((x - px) * (x - px) + (y - py) * (y - py));
+		float dist = getDist(x, y, px, py);
 		if (dist < min)
 		{
 			min = dist;
@@ -42,4 +42,9 @@ unsigned VoronoiMap::getClosest(unsigned int x, unsigned int y, const std::vecto
 		}
 	}
 	return ret;
+}
+
+float VoronoiMap::getDist(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
+{
+	return sqrtf((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
