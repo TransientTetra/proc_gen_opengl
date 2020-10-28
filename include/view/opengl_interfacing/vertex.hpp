@@ -9,9 +9,9 @@ class Vertex
 private:
 	glm::vec3 position;
 	glm::vec3 normal;
+	glm::vec3 color;
 public:
-	Vertex(glm::vec3 position, glm::vec3 normal);
-	Vertex(glm::vec3 position);
+	Vertex(glm::vec3 position, glm::vec3 normal, glm::vec3 color);
 
 	glm::vec3 getPosition();
 

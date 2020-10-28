@@ -3,7 +3,7 @@
 
 
 #include "frame.hpp"
-#include "camera_type.hpp"
+#include "camera_controller_type.hpp"
 #include "camera_view.hpp"
 #include "rendering_mode.hpp"
 
@@ -11,7 +11,7 @@ class CameraControlFrame : public Frame
 {
 private:
 	void mainDraw() override;
-	CameraType cameraType;
+	CameraControllerType cameraType;
 	RenderingMode renderingMode;
 
 	//frame buffer variables

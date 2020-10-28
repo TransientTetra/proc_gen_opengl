@@ -36,7 +36,8 @@ private:
 	std::unique_ptr<VBO> vbo;
 	std::unique_ptr<EBO> ebo;
 public:
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color, Lightsource* light);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, Lightsource* light);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, Lightsource* light, glm::vec3 color);
 
 	virtual ~Mesh();
 

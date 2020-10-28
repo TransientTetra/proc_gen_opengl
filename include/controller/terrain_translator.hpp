@@ -6,11 +6,13 @@
 #include <view/opengl_interfacing/vertex.hpp>
 #include <model/terrain.hpp>
 #include <view/opengl_interfacing/mesh.hpp>
+#include "controller/terrain_colorer.hpp"
 
 class TerrainTranslator
 {
 private:
 	Terrain* terrain;
+	TerrainColorer colorer;
 	std::vector<Vertex> getVertices();
 	std::vector<unsigned int> getIndices();
 	void updateVertices(std::vector<Vertex> &vertices);
