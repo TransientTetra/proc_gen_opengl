@@ -1,5 +1,4 @@
 #include "view/standard_fps_movement.hpp"
-#include <SDL.h>
 
 StandardFPSMovement::StandardFPSMovement(CameraController *cameraController)
 : Movement(cameraController)

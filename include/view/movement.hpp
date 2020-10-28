@@ -2,7 +2,8 @@
 #define PROC_GEN_OPENGL_MOVEMENT_HPP
 
 
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL.h>
 #include "camera_controller.hpp"
 
 class Movement
