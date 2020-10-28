@@ -8,22 +8,22 @@ CameraControlFrame::CameraControlFrame(CameraView *view, const std::string &name
 	width = 400;
 	height = 350;
 
-	//todo change below to static camera once added
-	cameraType = FPS_CAMERA;
+	cameraType = STATIC_CAMERA;
 	renderingMode = FILLED_WITH_LIGHTING;
 
 	fov = 45;
 	mouseSensitivity = .5f;
-	speed = 2.8f;
+	speed = 5.f;
 	drawDistance = 100;
 
 	xpos = 0;
-	ypos = 0.5;
-	zpos = 0;
+	ypos = 1;
+	zpos = 10;
 
 	//init view
-	dynamic_cast<CameraView*>(view)->setCamera(cameraType);
+	dynamic_cast<CameraView*>(view)->setCameraController(cameraType);
 	dynamic_cast<CameraView*>(view)->setRenderingMode(renderingMode);
+	dynamic_cast<CameraView*>(view)->setCameraSpeed(speed);
 	dynamic_cast<CameraView*>(view)->setCameraSensitivity(mouseSensitivity);
 	dynamic_cast<CameraView*>(view)->setCameraDrawDistance(drawDistance);
 	dynamic_cast<CameraView*>(view)->setCameraPosition(glm::vec3(xpos, ypos, zpos));
@@ -35,13 +35,17 @@ void CameraControlFrame::mainDraw()
 	ImGui::Columns(2);
 
 	ImGui::Text("Camera type");
-	CameraType tempC = cameraType;
-//	if (ImGui::RadioButton("Static", cameraType == STATIC)) cameraType = STATIC;
+	CameraControllerType tempC = cameraType;
+	if (ImGui::RadioButton("Static", cameraType == STATIC_CAMERA)) cameraType = STATIC_CAMERA;
 	if (ImGui::RadioButton("Flying FPS camera", cameraType == FPS_CAMERA)) cameraType = FPS_CAMERA;
 	if (ImGui::RadioButton("Above camera", cameraType == ABOVE_CAMERA)) cameraType = ABOVE_CAMERA;
 //	if (ImGui::RadioButton("Grounded FPS camera", cameraType == GROUNDED_FPS_CAMERA)) cameraType = GROUNDED_FPS_CAMERA;
 	if (tempC != cameraType)
-		dynamic_cast<CameraView*>(view)->setCamera(cameraType);
+	{
+		dynamic_cast<CameraView *>(view)->setCameraController(cameraType);
+		dynamic_cast<CameraView *>(view)->setCameraSensitivity(mouseSensitivity);
+		dynamic_cast<CameraView *>(view)->setCameraSpeed(speed);
+	}
 
 	ImGui::NewLine();
 	ImGui::Text("Render mode");

@@ -1,4 +1,5 @@
-#include <glm/ext.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/rotate_vector.hpp>
 #include "view/opengl_interfacing/camera.hpp"
 
 Camera::Camera(float fov, float aspectRatio, float nearDraw, float farDraw)
@@ -6,18 +7,10 @@ Camera::Camera(float fov, float aspectRatio, float nearDraw, float farDraw)
 {
 	position = glm::vec3(.0f, .0f, .0f);
 	direction = glm::vec3(.0f, .0f, -1.0f);
-	forward = glm::vec3(.0f, .0f, -1.0f);
 	up = glm::vec3(.0f, 1.0f, .0f);
 	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
 
-	viewMatrix = glm::lookAt(position, direction, up);
-
-	movingForward = false;
-	movingBackward = false;
-	movingLeft = false;
-	movingRight = false;
-	movingUp = false;
-	movingDown = false;
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }
 
 const glm::mat4 &Camera::getViewMatrix() const
@@ -45,87 +38,23 @@ const glm::vec3 &Camera::getUp() const
     return up;
 }
 
+glm::vec3 Camera::getRight()
+{
+	return glm::normalize(glm::cross(direction, up));;
+}
+
+
 void Camera::setPosition(const glm::vec3 &position)
 {
-	direction += (position - Camera::position);
 	Camera::position = position;
-	viewMatrix = glm::lookAt(position, direction, up);
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }
 
 void Camera::setDirection(const glm::vec3 &direction, const glm::vec3 &up)
 {
 	Camera::direction = direction;
-	forward = glm::normalize(Camera::direction - Camera::position);
 	Camera::up = up;
-	viewMatrix = glm::lookAt(position, direction, up);
-}
-
-void Camera::setForward(const glm::vec3 &forward, const glm::vec3 &up)
-{
-	Camera::forward = forward;
-	Camera::direction = position + forward;
-	Camera::up = up;
-	viewMatrix = glm::lookAt(position, direction, up);
-}
-
-void Camera::startMovingForward()
-{
-	movingForward = true;
-}
-
-void Camera::stopMovingForward()
-{
-	movingForward = false;
-}
-
-void Camera::startMovingBackward()
-{
-	movingBackward = true;
-}
-
-void Camera::stopMovingBackward()
-{
-	movingBackward = false;
-}
-
-void Camera::startMovingLeft()
-{
-	movingLeft = true;
-}
-
-void Camera::stopMovingLeft()
-{
-	movingLeft = false;
-}
-
-void Camera::startMovingRight()
-{
-	movingRight = true;
-}
-
-void Camera::stopMovingRight()
-{
-	movingRight = false;
-}
-
-void Camera::startMovingUp()
-{
-	movingUp = true;
-}
-
-void Camera::stopMovingUp()
-{
-	movingUp = false;
-}
-
-void Camera::startMovingDown()
-{
-	movingDown = true;
-}
-
-void Camera::stopMovingDown()
-{
-	movingDown = false;
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }
 
 float Camera::getFOV() const
@@ -170,4 +99,18 @@ void Camera::setFarDraw(float farDraw)
 {
 	Camera::farDraw = farDraw;
 	projectionMatrix = glm::perspective(fov, aspectRatio, nearDraw, farDraw);
+}
+
+void Camera::move(const float &delta, const glm::vec3 &vec)
+{
+	position += glm::normalize(vec) * delta;
+	viewMatrix = glm::lookAt(position, direction + position, up);
+}
+
+void Camera::rotate(const float &angle, const glm::vec3 &vec)
+{
+	glm::mat4 rotation = glm::rotate(angle, vec);
+	direction = glm::vec3(glm::normalize(rotation * glm::vec4(direction, 0.0)));
+	up = glm::vec3(glm::normalize(rotation * glm::vec4(up, 0.0)));
+	viewMatrix = glm::lookAt(position, direction + position, up);
 }

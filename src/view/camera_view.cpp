@@ -1,40 +1,38 @@
-#include <view/opengl_interfacing/first_person_camera.hpp>
-#include <view/opengl_interfacing/above_camera.hpp>
+#include <view/static_camera_controller.hpp>
+#include <view/flying_fps_camera_controller.hpp>
+#include <view/above_camera_controller.hpp>
 #include "view/camera_view.hpp"
 
 CameraView::CameraView(Application *application, Window *window)
-: View(application, window)
+: View(application, window), camera(glm::radians(45.0f),
+				    static_cast<float>(window->getWidth()) / static_cast<float>(window->getHeight()),
+				    .1f, 100.0f)
 {
-	//todo init camera as static camera as default here
-	camera = std::make_unique<FirstPersonCamera>(glm::radians(45.0f),
-						     800 / 600, .1f, 100.0f, 2.8f, 0.003f);
+	cameraController = std::make_unique<StaticCameraController>(&camera);
 }
 
-void CameraView::setCamera(CameraType cameraType)
+void CameraView::setCameraController(CameraControllerType cameraType)
 {
-	//todo when camera internals are reworked to not include speed and sensitivity change below
-	glm::vec3 position = camera->getPosition();
+	float mvSp = cameraController->getMovementSpeed();
+	float rotSp = cameraController->getRotationSpeed();
 	switch(cameraType)
 	{
 		case FPS_CAMERA:
-			camera = std::make_unique<FirstPersonCamera>(camera->getFOV(),
-							camera->getAspectRatio(), camera->getNearDraw(),
-							camera->getFarDraw(), 2.8f, 0.003f);
+			cameraController = std::make_unique<FlyingFPSCameraController>(&camera, mvSp, rotSp);
 			break;
 		case ABOVE_CAMERA:
-			camera = std::make_unique<AboveCamera>(camera->getFOV(),
-						       camera->getAspectRatio(), camera->getNearDraw(),
-						       camera->getFarDraw(), 2.8f);
+			cameraController = std::make_unique<AboveCameraController>(&camera, mvSp, rotSp);
 			break;
 		default:
+		case STATIC_CAMERA:
+			cameraController = std::make_unique<StaticCameraController>(&camera);
 			break;
 	}
-	camera->setPosition(position);
 }
 
 void CameraView::setCameraPosition(glm::vec3 position)
 {
-	camera->setPosition(position);
+	camera.setPosition(position);
 }
 
 void CameraView::draw()
@@ -44,27 +42,27 @@ void CameraView::draw()
 
 void CameraView::setCameraSpeed(float cameraSpeed)
 {
-	CameraView::cameraSpeed = cameraSpeed;
+	cameraController->setMovementSpeed(cameraSpeed);
 }
 
 void CameraView::setCameraSensitivity(float sensitivity)
 {
-	CameraView::sensitivity = sensitivity;
+	cameraController->setRotationSpeed(sensitivity);
 }
 
 void CameraView::setCameraFOV(float fov)
 {
-	camera->setFOV(fov);
+	camera.setFOV(fov);
 }
 
 void CameraView::setCameraAspectRatio(float aspectRatio)
 {
-	camera->setAspectRatio(aspectRatio);
+	camera.setAspectRatio(aspectRatio);
 }
 
 void CameraView::setCameraDrawDistance(float drawDistance)
 {
-	camera->setFarDraw(drawDistance);
+	camera.setFarDraw(drawDistance);
 }
 
 void CameraView::setRenderingMode(RenderingMode renderingMode)
@@ -84,5 +82,5 @@ void CameraView::setRenderingMode(RenderingMode renderingMode)
 
 const glm::vec3& CameraView::getCameraPosition() const
 {
-	return camera->getPosition();
+	return camera.getPosition();
 }

@@ -4,16 +4,15 @@
 
 #include <view/opengl_interfacing/camera.hpp>
 #include "view.hpp"
-#include "camera_type.hpp"
+#include "camera_controller_type.hpp"
 #include "rendering_mode.hpp"
+#include "camera_controller.hpp"
 
 class CameraView : public View
 {
 protected:
-	std::unique_ptr<Camera> camera;
-	//todo if new class (e.g. camera controller) is created below variables have to be moved to it
-	float cameraSpeed;
-	float sensitivity;
+	Camera camera;
+	std::unique_ptr<CameraController> cameraController;
 public:
 	CameraView(Application *application, Window *window);
 
@@ -21,7 +20,7 @@ public:
 
 	void setRenderingMode(RenderingMode renderingMode);
 
-	void setCamera(CameraType cameraType);
+	void setCameraController(CameraControllerType cameraType);
 	void setCameraPosition(glm::vec3 position);
 	const glm::vec3& getCameraPosition() const;
 	void setCameraSpeed(float cameraSpeed);

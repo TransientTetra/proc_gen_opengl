@@ -34,17 +34,21 @@ set(
         model/noise_map.cpp
         model/perlin_noise.cpp
         model/white_noise.cpp
-        view/opengl_interfacing/above_camera.cpp
         view/terrain_control_frame.cpp
         controller/world_manipulator.cpp
         controller/model_manipulator.cpp
-        view/opengl_interfacing/first_person_camera.cpp
         view/opengl_interfacing/lightsource.cpp
-        ../include/model/diamond_square_map.cpp
+        model/diamond_square_map.cpp
         view/camera_control_frame.cpp
         view/camera_view.cpp
         view/terrain_models_view.cpp
         controller/terrain_colorer.cpp
+        view/camera_controller.cpp
+        view/above_camera_controller.cpp
+        view/flying_fps_camera_controller.cpp
+        view/static_camera_controller.cpp
+        view/movement.cpp
+        view/standard_fps_movement.cpp
 )
 set(SRC ${SRC})
 

@@ -13,14 +13,13 @@
 #include "view.hpp"
 #include "camera_view.hpp"
 #include "terrain_models_view.hpp"
+#include "standard_fps_movement.hpp"
 
 //the main view of the scene; the view where entities are rendered and where player can move and terrain is rendered
 class Demo1MainScene : public TerrainModelsView
 {
 private:
-
-	bool relativeMouseMode;
-
+	StandardFPSMovement inputProcessor;
 public:
 	Demo1MainScene(Application* application, Window* window,
 		WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator);
