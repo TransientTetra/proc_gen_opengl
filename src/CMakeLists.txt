@@ -42,6 +42,7 @@ set(
         view/camera_control_frame.cpp
         view/camera_view.cpp
         view/terrain_models_view.cpp
+        controller/terrain_colorer.cpp
         view/camera_controller.cpp
         view/above_camera_controller.cpp
         view/flying_fps_camera_controller.cpp
