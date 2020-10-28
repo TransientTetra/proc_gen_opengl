@@ -1,10 +1,9 @@
 #include "view/opengl_interfacing/mesh.hpp"
 
 #include <memory>
-#include <algorithm>
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, glm::vec3 color, Lightsource* light)
-: vertices(vertices), indices(indices), usage(usage), color(color)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, Lightsource* light)
+	: vertices(vertices), indices(indices), usage(usage), light(light)
 {
 	modelMatrix = glm::mat4(1.0f);
 
@@ -18,9 +17,13 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLen
 	shader.attachVertexAndFragmentShaders(vs, fs);
 	shader.linkProgram();
 
-	this->light = light;
-
 	update();
+}
+
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, Lightsource* light, glm::vec3 color)
+	: Mesh(vertices, indices, usage, light)
+{
+	this->color = color;
 }
 
 void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
@@ -34,7 +37,6 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 
 	shader.sendUniformVector("lightPos", light->getPosition());
 	shader.sendUniformVector("lightColor", light->getColor());
-	shader.sendUniformVector("objectColor", color);
 
 	vao->bind();
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
@@ -98,8 +100,9 @@ void Mesh::update()
 	ebo->bind();
 	ebo->loadIndices(indices, usage);
 
-	vao->setVertexAttributePointers(0, 3, 6 * sizeof(float),0);
+	vao->setVertexAttributePointers(0, 3, 9 * sizeof(float),0);
 	//vao.setVertexAttributePointers(1, 3, 3 * sizeof(float), offsetof(Vertex, normal)) //for adding new fields to Vertex
-	vao->setVertexAttributePointers(1, 3, 6 * sizeof(float), 3 * sizeof(float));
+	vao->setVertexAttributePointers(1, 3, 9 * sizeof(float), 3 * sizeof(float));
+	vao->setVertexAttributePointers(2, 3, 9 * sizeof(float), 6 * sizeof(float));
 
 }

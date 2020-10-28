@@ -5,7 +5,10 @@ std::vector<Vertex> EntityTranslator::getVertices(const Entity &entity)
 	std::vector<Vertex> ret;
 	for (auto&& point : entity.getVertices())
 	{
-		ret.emplace_back(Vertex(point));
+		// TODO add norm and color vectors. I see that this method is not used anywhere, so I leave it here
+		//  commented (it doesn't work because Vertex require normal and color too) and let you solve this
+		//  issue by yourself
+//		ret.emplace_back(Vertex(point));
 	}
 	return ret;
 }
