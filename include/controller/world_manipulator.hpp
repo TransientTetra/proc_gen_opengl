@@ -16,10 +16,11 @@ public:
 
 	virtual ~WorldManipulator();
 
-	void setTerrainAlgorithm(GenerationAlgorithm algorithm, std::string seed,
-				 int nVerticesSide, float horizontalScale,
-				 unsigned int nOctaves, float persistence, float lacunarity,
-				 unsigned int nWavesWidth, unsigned int nWavesLength);
+	void
+	setTerrainAlgorithm(GenerationAlgorithm algorithm, std::string seed, int nVerticesSide, float horizontalScale,
+			    unsigned int nOctaves, float persistence, float lacunarity, unsigned int nWavesWidth,
+			    unsigned int nWavesLength, unsigned int nPartitions, float levelDiff, float gapWidth,
+			    float gapHeight);
 
 	void setTerrainWidth(float width);
 

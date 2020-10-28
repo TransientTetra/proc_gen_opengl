@@ -24,6 +24,11 @@ TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::str
 	nWavesWidth = 1;
 	nWavesHeight = 1;
 
+	nPartitions = 1;
+	levelDiff = 0;
+	gapWidth = 0;
+	gapHeight = 0;
+
 	sendUpdateSignal();
 }
 
@@ -38,6 +43,7 @@ void TerrainControlFrame::mainDraw()
 	if (ImGui::RadioButton("Sinusoidal", currentAlgo == SINUSOIDAL)) currentAlgo = SINUSOIDAL;
 	if (ImGui::RadioButton("Perlin Noise", currentAlgo == PERLIN_NOISE)) currentAlgo = PERLIN_NOISE;
 	if (ImGui::RadioButton("Diamond Square", currentAlgo == DIAMOND_SQUARE)) currentAlgo = DIAMOND_SQUARE;
+	if (ImGui::RadioButton("Voronoi Diagrams", currentAlgo == VORONOI)) currentAlgo = VORONOI;
 	if (tempA != currentAlgo)
 		sendUpdateSignal();
 	ImGui::NewLine();
@@ -102,7 +108,31 @@ void TerrainControlFrame::mainDraw()
 			sendUpdateSignal();
 	}
 
-	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE)
+	if (currentAlgo == VORONOI)
+	{
+		tempI = nPartitions;
+		ImGui::SliderInt("N partitions", &nPartitions, 1, 100);
+		if (tempI != nPartitions)
+			sendUpdateSignal();
+
+		tempF = levelDiff;
+		ImGui::SliderFloat("Level diff %", &levelDiff, 0, 1);
+		if (tempF != levelDiff)
+			sendUpdateSignal();
+
+		tempF = gapWidth;
+		ImGui::SliderFloat("Gap width %", &gapWidth, 0, 1);
+		if (tempF != gapWidth)
+			sendUpdateSignal();
+
+		tempF = gapHeight;
+		ImGui::SliderFloat("Gap height %", &gapHeight, 0, 1);
+		if (tempF != gapHeight)
+			sendUpdateSignal();
+	}
+
+	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE
+		or currentAlgo == VORONOI)
 	{
 		ImGui::Text("Noise seed");
 		if (ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char)))
@@ -129,7 +159,7 @@ void TerrainControlFrame::sendUpdateSignal()
 	worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
 					      nVerticesSide, horizontalScale,
 					      nOctaves, persistence, lacunarity,
-					      nWavesWidth, nWavesHeight);
+					      nWavesWidth, nWavesHeight, nPartitions, levelDiff, gapWidth, gapHeight);
 	dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
 }
 

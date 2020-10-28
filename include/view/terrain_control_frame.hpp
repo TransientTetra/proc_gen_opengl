@@ -30,6 +30,12 @@ private:
 	int nWavesWidth;
 	int nWavesHeight;
 
+	//voronoi variables
+	int nPartitions;
+	float levelDiff;
+	float gapWidth;
+	float gapHeight;
+
 	void mainDraw() override;
 	void sendUpdateSignal();
 public:

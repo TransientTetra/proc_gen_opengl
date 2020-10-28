@@ -44,6 +44,7 @@ set(
         view/camera_control_frame.cpp
         view/camera_view.cpp
         view/terrain_models_view.cpp
+        model/voronoi_map.cpp
 )
 set(SRC ${SRC})
 
