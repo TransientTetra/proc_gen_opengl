@@ -15,6 +15,9 @@ private:
 public:
 	VoronoiMap(unsigned int width, unsigned int length, unsigned int seed, unsigned int nRandomPoints,
 	    float levelDiff, float gapWidth, float gapHeight);
+
+	//returns index of the closes to points x, y from points vector
+	unsigned getClosest(unsigned x, unsigned y, const std::vector<std::pair<unsigned, unsigned>>& points);
 };
 
 
