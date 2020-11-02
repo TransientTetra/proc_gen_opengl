@@ -37,6 +37,7 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 
 	shader.sendUniformVector("lightPos", light->getPosition());
 	shader.sendUniformVector("lightColor", light->getColor());
+	shader.sendUniformVector("viewPos", glm::vec3(2.0f, 10.0f, 2.1f));
 
 	vao->bind();
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
