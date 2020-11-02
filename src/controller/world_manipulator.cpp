@@ -3,6 +3,7 @@
 #include <model/white_noise.hpp>
 #include <model/sinusoidal_map.hpp>
 #include <model/diamond_square_map.hpp>
+#include <model/voronoi_map.hpp>
 #include "controller/world_manipulator.hpp"
 
 WorldManipulator::WorldManipulator(World *world)
@@ -14,10 +15,11 @@ WorldManipulator::~WorldManipulator()
 
 }
 
-void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, std::string seed,
-					   int nVerticesSide, float horizontalScale,
+void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, std::string seed, int nVerticesSide,
+					   float horizontalScale,
 					   unsigned int nOctaves, float persistence, float lacunarity,
-					   unsigned int nWavesWidth, unsigned int nWavesLength)
+					   unsigned int nWavesWidth,
+					   unsigned int nWavesLength, unsigned int nPartitions, float levelDiff)
 {
 	unsigned int seedI = 0;
 	for (char c : seed)
@@ -43,6 +45,10 @@ void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, std::s
 		case DIAMOND_SQUARE:
 			heightMap = std::make_unique<DiamondSquareMap>(nVerticesSide, nVerticesSide, seedI,
 						  persistence);
+			break;
+		case VORONOI:
+			heightMap = std::make_unique<VoronoiMap>(nVerticesSide, nVerticesSide, seedI, nPartitions,
+					    levelDiff);
 			break;
 		case FLAT:
 		default:
