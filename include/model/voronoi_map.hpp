@@ -20,7 +20,7 @@ private:
 	float getDist(unsigned x1, unsigned y1, unsigned x2, unsigned y2);
 public:
 	VoronoiMap(unsigned int width, unsigned int length, unsigned int seed, unsigned int nRandomPoints,
-	    float levelDiff, float gapWidth, float gapHeight);
+	    float levelDiff);
 
 };
 

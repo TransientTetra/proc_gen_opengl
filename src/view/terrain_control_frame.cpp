@@ -24,10 +24,8 @@ TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::str
 	nWavesWidth = 1;
 	nWavesHeight = 1;
 
-	nPartitions = 1;
-	levelDiff = 0;
-	gapWidth = 0;
-	gapHeight = 0;
+	nPartitions = 40;
+	levelDiff = 0.2;
 
 	sendUpdateSignal();
 }
@@ -119,16 +117,6 @@ void TerrainControlFrame::mainDraw()
 		ImGui::SliderFloat("Level diff %", &levelDiff, 0, 1);
 		if (tempF != levelDiff)
 			sendUpdateSignal();
-
-		tempF = gapWidth;
-		ImGui::SliderFloat("Gap width %", &gapWidth, 0, 1);
-		if (tempF != gapWidth)
-			sendUpdateSignal();
-
-		tempF = gapHeight;
-		ImGui::SliderFloat("Gap height %", &gapHeight, 0, 1);
-		if (tempF != gapHeight)
-			sendUpdateSignal();
 	}
 
 	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE
@@ -159,7 +147,7 @@ void TerrainControlFrame::sendUpdateSignal()
 	worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
 					      nVerticesSide, horizontalScale,
 					      nOctaves, persistence, lacunarity,
-					      nWavesWidth, nWavesHeight, nPartitions, levelDiff, gapWidth, gapHeight);
+					      nWavesWidth, nWavesHeight, nPartitions, levelDiff);
 	dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
 }
 

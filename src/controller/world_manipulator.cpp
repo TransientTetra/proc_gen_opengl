@@ -19,8 +19,7 @@ void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, std::s
 					   float horizontalScale,
 					   unsigned int nOctaves, float persistence, float lacunarity,
 					   unsigned int nWavesWidth,
-					   unsigned int nWavesLength, unsigned int nPartitions, float levelDiff,
-					   float gapWidth, float gapHeight)
+					   unsigned int nWavesLength, unsigned int nPartitions, float levelDiff)
 {
 	unsigned int seedI = 0;
 	for (char c : seed)
@@ -49,7 +48,7 @@ void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, std::s
 			break;
 		case VORONOI:
 			heightMap = std::make_unique<VoronoiMap>(nVerticesSide, nVerticesSide, seedI, nPartitions,
-					    levelDiff, gapWidth, gapHeight);
+					    levelDiff);
 			break;
 		case FLAT:
 		default:
