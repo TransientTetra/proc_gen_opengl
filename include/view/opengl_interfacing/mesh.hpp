@@ -42,7 +42,7 @@ public:
 	virtual ~Mesh();
 
 	//todo not sure if draw should be in mesh
-	void draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix);
+	void draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix, const glm::vec3 &cameraPosition);
 
 	void scale(glm::vec3 scale);
 	//angle in radians!
