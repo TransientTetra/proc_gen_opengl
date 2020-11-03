@@ -49,6 +49,7 @@ set(
         view/static_camera_controller.cpp
         view/movement.cpp
         view/standard_fps_movement.cpp
+        model/voronoi_map.cpp
 )
 set(SRC ${SRC})
 

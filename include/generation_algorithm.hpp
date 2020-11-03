@@ -8,6 +8,7 @@ enum GenerationAlgorithm
 	SINUSOIDAL,
 	PERLIN_NOISE,
 	DIAMOND_SQUARE,
+	VORONOI,
 };
 
 #endif //PROC_GEN_OPENGL_ALGORITHMS_HPP
