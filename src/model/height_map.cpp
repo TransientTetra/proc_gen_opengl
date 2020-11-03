@@ -35,3 +35,35 @@ void HeightMap::setAt(unsigned int x, unsigned int y, float v)
 {
 	points.at(y * width + x) = v;
 }
+
+void HeightMap::multiply(HeightMap &other)
+{
+	unsigned width = getWidth() < other.getWidth() ? getWidth() : other.getWidth();
+	unsigned length = getLength() < other.getLength() ? getLength() : other.getLength();
+	for (unsigned i = 0; i < length; ++i)
+	{
+		for (unsigned j = 0; j < width; ++j)
+		{
+			float val = at(j, i) * other.at(j, i);
+			if (val < -1) val = -1;
+			if (val > 1) val = 1;
+			setAt(j, i, val);
+		}
+	}
+}
+
+void HeightMap::add(HeightMap &other)
+{
+	unsigned width = getWidth() < other.getWidth() ? getWidth() : other.getWidth();
+	unsigned length = getLength() < other.getLength() ? getLength() : other.getLength();
+	for (unsigned i = 0; i < length; ++i)
+	{
+		for (unsigned j = 0; j < width; ++j)
+		{
+			float val = at(j, i) + other.at(j, i);
+			if (val < -1) val = -1;
+			if (val > 1) val = 1;
+			setAt(j, i, val);
+		}
+	}
+}
