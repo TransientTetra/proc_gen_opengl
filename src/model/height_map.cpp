@@ -45,8 +45,6 @@ void HeightMap::multiply(const HeightMap &other)
 		for (unsigned j = 0; j < width; ++j)
 		{
 			float val = at(j, i) * other.at(j, i);
-			if (val < -1) val = -1;
-			if (val > 1) val = 1;
 			setAt(j, i, val);
 		}
 	}
@@ -56,14 +54,26 @@ void HeightMap::add(const HeightMap &other)
 {
 	unsigned width = getWidth() < other.getWidth() ? getWidth() : other.getWidth();
 	unsigned length = getLength() < other.getLength() ? getLength() : other.getLength();
+	float min = 1;
+	float max = -1;
 	for (unsigned i = 0; i < length; ++i)
 	{
 		for (unsigned j = 0; j < width; ++j)
 		{
 			float val = at(j, i) + other.at(j, i);
-			if (val < -1) val = -1;
-			if (val > 1) val = 1;
+			if (val < min) min = val;
+			if (val > max) max = val;
 			setAt(j, i, val);
+		}
+	}
+
+	//normalization
+	for (unsigned i = 0; i < length; ++i)
+	{
+		for (unsigned j = 0; j < width; ++j)
+		{
+			float normalizedVal = 2 * (static_cast<float>(at(j, i)) - min) / (max - min) - 1;
+			setAt(j, i, normalizedVal);
 		}
 	}
 }

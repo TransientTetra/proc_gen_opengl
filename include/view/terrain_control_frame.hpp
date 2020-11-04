@@ -12,6 +12,15 @@ class TerrainControlFrame : public Frame
 private:
 	WorldManipulator* worldManipulator;
 	GenerationAlgorithm currentAlgo;
+	HeightMapOperation op;
+
+	//checkbox buffers
+	bool flat;
+	bool white;
+	bool sinusoidal;
+	bool perlin;
+	bool diamond;
+	bool voronoi;
 
 	//common variables
 	float widthTerrain;

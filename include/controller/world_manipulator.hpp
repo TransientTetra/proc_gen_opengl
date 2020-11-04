@@ -7,6 +7,12 @@
 #include "model_manipulator.hpp"
 #include <string>
 
+enum HeightMapOperation
+{
+	MULTIPLICATION,
+	ADDITION,
+};
+
 class WorldManipulator : public ModelManipulator
 {
 private:
@@ -16,10 +22,10 @@ public:
 
 	virtual ~WorldManipulator();
 
-	void
-	setTerrainAlgorithm(GenerationAlgorithm algorithm, std::string seed, int nVerticesSide, float horizontalScale,
-			    unsigned int nOctaves, float persistence, float lacunarity, unsigned int nWavesWidth,
-			    unsigned int nWavesLength, unsigned int nPartitions, float levelDiff);
+	void setTerrainAlgorithm(GenerationAlgorithm algorithm, HeightMapOperation operation, const std::string& seed,
+				 int nVerticesSide, float horizontalScale, unsigned int nOctaves, float persistence,
+				 float lacunarity, unsigned int nWavesWidth, unsigned int nWavesLength,
+				 unsigned int nPartitions, float levelDiff);
 
 	void setTerrainWidth(float width);
 

@@ -15,46 +15,117 @@ WorldManipulator::~WorldManipulator()
 
 }
 
-void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, std::string seed, int nVerticesSide,
-					   float horizontalScale,
+void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, HeightMapOperation operation,
+					   const std::string& seed, int nVerticesSide, float horizontalScale,
 					   unsigned int nOctaves, float persistence, float lacunarity,
-					   unsigned int nWavesWidth,
-					   unsigned int nWavesLength, unsigned int nPartitions, float levelDiff)
+					   unsigned int nWavesWidth, unsigned int nWavesLength,
+					   unsigned int nPartitions, float levelDiff)
 {
 	unsigned int seedI = 0;
-	for (char c : seed)
+	for (auto&& c : seed)
 		seedI += c;
 	std::unique_ptr<HeightMap> heightMap;
 	std::unique_ptr<Noise> noise;
-	switch (algorithm)
+	bool heightMapInitialized = false;
+	if (algorithm & FLAT)
 	{
-		case PERLIN_NOISE:
-			noise = std::make_unique<PerlinNoise>(seedI);
-			heightMap = std::make_unique<NoiseMap>(nVerticesSide, nVerticesSide, std::move(noise),
-					  horizontalScale, nOctaves, persistence, lacunarity);
-			break;
-		case WHITE_NOISE:
-			noise = std::make_unique<WhiteNoise>(seedI);
-			heightMap = std::make_unique<NoiseMap>(nVerticesSide, nVerticesSide, std::move(noise),
-					  horizontalScale, nOctaves, persistence, lacunarity);
-			break;
-		case SINUSOIDAL:
-			heightMap = std::make_unique<SinusoidalMap>(nVerticesSide, nVerticesSide,
-					       nWavesWidth, nWavesLength);
-			break;
-		case DIAMOND_SQUARE:
-			heightMap = std::make_unique<DiamondSquareMap>(nVerticesSide, nVerticesSide, seedI,
-						  persistence);
-			break;
-		case VORONOI:
-			heightMap = std::make_unique<VoronoiMap>(nVerticesSide, nVerticesSide, seedI, nPartitions,
-					    levelDiff);
-			break;
-		case FLAT:
-		default:
-			heightMap = std::make_unique<HeightMap>(nVerticesSide, nVerticesSide);
-			break;
+		heightMapInitialized = true;
+		heightMap = std::make_unique<HeightMap>(nVerticesSide, nVerticesSide);
 	}
+	if (algorithm & PERLIN_NOISE)
+	{
+		noise = std::make_unique<PerlinNoise>(seedI);
+		if (not heightMapInitialized)
+		{
+			heightMapInitialized = true;
+			heightMap = std::make_unique<NoiseMap>(nVerticesSide, nVerticesSide, std::move(noise),
+							       horizontalScale, nOctaves, persistence, lacunarity);
+		}
+		else
+		{
+			NoiseMap temp(nVerticesSide, nVerticesSide, std::move(noise),
+				      horizontalScale, nOctaves, persistence, lacunarity);
+			if (operation == ADDITION)
+				heightMap->add(temp);
+			if (operation == MULTIPLICATION)
+				heightMap->multiply(temp);
+		}
+	}
+	if (algorithm & WHITE_NOISE)
+	{
+		noise = std::make_unique<WhiteNoise>(seedI);
+		if (not heightMapInitialized)
+		{
+			heightMapInitialized = true;
+			heightMap = std::make_unique<NoiseMap>(nVerticesSide, nVerticesSide, std::move(noise),
+							       horizontalScale, nOctaves, persistence, lacunarity);
+		}
+		else
+		{
+			NoiseMap temp(nVerticesSide, nVerticesSide, std::move(noise),
+				      horizontalScale, nOctaves, persistence, lacunarity);
+			if (operation == ADDITION)
+				heightMap->add(temp);
+			if (operation == MULTIPLICATION)
+				heightMap->multiply(temp);
+		}
+	}
+	if (algorithm & SINUSOIDAL)
+	{
+		if (not heightMapInitialized)
+		{
+			heightMapInitialized = true;
+			heightMap = std::make_unique<SinusoidalMap>(nVerticesSide, nVerticesSide,
+								    nWavesWidth, nWavesLength);
+		}
+		else
+		{
+			SinusoidalMap temp(nVerticesSide, nVerticesSide,
+					   nWavesWidth, nWavesLength);
+			if (operation == ADDITION)
+				heightMap->add(temp);
+			if (operation == MULTIPLICATION)
+				heightMap->multiply(temp);
+		}
+	}
+	if (algorithm & DIAMOND_SQUARE)
+	{
+		if (not heightMapInitialized)
+		{
+			heightMapInitialized = true;
+			heightMap = std::make_unique<DiamondSquareMap>(nVerticesSide, nVerticesSide, seedI,
+								       persistence);
+		}
+		else
+		{
+			DiamondSquareMap temp(nVerticesSide, nVerticesSide, seedI,
+					 persistence);
+			if (operation == ADDITION)
+				heightMap->add(temp);
+			if (operation == MULTIPLICATION)
+				heightMap->multiply(temp);
+		}
+	}
+	if (algorithm & VORONOI)
+	{
+		if (not heightMapInitialized)
+		{
+			heightMapInitialized = true;
+			heightMap = std::make_unique<VoronoiMap>(nVerticesSide, nVerticesSide, seedI, nPartitions,
+								 levelDiff);
+		}
+		else
+		{
+			VoronoiMap temp(nVerticesSide, nVerticesSide, seedI, nPartitions,
+					levelDiff);
+			if (operation == ADDITION)
+				heightMap->add(temp);
+			if (operation == MULTIPLICATION)
+				heightMap->multiply(temp);
+		}
+	}
+	if (not heightMapInitialized)
+		heightMap = std::make_unique<HeightMap>(nVerticesSide, nVerticesSide);
 	world->getTerrain()->setHeightMap(std::move(heightMap));
 }
 

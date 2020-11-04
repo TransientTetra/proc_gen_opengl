@@ -6,7 +6,17 @@ TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::str
 {
 	flags = ImGuiWindowFlags_NoResize;
 	width = 500;
-	height = 500;
+	height = 550;
+
+	currentAlgo = FLAT;
+	op = ADDITION;
+
+	flat = true;
+	white = false;
+	sinusoidal = false;
+	perlin = false;
+	diamond = false;
+	voronoi = false;
 
 	widthTerrain = 10;
 	heightTerrain = 10;
@@ -18,7 +28,6 @@ TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::str
 	persistence = .5f;
 	lacunarity = 2;
 
-	currentAlgo = FLAT;
 	seedBuf[0] = '\0';
 
 	nWavesWidth = 1;
@@ -33,19 +42,70 @@ TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::str
 void TerrainControlFrame::mainDraw()
 {
 	ImGui::SetWindowSize(ImVec2(width, height));
+	ImGui::Columns(2);
 
 	ImGui::Text("Generation algorithm");
-	GenerationAlgorithm tempA = currentAlgo;
-	if (ImGui::RadioButton("Flat", currentAlgo == FLAT)) currentAlgo = FLAT;
-	if (ImGui::RadioButton("White Noise", currentAlgo == WHITE_NOISE)) currentAlgo = WHITE_NOISE;
-	if (ImGui::RadioButton("Sinusoidal", currentAlgo == SINUSOIDAL)) currentAlgo = SINUSOIDAL;
-	if (ImGui::RadioButton("Perlin Noise", currentAlgo == PERLIN_NOISE)) currentAlgo = PERLIN_NOISE;
-	if (ImGui::RadioButton("Diamond Square", currentAlgo == DIAMOND_SQUARE)) currentAlgo = DIAMOND_SQUARE;
-	if (ImGui::RadioButton("Voronoi Diagrams", currentAlgo == VORONOI)) currentAlgo = VORONOI;
-	if (tempA != currentAlgo)
+	bool checkboxChange = false;
+	if (ImGui::Checkbox("Flat", &flat))
+	{
+		checkboxChange = true;
+		if (flat)
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo | FLAT);
+		else
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo & ~FLAT);
+	}
+	if (ImGui::Checkbox("White Noise", &white))
+	{
+		checkboxChange = true;
+		if (white)
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo | WHITE_NOISE);
+		else
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo & ~WHITE_NOISE);
+	}
+	if (ImGui::Checkbox("Sinusoidal", &sinusoidal))
+	{
+		checkboxChange = true;
+		if (sinusoidal)
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo | SINUSOIDAL);
+		else
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo & ~SINUSOIDAL);
+	}
+	if (ImGui::Checkbox("Perlin Noise", &perlin))
+	{
+		checkboxChange = true;
+		if (perlin)
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo | PERLIN_NOISE);
+		else
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo & ~PERLIN_NOISE);
+	}
+	if (ImGui::Checkbox("Diamond Square", &diamond))
+	{
+		checkboxChange = true;
+		if (diamond)
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo | DIAMOND_SQUARE);
+		else
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo & ~DIAMOND_SQUARE);
+	}
+	if (ImGui::Checkbox("Voronoi Diagrams", &voronoi))
+	{
+		checkboxChange = true;
+		if (voronoi)
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo | VORONOI);
+		else
+			currentAlgo = static_cast<GenerationAlgorithm>(currentAlgo & ~VORONOI);
+	}
+	if (checkboxChange)
 		sendUpdateSignal();
-	ImGui::NewLine();
+	ImGui::NextColumn();
 
+	ImGui::Text("Multiple algorithms operation");
+	HeightMapOperation tempO = op;
+	if (ImGui::RadioButton("Addition", op == ADDITION)) op = ADDITION;
+	if (ImGui::RadioButton("Multiplication", op == MULTIPLICATION)) op = MULTIPLICATION;
+	if (tempO != op)
+		sendUpdateSignal();
+
+	ImGui::Columns(1);
 	ImGui::Text("Generation algorithm parameters");
 
 	float tempF = widthTerrain;
@@ -77,7 +137,7 @@ void TerrainControlFrame::mainDraw()
 		dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
 	}
 
-	if (currentAlgo == PERLIN_NOISE)
+	if (currentAlgo & PERLIN_NOISE)
 	{
 		tempF = horizontalScale;
 		ImGui::SliderFloat("Horizontal scale", &horizontalScale, 1.f, 100.f);
@@ -90,7 +150,7 @@ void TerrainControlFrame::mainDraw()
 			sendUpdateSignal();
 	}
 
-	if (currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE)
+	if (currentAlgo & PERLIN_NOISE or currentAlgo & DIAMOND_SQUARE)
 	{
 		tempF = persistence;
 		ImGui::SliderFloat("Persistence", &persistence, 0, 1);
@@ -98,7 +158,7 @@ void TerrainControlFrame::mainDraw()
 			sendUpdateSignal();
 	}
 
-	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE)
+	if (currentAlgo & WHITE_NOISE or currentAlgo & PERLIN_NOISE)
 	{
 		tempI = nOctaves;
 		ImGui::SliderInt("N octaves", &nOctaves, 1, 10);
@@ -106,7 +166,7 @@ void TerrainControlFrame::mainDraw()
 			sendUpdateSignal();
 	}
 
-	if (currentAlgo == VORONOI)
+	if (currentAlgo & VORONOI)
 	{
 		tempI = nPartitions;
 		ImGui::SliderInt("N partitions", &nPartitions, 1, 100);
@@ -119,16 +179,7 @@ void TerrainControlFrame::mainDraw()
 			sendUpdateSignal();
 	}
 
-	if (currentAlgo == WHITE_NOISE or currentAlgo == PERLIN_NOISE or currentAlgo == DIAMOND_SQUARE
-		or currentAlgo == VORONOI)
-	{
-		ImGui::Text("Noise seed");
-		if (ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char)))
-		{
-			sendUpdateSignal();
-		}
-	}
-	if (currentAlgo == SINUSOIDAL)
+	if (currentAlgo & SINUSOIDAL)
 	{
 		tempI = nWavesWidth;
 		ImGui::SliderInt("N waves width", &nWavesWidth, 1, 10);
@@ -140,11 +191,21 @@ void TerrainControlFrame::mainDraw()
 		if (tempI != nWavesHeight)
 			sendUpdateSignal();
 	}
+
+	if (currentAlgo & WHITE_NOISE or currentAlgo & PERLIN_NOISE or currentAlgo & DIAMOND_SQUARE
+	    or currentAlgo & VORONOI)
+	{
+		ImGui::Text("Noise seed");
+		if (ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char)))
+		{
+			sendUpdateSignal();
+		}
+	}
 }
 
 void TerrainControlFrame::sendUpdateSignal()
 {
-	worldManipulator->setTerrainAlgorithm(currentAlgo, std::string(seedBuf),
+	worldManipulator->setTerrainAlgorithm(currentAlgo, op, std::string(seedBuf),
 					      nVerticesSide, horizontalScale,
 					      nOctaves, persistence, lacunarity,
 					      nWavesWidth, nWavesHeight, nPartitions, levelDiff);
