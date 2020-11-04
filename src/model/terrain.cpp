@@ -84,3 +84,13 @@ void Terrain::setScale(float scale)
 	Terrain::scale = scale;
 	calculatePoints();
 }
+
+void Terrain::addHeightMap(const HeightMap &other)
+{
+	heightMap->add(other);
+}
+
+void Terrain::multiplyHeightMap(const HeightMap &other)
+{
+	heightMap->multiply(other);
+}

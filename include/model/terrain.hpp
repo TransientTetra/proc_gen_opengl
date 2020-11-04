@@ -45,6 +45,9 @@ public:
 	unsigned int getNPointsWidth() const;
 	const std::vector<glm::vec3> &getPoints() const;
 
+	void addHeightMap(const HeightMap& other);
+	void multiplyHeightMap(const HeightMap& other);
+
 };
 
 

@@ -36,7 +36,7 @@ void HeightMap::setAt(unsigned int x, unsigned int y, float v)
 	points.at(y * width + x) = v;
 }
 
-void HeightMap::multiply(HeightMap &other)
+void HeightMap::multiply(const HeightMap &other)
 {
 	unsigned width = getWidth() < other.getWidth() ? getWidth() : other.getWidth();
 	unsigned length = getLength() < other.getLength() ? getLength() : other.getLength();
@@ -52,7 +52,7 @@ void HeightMap::multiply(HeightMap &other)
 	}
 }
 
-void HeightMap::add(HeightMap &other)
+void HeightMap::add(const HeightMap &other)
 {
 	unsigned width = getWidth() < other.getWidth() ? getWidth() : other.getWidth();
 	unsigned length = getLength() < other.getLength() ? getLength() : other.getLength();

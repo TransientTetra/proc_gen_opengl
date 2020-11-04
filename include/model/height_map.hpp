@@ -26,8 +26,8 @@ public:
 
 	unsigned int getLength() const;
 
-	void multiply(HeightMap& other);
-	void add(HeightMap& other);
+	void multiply(const HeightMap &other);
+	void add(const HeightMap &other);
 };
 
 
