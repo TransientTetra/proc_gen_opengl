@@ -26,7 +26,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLen
 	this->color = color;
 }
 
-void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
+void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix, const glm::vec3 &cameraPosition)
 {
 	shader.useProgram();
 
@@ -37,6 +37,7 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix)
 
 	shader.sendUniformVector("lightPos", light->getPosition());
 	shader.sendUniformVector("lightColor", light->getColor());
+	shader.sendUniformVector("viewPos", cameraPosition);
 
 	vao->bind();
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

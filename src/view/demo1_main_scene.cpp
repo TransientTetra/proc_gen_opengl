@@ -31,10 +31,10 @@ void Demo1MainScene::draw()
 	inputProcessor.updateController(cameraController.get(), application->getLastFrameDuration());
 	TerrainModelsView::draw();
 
-	terrain->draw(camera.getViewMatrix(), camera.getProjectionMatrix());
+	terrain->draw(camera.getViewMatrix(), camera.getProjectionMatrix(), camera.getPosition());
 	for (auto&& model : models)
 	{
-		model->draw(camera.getViewMatrix(), camera.getProjectionMatrix());
+		model->draw(camera.getViewMatrix(), camera.getProjectionMatrix(), camera.getPosition());
 	}
 }
 
