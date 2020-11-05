@@ -13,7 +13,7 @@ TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::str
 
 	nVerticesSide = 256;
 	scale = 1;
-	horizontalScale = 50;
+	horizontalScale = .1f;
 	nOctaves = 1;
 	persistence = .5f;
 	lacunarity = 2;
@@ -80,7 +80,7 @@ void TerrainControlFrame::mainDraw()
 	if (currentAlgo == PERLIN_NOISE)
 	{
 		tempF = horizontalScale;
-		ImGui::SliderFloat("Horizontal scale", &horizontalScale, 1.f, 100.f);
+		ImGui::SliderFloat("Horizontal scale", &horizontalScale, .01f, .5f);
 		if (tempF != horizontalScale)
 			sendUpdateSignal();
 
