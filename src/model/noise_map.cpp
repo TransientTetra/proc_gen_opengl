@@ -20,8 +20,8 @@ NoiseMap::NoiseMap(unsigned int width, unsigned int length, std::unique_ptr<Nois
 			for (int k = 0; k < nOctaves; ++k)
 			{
 				float noiseVal = this->noise->eval
-						((static_cast<float>(j) * frequency) / horizontalScale,
-						(static_cast<float>(i) * frequency) / horizontalScale);
+						((static_cast<float>(j) * frequency) / (horizontalScale * width),
+						(static_cast<float>(i) * frequency) / (horizontalScale * length));
 
 				currHeight += noiseVal * amplitude;
 				amplitude *= persistence;
