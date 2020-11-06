@@ -4,6 +4,7 @@
 
 #include <vector>
 
+//heightmap guarantees points to be in <-1, 1>
 class HeightMap
 {
 private:
@@ -24,6 +25,9 @@ public:
 	unsigned int getWidth() const;
 
 	unsigned int getLength() const;
+
+	void multiply(const HeightMap &other);
+	void add(const HeightMap &other);
 };
 
 

@@ -5,7 +5,7 @@
 #include "model/terrain.hpp"
 
 Terrain::Terrain(float width, float length, float scale, float level)
-: width(width), length(length), level(level), scale(scale), heightMap(std::make_unique<HeightMap>(2, 2))
+	: width(width), length(length), level(level), scale(scale), heightMap(std::make_unique<HeightMap>(2, 2))
 {
 	calculatePoints();
 }
