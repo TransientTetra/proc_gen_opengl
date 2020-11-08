@@ -1,5 +1,10 @@
 #include "model/world.hpp"
 
+World::World()
+{
+	terrain = std::make_unique<Terrain>(10, 10, 1, 0);
+}
+
 void World::addEntity(std::shared_ptr<Entity> entity)
 {
 	entities.push_back(entity);
@@ -18,9 +23,4 @@ void World::setTerrain(std::unique_ptr<Terrain> terrain)
 std::unique_ptr<Terrain> &World::getTerrain()
 {
 	return terrain;
-}
-
-World::World()
-{
-	terrain = std::make_unique<Terrain>(10, 10, 1, 0);
 }

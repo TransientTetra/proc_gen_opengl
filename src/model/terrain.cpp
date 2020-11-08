@@ -5,7 +5,15 @@
 #include "model/terrain.hpp"
 
 Terrain::Terrain(float width, float length, float scale, float level)
-	: width(width), length(length), level(level), scale(scale), heightMap(std::make_unique<HeightMap>(2, 2))
+: width(width), length(length), yOffset(level), scale(scale), heightMap(std::make_unique<HeightMap>(2, 2)),
+	xOffset(0), zOffset(0)
+{
+	calculatePoints();
+}
+
+Terrain::Terrain(float length, float width, float scale, float xOffset, float yOffset, float zOffset)
+: width(width), length(length), yOffset(yOffset), scale(scale), heightMap(std::make_unique<HeightMap>(2, 2)),
+	xOffset(xOffset), zOffset(zOffset)
 {
 	calculatePoints();
 }
@@ -23,9 +31,9 @@ void Terrain::calculatePoints()
 	{
 		for (int j = 0; j < getNPointsWidth(); ++j)
 		{
-			float x = j * width / (getNPointsWidth() - 1) - width / 2;
-			float y = scale * heightMap->at(i, j) + level;
-			float z = i * length / (getNPointsLength() - 1) - length / 2;
+			float x = (j * width / (getNPointsWidth() - 1) - width / 2) + xOffset;
+			float y = scale * heightMap->at(i, j) + yOffset;
+			float z = (i * length / (getNPointsLength() - 1) - length / 2) + zOffset;
 			points.emplace_back(glm::vec3(x, y, z));
 		}
 	}
@@ -43,7 +51,7 @@ float Terrain::getWidth() const
 
 float Terrain::getLevel() const
 {
-	return level;
+	return yOffset;
 }
 
 unsigned int Terrain::getNPointsLength() const
@@ -75,7 +83,7 @@ void Terrain::setWidth(float width)
 
 void Terrain::setLevel(float level)
 {
-	Terrain::level = level;
+	Terrain::yOffset = level;
 	calculatePoints();
 }
 

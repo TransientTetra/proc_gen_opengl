@@ -14,8 +14,11 @@ private:
 protected:
 	float length; //z axis
 	float width; //x axis
-	float level; //y axis
-	float scale; //amplitude
+	float scale; //y axis
+
+	float xOffset;
+	float yOffset;
+	float zOffset;
 
 	std::unique_ptr<HeightMap> heightMap;
 	std::vector<glm::vec3> points;
@@ -23,6 +26,8 @@ protected:
 	void calculatePoints();
 public:
 	Terrain(float width, float length, float scale, float level);
+
+	Terrain(float length, float width, float scale, float xOffset, float yOffset, float zOffset);
 
 	void setHeightMap(std::unique_ptr<HeightMap> heightMap);
 

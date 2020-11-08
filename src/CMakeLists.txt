@@ -50,7 +50,8 @@ set(
         view/movement.cpp
         view/standard_fps_movement.cpp
         model/voronoi_map.cpp
-)
+        model/terrain_generator.cpp
+        model/infinite_terrain_generator.cpp ../include/model/infinite_terrain_generator.hpp)
 set(SRC ${SRC})
 
 include_directories(../include BINARY)
