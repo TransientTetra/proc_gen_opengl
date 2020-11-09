@@ -5,7 +5,7 @@
 #include "model/terrain.hpp"
 
 Terrain::Terrain(float width, float length, float scale, float level)
-	: width(width), length(length), level(level), scale(scale), heightMap(std::make_unique<HeightMap>(2, 2))
+: width(width), length(length), level(level), scale(scale), heightMap(std::make_unique<HeightMap>(2, 2))
 {
 	calculatePoints();
 }
@@ -18,15 +18,15 @@ void Terrain::setHeightMap(std::unique_ptr<HeightMap> heightMap)
 
 void Terrain::calculatePoints()
 {
-	points.clear();
+	vertices.clear();
 	for (int i = 0; i < getNPointsLength(); ++i)
 	{
 		for (int j = 0; j < getNPointsWidth(); ++j)
 		{
-			float x = j * width / (getNPointsWidth() - 1) - width / 2;
-			float y = scale * heightMap->at(i, j) + level;
-			float z = i * length / (getNPointsLength() - 1) - length / 2;
-			points.emplace_back(glm::vec3(x, y, z));
+			float x = (j * width / (getNPointsWidth() - 1) - width / 2) + position.x;
+			float y = (scale * heightMap->at(i, j) + level) + position.y;
+			float z = (i * length / (getNPointsLength() - 1) - length / 2) + position.z;
+			vertices.emplace_back(glm::vec3(x, y, z), glm::vec3(0, 0, 0), glm::vec3(0, 0, 0));
 		}
 	}
 }
@@ -54,11 +54,6 @@ unsigned int Terrain::getNPointsLength() const
 unsigned int Terrain::getNPointsWidth() const
 {
 	return heightMap->getWidth();
-}
-
-const std::vector<glm::vec3> &Terrain::getPoints() const
-{
-	return points;
 }
 
 void Terrain::setLength(float length)

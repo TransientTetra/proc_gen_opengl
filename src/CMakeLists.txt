@@ -25,8 +25,6 @@ set(
         view/demo1_main_scene.cpp
         view/opengl_interfacing/camera.cpp
         view/opengl_interfacing/vertex.cpp
-        controller/entity_translator.cpp
-        controller/terrain_translator.cpp
         model/height_map.cpp
         model/sinusoidal_map.cpp
         model/noise.cpp
@@ -37,12 +35,11 @@ set(
         view/terrain_control_frame.cpp
         controller/world_manipulator.cpp
         controller/model_manipulator.cpp
-        view/opengl_interfacing/lightsource.cpp
+        view/opengl_interfacing/light_source.cpp
         model/diamond_square_map.cpp
         view/camera_control_frame.cpp
         view/camera_view.cpp
         view/terrain_models_view.cpp
-        controller/terrain_colorer.cpp
         view/camera_controller.cpp
         view/above_camera_controller.cpp
         view/flying_fps_camera_controller.cpp
@@ -50,6 +47,8 @@ set(
         view/movement.cpp
         view/standard_fps_movement.cpp
         model/voronoi_map.cpp
+        model/entity_mesh_generator.cpp
+        model/terrain_mesh_generator.cpp
 )
 set(SRC ${SRC})
 

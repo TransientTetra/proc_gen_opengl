@@ -9,7 +9,6 @@
 #include <view/opengl_interfacing/shader_program.hpp>
 #include <view/opengl_interfacing/camera.hpp>
 #include <controller/world_manipulator.hpp>
-#include <controller/terrain_translator.hpp>
 #include "view.hpp"
 #include "camera_view.hpp"
 #include "terrain_models_view.hpp"
@@ -22,13 +21,11 @@ private:
 	StandardFPSMovement inputProcessor;
 public:
 	Demo1MainScene(Application* application, Window* window,
-		WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator);
+		WorldManipulator* modelManipulator, Terrain* terrain);
 	void processEvents(SDL_Event& event) override;
 	virtual ~Demo1MainScene();
 
 	void draw() override;
-
-	void addModel(std::unique_ptr<Mesh> model);
 };
 
 

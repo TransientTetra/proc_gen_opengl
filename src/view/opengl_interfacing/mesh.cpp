@@ -2,8 +2,8 @@
 
 #include <memory>
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, Lightsource* light)
-	: vertices(vertices), indices(indices), usage(usage), light(light)
+Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, GLenum usage)
+: usage(usage), indicesSize(indices.size())
 {
 	modelMatrix = glm::mat4(1.0f);
 
@@ -17,16 +17,17 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLen
 	shader.attachVertexAndFragmentShaders(vs, fs);
 	shader.linkProgram();
 
-	update();
+	update(vertices, indices);
 }
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, GLenum usage, Lightsource* light, glm::vec3 color)
-	: Mesh(vertices, indices, usage, light)
+Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, GLenum usage, glm::vec3 color)
+: Mesh(vertices, indices, usage)
 {
 	this->color = color;
 }
 
-void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix, const glm::vec3 &cameraPosition)
+void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix, const glm::vec3 &cameraPosition,
+		const LightSource &lightSource)
 {
 	shader.useProgram();
 
@@ -35,12 +36,12 @@ void Mesh::draw(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMatrix, 
 	shader.sendUniformMatrix("view", viewMatrix);
 	shader.sendUniformMatrix("projection", projectionMatrix);
 
-	shader.sendUniformVector("lightPos", light->getPosition());
-	shader.sendUniformVector("lightColor", light->getColor());
+	shader.sendUniformVector("lightPos", lightSource.getPosition());
+	shader.sendUniformVector("lightColor", lightSource.getColor());
 	shader.sendUniformVector("viewPos", cameraPosition);
 
 	vao->bind();
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
 }
 
 void Mesh::scale(glm::vec3 scale)
@@ -72,22 +73,7 @@ Mesh::~Mesh()
 
 }
 
-std::vector<Vertex> &Mesh::getVertices()
-{
-	return vertices;
-}
-
-std::vector<unsigned int> &Mesh::getIndices()
-{
-	return indices;
-}
-
-std::vector<glm::vec3> &Mesh::getNormals()
-{
-	return normals;
-}
-
-void Mesh::update()
+void Mesh::update(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices)
 {
 	vao = std::make_unique<VAO>();
 	vbo = std::make_unique<VBO>();

@@ -6,9 +6,10 @@
 #include <glm/glm.hpp>
 #include <memory>
 #include "height_map.hpp"
+#include "entity.hpp"
 
 //terrain translates 2d heightmap to 3d terrain
-class Terrain
+class Terrain : public Entity
 {
 private:
 protected:
@@ -18,7 +19,6 @@ protected:
 	float scale; //amplitude
 
 	std::unique_ptr<HeightMap> heightMap;
-	std::vector<glm::vec3> points;
 
 	void calculatePoints();
 public:
@@ -43,7 +43,6 @@ public:
 	unsigned int getNPointsLength() const;
 
 	unsigned int getNPointsWidth() const;
-	const std::vector<glm::vec3> &getPoints() const;
 
 };
 
