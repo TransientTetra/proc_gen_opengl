@@ -48,7 +48,7 @@ void Terrain::calculatePoints()
 		if (i < nPointsLength - 1)
 			currIndex += 1;
 	}
-//	updateNormals();
+	updateNormals();
 	EntityMeshGenerator emg(this);
 	mesh = emg.createMesh();
 }
@@ -96,66 +96,20 @@ void Terrain::updateNormals()
 	//todo make this multithreaded
 	unsigned int nPointsWidth = getNPointsWidth();
 	unsigned int nPointsLength = getNPointsLength();
-//	for(unsigned int i = 0; i < vertices.size(); i++)
-//	{
-//		Vertex* v;
-//		Vertex* v_left;
-//		Vertex* v_right;
-//		Vertex* v_up;
-//		Vertex* v_down;
-//		Vertex* v_up_right;
-//		Vertex* v_down_left;
-//		v = &(vertices.at(i));
-//
-//		if (i > 0)
-//		{
-//			v_left = &(vertices.at(i - 1));
-//		}
-//
-//		if (i > nPointsWidth - 1)
-//		{
-//			v_up = &(vertices.at(i - nPointsWidth));
-//			v_up_right = &(vertices.at(i - nPointsWidth + 1));
-//		}
-//		else if (i > nPointsWidth - 2)
-//		{
-//			v_up_right = &(vertices.at(i - nPointsWidth + 1));
-//		}
-//
-//		if (i < vertices.size() - 1)
-//		{
-//			v_right = &(vertices.at(i + 1));
-//		}
-//
-//		if (i < vertices.size() - nPointsWidth)
-//		{
-//			v_down = &(vertices.at(i + nPointsWidth));
-//			v_down_left = &(vertices.at(i + nPointsWidth - 1));
-//		}
-//		else if (i < vertices.size() - nPointsWidth + 1)
-//		{
-//			v_down_left = &(vertices.at(i + nPointsWidth - 1));
-//		}
-//
-//		// t1 = v + v_left + v_up
-//		// t2 = v + v_up + v_up_right
-//		// t3 = v + v_up_right + v_right
-//		// t4 = v + v_right + v_down
-//		// t5 = v + v_down + v_down_left
-//		// t6 = v + v_down_left + v_left
-//
-//		// todo calculate normal vectors only for existing triangles
-//		glm::vec3 t1_norm = calcTriangleNormal(v->getPosition(), v_left->getPosition(), v_up->getPosition());
-//		glm::vec3 t2_norm = calcTriangleNormal(v->getPosition(), v_up->getPosition(), v_up_right->getPosition());
-//		glm::vec3 t3_norm = calcTriangleNormal(v->getPosition(), v_up_right->getPosition(), v_right->getPosition());
-//		glm::vec3 t4_norm = calcTriangleNormal(v->getPosition(), v_right->getPosition(), v_down->getPosition());
-//		glm::vec3 t5_norm = calcTriangleNormal(v->getPosition(), v_left->getPosition(), v_down_left->getPosition());
-//		glm::vec3 t6_norm = calcTriangleNormal(v->getPosition(), v_down_left->getPosition(), v_left->getPosition());
-//
-//		glm::vec3 norm = -glm::normalize(t1_norm + t2_norm + t3_norm + t4_norm + t5_norm + t6_norm);
-//
-//		vertices.at(i).setNormal(norm);
-//	}
+	//calculating normal for each triangle and then adding them to vertex normals
+	for (unsigned int i = 0; i < indices.size(); i += 3)
+	{
+		Vertex* v1 = &(vertices.at(indices.at(i)));
+		Vertex* v2 = &(vertices.at(indices.at(i + 1)));
+		Vertex* v3 = &(vertices.at(indices.at(i + 2)));
+		glm::vec3 faceNormal = calcTriangleNormal(v1->getPosition(), v2->getPosition(), v3->getPosition());
+		v1->setNormal(v1->getNormal() + faceNormal);
+		v2->setNormal(v2->getNormal() + faceNormal);
+		v3->setNormal(v3->getNormal() + faceNormal);
+	}
+	//normalizing the normals
+	for (auto&& vertex : vertices)
+		vertex.setNormal(glm::normalize(vertex.getNormal()));
 }
 
 glm::vec3 Terrain::calcTriangleNormal(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3)
