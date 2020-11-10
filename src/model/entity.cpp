@@ -29,3 +29,8 @@ const std::shared_ptr<Mesh> &Entity::getMesh() const
 {
 	return mesh;
 }
+
+const std::vector<unsigned int> &Entity::getIndices() const
+{
+	return indices;
+}

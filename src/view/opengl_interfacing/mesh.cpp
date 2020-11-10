@@ -2,7 +2,7 @@
 
 #include <memory>
 
-Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, GLenum usage)
+Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, GLenum usage)
 : usage(usage), indicesSize(indices.size())
 {
 	modelMatrix = glm::mat4(1.0f);
@@ -20,7 +20,7 @@ Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, GL
 	update(vertices, indices);
 }
 
-Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, GLenum usage, glm::vec3 color)
+Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, GLenum usage, glm::vec3 color)
 : Mesh(vertices, indices, usage)
 {
 	this->color = color;
@@ -73,7 +73,7 @@ Mesh::~Mesh()
 
 }
 
-void Mesh::update(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices)
+void Mesh::update(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices)
 {
 	vao = std::make_unique<VAO>();
 	vbo = std::make_unique<VBO>();

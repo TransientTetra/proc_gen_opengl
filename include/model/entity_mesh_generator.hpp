@@ -12,7 +12,7 @@ public:
 	explicit EntityMeshGenerator(Entity* entity);
 
 	virtual ~EntityMeshGenerator();
-	virtual void updateMesh(Mesh *mesh) = 0;
+	std::shared_ptr<Mesh> createMesh();
 };
 
 

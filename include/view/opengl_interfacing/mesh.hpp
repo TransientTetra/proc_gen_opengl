@@ -32,8 +32,8 @@ private:
 	std::unique_ptr<VBO> vbo;
 	std::unique_ptr<EBO> ebo;
 public:
-	Mesh(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, GLenum usage);
-	Mesh(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, GLenum usage, glm::vec3 color);
+	Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, GLenum usage);
+	Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, GLenum usage, glm::vec3 color);
 
 	virtual ~Mesh();
 
@@ -46,7 +46,7 @@ public:
 	void rotate(float angle, glm::vec3 axis);
 	void translate(glm::vec3 trans);
 
-	void update(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices);
+	void update(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices);
 
 	//angle in radians!; when possible use this function, it has the correct order of matrix operations
 	void scaleRotateTranslate(glm::vec3 scale, float angle, glm::vec3 axis, glm::vec3 trans);

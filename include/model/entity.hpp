@@ -23,6 +23,8 @@ public:
 
 	const std::vector<Vertex> &getVertices() const;
 
+	const std::vector<unsigned int> &getIndices() const;
+
 	const std::shared_ptr<Mesh> &getMesh() const;
 };
 

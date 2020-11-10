@@ -6,13 +6,32 @@ Vertex::Vertex(glm::vec3 position, glm::vec3 normal, glm::vec3 color)
 
 }
 
-glm::vec3 Vertex::getPosition()
+const glm::vec3 &Vertex::getPosition() const
 {
 	return position;
 }
 
-
-void Vertex::setNormal(glm::vec3 normal)
+void Vertex::setPosition(const glm::vec3 &position)
 {
-	this->normal = normal;
+	Vertex::position = position;
+}
+
+const glm::vec3 &Vertex::getNormal() const
+{
+	return normal;
+}
+
+void Vertex::setNormal(const glm::vec3 &normal)
+{
+	Vertex::normal = normal;
+}
+
+const glm::vec3 &Vertex::getColor() const
+{
+	return color;
+}
+
+void Vertex::setColor(const glm::vec3 &color)
+{
+	Vertex::color = color;
 }

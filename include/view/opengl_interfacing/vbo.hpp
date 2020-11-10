@@ -15,7 +15,7 @@ public:
 	virtual ~VBO();
 
 	void bind();
-	void loadVertices(std::vector<Vertex> &vertices, GLenum usage);
+	void loadVertices(const std::vector<Vertex> &vertices, GLenum usage);
 };
 
 #endif //PROC_GEN_OPENGL_VBO_HPP

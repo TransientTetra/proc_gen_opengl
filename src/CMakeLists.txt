@@ -33,8 +33,6 @@ set(
         model/perlin_noise.cpp
         model/white_noise.cpp
         view/terrain_control_frame.cpp
-        controller/world_manipulator.cpp
-        controller/model_manipulator.cpp
         view/opengl_interfacing/light_source.cpp
         model/diamond_square_map.cpp
         view/camera_control_frame.cpp
@@ -48,7 +46,9 @@ set(
         view/standard_fps_movement.cpp
         model/voronoi_map.cpp
         model/entity_mesh_generator.cpp
-        model/terrain_mesh_generator.cpp
+        model/terrain_colorer.cpp
+        controller/model_manipulator.cpp
+        controller/world_manipulator.cpp
 )
 set(SRC ${SRC})
 
