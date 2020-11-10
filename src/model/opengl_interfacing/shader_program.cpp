@@ -1,7 +1,7 @@
 #include <GL/glew.h>
 #include <iostream>
 #include <glm/glm/gtc/type_ptr.hpp>
-#include "view/opengl_interfacing/shader_program.hpp"
+#include "model/opengl_interfacing/shader_program.hpp"
 
 ShaderProgram::ShaderProgram()
 {

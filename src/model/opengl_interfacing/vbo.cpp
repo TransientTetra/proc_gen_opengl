@@ -1,5 +1,5 @@
 #include <GL/glew.h>
-#include "view/opengl_interfacing/vbo.hpp"
+#include "model/opengl_interfacing/vbo.hpp"
 
 VBO::VBO()
 {

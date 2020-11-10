@@ -4,8 +4,8 @@
 
 #include <vector>
 #include <glm/glm.hpp>
-#include <view/opengl_interfacing/vertex.hpp>
-#include <view/opengl_interfacing/mesh.hpp>
+#include <model/opengl_interfacing/vertex.hpp>
+#include <model/opengl_interfacing/mesh.hpp>
 
 class Entity
 {

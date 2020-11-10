@@ -14,17 +14,17 @@ set(
         model/terrain.cpp
         model/square.cpp
         model/cube.cpp
-        view/opengl_interfacing/vbo.cpp
-        view/opengl_interfacing/shader.cpp
-        view/opengl_interfacing/vertex_shader.cpp
-        view/opengl_interfacing/fragment_shader.cpp
-        view/opengl_interfacing/shader_program.cpp
-        view/opengl_interfacing/vao.cpp
-        view/opengl_interfacing/ebo.cpp
-        view/opengl_interfacing/mesh.cpp
+        model/opengl_interfacing/vbo.cpp
+        model/opengl_interfacing/shader.cpp
+        model/opengl_interfacing/vertex_shader.cpp
+        model/opengl_interfacing/fragment_shader.cpp
+        model/opengl_interfacing/shader_program.cpp
+        model/opengl_interfacing/vao.cpp
+        model/opengl_interfacing/ebo.cpp
+        model/opengl_interfacing/mesh.cpp
         view/demo1_main_scene.cpp
-        view/opengl_interfacing/camera.cpp
-        view/opengl_interfacing/vertex.cpp
+        model/opengl_interfacing/camera.cpp
+        model/opengl_interfacing/vertex.cpp
         model/height_map.cpp
         model/sinusoidal_map.cpp
         model/noise.cpp
@@ -33,7 +33,7 @@ set(
         model/perlin_noise.cpp
         model/white_noise.cpp
         view/terrain_control_frame.cpp
-        view/opengl_interfacing/light_source.cpp
+        model/opengl_interfacing/light_source.cpp
         model/diamond_square_map.cpp
         view/camera_control_frame.cpp
         view/camera_view.cpp

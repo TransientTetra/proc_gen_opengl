@@ -1,7 +1,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "view/opengl_interfacing/shader.hpp"
+#include "model/opengl_interfacing/shader.hpp"
 
 Shader::Shader(GLenum shaderType)
 {

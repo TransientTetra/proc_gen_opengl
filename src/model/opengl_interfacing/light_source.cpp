@@ -1,4 +1,4 @@
-#include "view/opengl_interfacing/light_source.hpp"
+#include "model/opengl_interfacing/light_source.hpp"
 
 LightSource::LightSource(glm::vec3 position, glm::vec3 color)
 {

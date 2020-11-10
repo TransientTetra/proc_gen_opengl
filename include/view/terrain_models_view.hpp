@@ -2,7 +2,7 @@
 #define PROC_GEN_OPENGL_TERRAIN_MODELS_VIEW_HPP
 
 
-#include <view/opengl_interfacing/mesh.hpp>
+#include <model/opengl_interfacing/mesh.hpp>
 #include <model/entity.hpp>
 #include <model/terrain.hpp>
 #include "camera_view.hpp"

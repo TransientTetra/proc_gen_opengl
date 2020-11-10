@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <vector>
-#include <view/opengl_interfacing/light_source.hpp>
+#include <model/opengl_interfacing/light_source.hpp>
 #include "frame.hpp"
 #include "view/window.hpp"
 

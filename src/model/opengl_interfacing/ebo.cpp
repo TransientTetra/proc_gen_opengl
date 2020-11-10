@@ -1,5 +1,5 @@
 #include <GL/glew.h>
-#include "view/opengl_interfacing/ebo.hpp"
+#include "model/opengl_interfacing/ebo.hpp"
 
 EBO::EBO()
 {

@@ -2,9 +2,9 @@
 #define PROC_GEN_OPENGL_TERRAIN_COLORER_HPP
 
 #include <vector>
-#include <view/opengl_interfacing/vertex.hpp>
+#include <model/opengl_interfacing/vertex.hpp>
 #include <model/terrain.hpp>
-#include <view/opengl_interfacing/mesh.hpp>
+#include <model/opengl_interfacing/mesh.hpp>
 
 class TerrainColorer
 {

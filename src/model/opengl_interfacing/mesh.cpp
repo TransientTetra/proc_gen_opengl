@@ -1,4 +1,4 @@
-#include "view/opengl_interfacing/mesh.hpp"
+#include "model/opengl_interfacing/mesh.hpp"
 
 #include <memory>
 

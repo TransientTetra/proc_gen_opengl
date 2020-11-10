@@ -2,7 +2,7 @@
 #define PROC_GEN_OPENGL_CAMERA_VIEW_HPP
 
 
-#include <view/opengl_interfacing/camera.hpp>
+#include <model/opengl_interfacing/camera.hpp>
 #include "view.hpp"
 #include "camera_controller_type.hpp"
 #include "rendering_mode.hpp"

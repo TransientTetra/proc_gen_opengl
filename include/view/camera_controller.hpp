@@ -2,7 +2,7 @@
 #define PROC_GEN_OPENGL_CAMERA_CONTROLLER_HPP
 
 
-#include <view/opengl_interfacing/camera.hpp>
+#include <model/opengl_interfacing/camera.hpp>
 
 class CameraController
 {

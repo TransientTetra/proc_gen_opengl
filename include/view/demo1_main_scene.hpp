@@ -2,12 +2,12 @@
 #define PROC_GEN_OPENGL_DEMO1_MAIN_SCENE_HPP
 
 
-#include <view/opengl_interfacing/mesh.hpp>
+#include <model/opengl_interfacing/mesh.hpp>
 #include <memory>
-#include <view/opengl_interfacing/vertex_shader.hpp>
-#include <view/opengl_interfacing/fragment_shader.hpp>
-#include <view/opengl_interfacing/shader_program.hpp>
-#include <view/opengl_interfacing/camera.hpp>
+#include <model/opengl_interfacing/vertex_shader.hpp>
+#include <model/opengl_interfacing/fragment_shader.hpp>
+#include <model/opengl_interfacing/shader_program.hpp>
+#include <model/opengl_interfacing/camera.hpp>
 #include <controller/world_manipulator.hpp>
 #include "view.hpp"
 #include "camera_view.hpp"

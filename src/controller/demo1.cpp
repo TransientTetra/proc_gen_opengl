@@ -1,9 +1,8 @@
 #include <memory>
-#include <view/opengl_interfacing/vertex_shader.hpp>
-#include <view/opengl_interfacing/mesh.hpp>
+#include <model/opengl_interfacing/vertex_shader.hpp>
+#include <model/opengl_interfacing/mesh.hpp>
 #include <view/demo1_main_scene.hpp>
 #include <iostream>
-#include "../../../../.config/JetBrains/CLion2020.2/scratches/entity_translator.hpp"
 #include "controller/demo1.hpp"
 
 Demo1::Demo1(const std::string &title, int height, int width)
