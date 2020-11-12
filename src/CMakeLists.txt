@@ -28,7 +28,6 @@ set(
         model/height_map.cpp
         model/sinusoidal_map.cpp
         model/noise.cpp
-        model/simplex_noise.cpp
         model/noise_map.cpp
         model/perlin_noise.cpp
         model/white_noise.cpp
