@@ -5,15 +5,10 @@
 #include <view/camera_control_frame.hpp>
 
 Demo1MainScene::Demo1MainScene(Application* application, Window* window,
-			       WorldManipulator* modelManipulator, TerrainTranslator* terrainTranslator)
-: TerrainModelsView(application, window, terrainTranslator), inputProcessor(cameraController.get())
+			       WorldManipulator* modelManipulator, Terrain* terrain)
+: TerrainModelsView(application, window, terrain), inputProcessor(cameraController.get())
 {
-	Demo1MainScene::terrainTranslator = terrainTranslator;
-
-	light = std::make_unique<Lightsource>(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-//	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW, glm::vec3(.8f, .2f, .6f), light.get());
-	terrain = std::make_unique<Mesh>(std::vector<Vertex>(), std::vector<unsigned int>(), GL_STATIC_DRAW, light.get());
-	updateTerrain();
+	light = std::make_unique<LightSource>(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
 	frames.emplace_back(std::make_unique<CameraControlFrame>(this, "Camera Control"));
@@ -31,16 +26,11 @@ void Demo1MainScene::draw()
 	inputProcessor.updateController(cameraController.get(), application->getLastFrameDuration());
 	TerrainModelsView::draw();
 
-	terrain->draw(camera.getViewMatrix(), camera.getProjectionMatrix(), camera.getPosition());
-	for (auto&& model : models)
+	terrain->getMesh()->draw(camera.getViewMatrix(), camera.getProjectionMatrix(), camera.getPosition(), *light);
+	for (auto&& entity : entities)
 	{
-		model->draw(camera.getViewMatrix(), camera.getProjectionMatrix(), camera.getPosition());
+		entity->getMesh()->draw(camera.getViewMatrix(), camera.getProjectionMatrix(), camera.getPosition(), *light);
 	}
-}
-
-void Demo1MainScene::addModel(std::unique_ptr<Mesh> model)
-{
-	models.emplace_back(std::move(model));
 }
 
 Demo1MainScene::~Demo1MainScene()

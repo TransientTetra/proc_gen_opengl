@@ -1,4 +1,4 @@
-#include "controller/terrain_colorer.hpp"
+#include "model/terrain_colorer.hpp"
 
 TerrainColorer::TerrainColorer()
 {
@@ -8,7 +8,12 @@ TerrainColorer::TerrainColorer()
 	lowColor = glm::vec3(.0f, 1.0f, .0f);
 }
 
-glm::vec3 TerrainColorer::getPointColor(glm::vec3 point)
+TerrainColorer::~TerrainColorer()
+{
+
+}
+
+glm::vec3 TerrainColorer::getPointColor(glm::vec3 &point)
 {
 	float diff = (point.y - minHeight) / (maxHeight - minHeight);
 	diff = diff < .0f ? .0f : diff > 1.0f ? 1.0f : diff;

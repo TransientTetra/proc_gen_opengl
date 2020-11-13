@@ -6,23 +6,24 @@
 #include <glm/glm.hpp>
 #include <memory>
 #include "height_map.hpp"
+#include "entity.hpp"
 
 //terrain translates 2d heightmap to 3d terrain
-class Terrain
+class Terrain : public Entity
 {
 private:
 protected:
 	float length; //z axis
 	float width; //x axis
-	float level; //y axis
 	float scale; //amplitude
 
 	std::unique_ptr<HeightMap> heightMap;
-	std::vector<glm::vec3> points;
 
 	void calculatePoints();
+	void updateNormals();
+	glm::vec3 calcTriangleNormal(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3);
 public:
-	Terrain(float width, float length, float scale, float level);
+	Terrain(float width, float length, float scale);
 
 	void setHeightMap(std::unique_ptr<HeightMap> heightMap);
 
@@ -30,20 +31,15 @@ public:
 
 	void setWidth(float width);
 
-	void setLevel(float level);
-
 	void setScale(float scale);
 
 	float getLength() const;
 
 	float getWidth() const;
 
-	float getLevel() const;
-
 	unsigned int getNPointsLength() const;
 
 	unsigned int getNPointsWidth() const;
-	const std::vector<glm::vec3> &getPoints() const;
 
 };
 

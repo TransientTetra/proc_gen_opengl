@@ -22,5 +22,5 @@ std::unique_ptr<Terrain> &World::getTerrain()
 
 World::World()
 {
-	terrain = std::make_unique<Terrain>(10, 10, 1, 0);
+	terrain = std::make_unique<Terrain>(10, 10, 1);
 }

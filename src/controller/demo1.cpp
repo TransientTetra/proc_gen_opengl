@@ -1,16 +1,15 @@
 #include <memory>
-#include <view/opengl_interfacing/vertex_shader.hpp>
-#include <view/opengl_interfacing/mesh.hpp>
+#include <model/opengl_interfacing/vertex_shader.hpp>
+#include <model/opengl_interfacing/mesh.hpp>
 #include <view/demo1_main_scene.hpp>
 #include <iostream>
-#include <controller/entity_translator.hpp>
 #include "controller/demo1.hpp"
 
 Demo1::Demo1(const std::string &title, int height, int width)
-: Application(title, height, width), worldManipulator(&world), terrainTranslator(world.getTerrain().get())
+: Application(title, height, width), worldManipulator(&world)
 {
 	//todo change default first view once menu or something is devised
-	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator, &terrainTranslator);
+	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator, world.getTerrain().get());
 }
 
 void Demo1::processEvents()

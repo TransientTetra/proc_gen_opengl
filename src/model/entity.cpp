@@ -20,9 +20,14 @@ void Entity::setPosition(const glm::vec3 &position)
 	Entity::position = position;
 }
 
-const std::vector<glm::vec3> &Entity::getVertices() const
+const std::vector<Vertex> &Entity::getVertices() const
 {
 	return vertices;
+}
+
+const std::shared_ptr<Mesh> &Entity::getMesh() const
+{
+	return mesh;
 }
 
 const std::vector<unsigned int> &Entity::getIndices() const

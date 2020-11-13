@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <vector>
-#include <view/opengl_interfacing/lightsource.hpp>
+#include <model/opengl_interfacing/light_source.hpp>
 #include "frame.hpp"
 #include "view/window.hpp"
 
@@ -15,7 +15,7 @@ protected:
 	std::vector<std::unique_ptr<Frame>> frames;
 	Application* application;
 	Window* window;
-	std::unique_ptr<Lightsource> light;
+	std::unique_ptr<LightSource> light;
 
 public:
 	View(Application* application, Window* window);

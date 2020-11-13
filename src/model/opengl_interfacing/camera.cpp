@@ -1,6 +1,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
-#include "view/opengl_interfacing/camera.hpp"
+#include "model/opengl_interfacing/camera.hpp"
 
 Camera::Camera(float fov, float aspectRatio, float nearDraw, float farDraw)
 : fov(fov), aspectRatio(aspectRatio), nearDraw(nearDraw), farDraw(farDraw)

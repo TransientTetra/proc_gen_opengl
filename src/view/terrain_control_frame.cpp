@@ -113,7 +113,6 @@ void TerrainControlFrame::mainDraw()
 	if (tempF != widthTerrain)
 	{
 		worldManipulator->setTerrainWidth(widthTerrain);
-		dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
 	}
 
 	tempF = heightTerrain;
@@ -121,7 +120,6 @@ void TerrainControlFrame::mainDraw()
 	if (tempF != heightTerrain)
 	{
 		worldManipulator->setTerrainLength(heightTerrain);
-		dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
 	}
 
 	int tempI = nVerticesSide;
@@ -134,7 +132,6 @@ void TerrainControlFrame::mainDraw()
 	if (tempF != scale)
 	{
 		worldManipulator->setTerrainScale(scale);
-		dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
 	}
 
 	if (currentAlgo & PERLIN_NOISE)
@@ -209,6 +206,5 @@ void TerrainControlFrame::sendUpdateSignal()
 					      nVerticesSide, horizontalScale,
 					      nOctaves, persistence, lacunarity,
 					      nWavesWidth, nWavesHeight, nPartitions, levelDiff);
-	dynamic_cast<TerrainModelsView*>(view)->updateTerrain();
 }
 

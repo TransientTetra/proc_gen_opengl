@@ -1,7 +1,7 @@
 #include "view/terrain_models_view.hpp"
 
-TerrainModelsView::TerrainModelsView(Application *application, Window *window, TerrainTranslator *terrainTranslator)
-: CameraView(application, window), terrainTranslator(terrainTranslator)
+TerrainModelsView::TerrainModelsView(Application *application, Window *window, Terrain* terrain)
+: CameraView(application, window), terrain(terrain)
 {
 }
 
@@ -10,7 +10,3 @@ void TerrainModelsView::draw()
 	CameraView::draw();
 }
 
-void TerrainModelsView::updateTerrain()
-{
-	terrainTranslator->updateMesh(terrain.get());
-}
