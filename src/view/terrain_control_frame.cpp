@@ -23,7 +23,7 @@ TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::str
 
 	nVerticesSide = 256;
 	scale = 1;
-	horizontalScale = .1f;
+	horizontalScale = .3f;
 	nOctaves = 1;
 	persistence = .5f;
 	lacunarity = 2;
