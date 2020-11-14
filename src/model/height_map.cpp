@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "model/height_map.hpp"
 
 HeightMap::HeightMap()
@@ -54,20 +55,21 @@ void HeightMap::add(const HeightMap &other)
 {
 	unsigned width = getWidth() < other.getWidth() ? getWidth() : other.getWidth();
 	unsigned length = getLength() < other.getLength() ? getLength() : other.getLength();
-	float min = 1;
-	float max = -1;
 	for (unsigned i = 0; i < length; ++i)
 	{
 		for (unsigned j = 0; j < width; ++j)
 		{
 			float val = at(j, i) + other.at(j, i);
-			if (val < min) min = val;
-			if (val > max) max = val;
 			setAt(j, i, val);
 		}
 	}
+}
 
-	//normalization
+void HeightMap::normalize(float a, float b)
+{
+	auto minmax = std::minmax_element(points.begin(), points.end());
+	float min = *minmax.first;
+	float max = *minmax.second;
 	for (unsigned i = 0; i < length; ++i)
 	{
 		for (unsigned j = 0; j < width; ++j)

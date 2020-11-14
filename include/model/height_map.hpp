@@ -4,7 +4,7 @@
 
 #include <vector>
 
-//heightmap guarantees points to be in <-1, 1>
+//heightmap guarantees points to be in <-1, 1> when created, not when multiplied or added
 class HeightMap
 {
 private:
@@ -28,6 +28,7 @@ public:
 
 	void multiply(const HeightMap &other);
 	void add(const HeightMap &other);
+	void normalize(float min, float max); //normalizes heightmap between min and max
 };
 
 
