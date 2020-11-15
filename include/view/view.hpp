@@ -15,7 +15,6 @@ protected:
 	std::vector<std::unique_ptr<Frame>> frames;
 	Application* application;
 	Window* window;
-	std::unique_ptr<LightSource> light;
 
 public:
 	View(Application* application, Window* window);

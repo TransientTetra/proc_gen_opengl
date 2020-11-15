@@ -17,6 +17,7 @@ protected:
 	std::unique_ptr<CameraController> cameraController;
 	std::vector<Entity*> entities;
 	Terrain* terrain;
+	std::unique_ptr<LightSource> light;
 public:
 	Scene3D(Application *application, Window *window, Terrain* terrain);
 

@@ -10,6 +10,7 @@ Scene3D::Scene3D(Application *application, Window *window, Terrain* terrain)
 				    .1f, 100.0f)
 {
 	cameraController = std::make_unique<StaticCameraController>(&camera);
+	light = std::make_unique<LightSource>(glm::vec3(0, 5, 0), glm::vec3(1, 1, 1));
 }
 
 void Scene3D::setCameraController(CameraControllerType cameraType)
