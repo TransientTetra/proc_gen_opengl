@@ -4,7 +4,7 @@
 
 #include "frame.hpp"
 #include "camera_controller_type.hpp"
-#include "camera_view.hpp"
+#include "scene_3d.hpp"
 #include "rendering_mode.hpp"
 
 class CameraControlFrame : public Frame
@@ -23,7 +23,7 @@ private:
 	float ypos;
 	float zpos;
 public:
-	CameraControlFrame(CameraView *view, const std::string &name);
+	CameraControlFrame(Scene3D *view, const std::string &name);
 };
 
 

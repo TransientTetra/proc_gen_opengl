@@ -1,17 +1,18 @@
 #include <view/static_camera_controller.hpp>
 #include <view/flying_fps_camera_controller.hpp>
 #include <view/above_camera_controller.hpp>
-#include "view/camera_view.hpp"
+#include "view/scene_3d.hpp"
 
-CameraView::CameraView(Application *application, Window *window)
-: View(application, window), camera(glm::radians(45.0f),
+Scene3D::Scene3D(Application *application, Window *window, Terrain* terrain)
+: View(application, window), terrain(terrain),
+	camera(glm::radians(45.0f),
 				    static_cast<float>(window->getWidth()) / static_cast<float>(window->getHeight()),
 				    .1f, 100.0f)
 {
 	cameraController = std::make_unique<StaticCameraController>(&camera);
 }
 
-void CameraView::setCameraController(CameraControllerType cameraType)
+void Scene3D::setCameraController(CameraControllerType cameraType)
 {
 	float mvSp = cameraController->getMovementSpeed();
 	float rotSp = cameraController->getRotationSpeed();
@@ -30,42 +31,42 @@ void CameraView::setCameraController(CameraControllerType cameraType)
 	}
 }
 
-void CameraView::setCameraPosition(glm::vec3 position)
+void Scene3D::setCameraPosition(glm::vec3 position)
 {
 	camera.setPosition(position);
 }
 
-void CameraView::draw()
+void Scene3D::draw()
 {
 	View::draw();
 }
 
-void CameraView::setCameraSpeed(float cameraSpeed)
+void Scene3D::setCameraSpeed(float cameraSpeed)
 {
 	cameraController->setMovementSpeed(cameraSpeed);
 }
 
-void CameraView::setCameraSensitivity(float sensitivity)
+void Scene3D::setCameraSensitivity(float sensitivity)
 {
 	cameraController->setRotationSpeed(sensitivity);
 }
 
-void CameraView::setCameraFOV(float fov)
+void Scene3D::setCameraFOV(float fov)
 {
 	camera.setFOV(fov);
 }
 
-void CameraView::setCameraAspectRatio(float aspectRatio)
+void Scene3D::setCameraAspectRatio(float aspectRatio)
 {
 	camera.setAspectRatio(aspectRatio);
 }
 
-void CameraView::setCameraDrawDistance(float drawDistance)
+void Scene3D::setCameraDrawDistance(float drawDistance)
 {
 	camera.setFarDraw(drawDistance);
 }
 
-void CameraView::setRenderingMode(RenderingMode renderingMode)
+void Scene3D::setRenderingMode(RenderingMode renderingMode)
 {
 	switch(renderingMode)
 	{
@@ -80,7 +81,7 @@ void CameraView::setRenderingMode(RenderingMode renderingMode)
 	}
 }
 
-const glm::vec3& CameraView::getCameraPosition() const
+const glm::vec3& Scene3D::getCameraPosition() const
 {
 	return camera.getPosition();
 }

@@ -6,7 +6,7 @@
 
 Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 			       WorldManipulator* modelManipulator, Terrain* terrain)
-: TerrainModelsView(application, window, terrain), inputProcessor(cameraController.get())
+: Scene3D(application, window, terrain), inputProcessor(cameraController.get())
 {
 	light = std::make_unique<LightSource>(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
@@ -24,7 +24,7 @@ void Demo1MainScene::processEvents(SDL_Event &event)
 void Demo1MainScene::draw()
 {
 	inputProcessor.updateController(cameraController.get(), application->getLastFrameDuration());
-	TerrainModelsView::draw();
+	Scene3D::draw();
 
 	terrain->getMesh()->draw(camera.getViewMatrix(), camera.getProjectionMatrix(), camera.getPosition(), *light);
 	for (auto&& entity : entities)

@@ -1,20 +1,24 @@
-#ifndef PROC_GEN_OPENGL_CAMERA_VIEW_HPP
-#define PROC_GEN_OPENGL_CAMERA_VIEW_HPP
+#ifndef PROC_GEN_OPENGL_SCENE_3D_HPP
+#define PROC_GEN_OPENGL_SCENE_3D_HPP
 
 
 #include <model/opengl_interfacing/camera.hpp>
+#include <model/entity.hpp>
+#include <model/terrain.hpp>
 #include "view.hpp"
 #include "camera_controller_type.hpp"
 #include "rendering_mode.hpp"
 #include "camera_controller.hpp"
 
-class CameraView : public View
+class Scene3D : public View
 {
 protected:
 	Camera camera;
 	std::unique_ptr<CameraController> cameraController;
+	std::vector<Entity*> entities;
+	Terrain* terrain;
 public:
-	CameraView(Application *application, Window *window);
+	Scene3D(Application *application, Window *window, Terrain* terrain);
 
 	void draw() override;
 
@@ -32,4 +36,4 @@ public:
 };
 
 
-#endif //PROC_GEN_OPENGL_CAMERA_VIEW_HPP
+#endif //PROC_GEN_OPENGL_SCENE_3D_HPP
