@@ -1,7 +1,7 @@
 #include <sstream>
 #include "view/camera_control_frame.hpp"
 
-CameraControlFrame::CameraControlFrame(CameraView *view, const std::string &name)
+CameraControlFrame::CameraControlFrame(Scene3D *view, const std::string &name)
 : Frame(view, name)
 {
 	flags = ImGuiWindowFlags_NoResize;
@@ -21,12 +21,12 @@ CameraControlFrame::CameraControlFrame(CameraView *view, const std::string &name
 	zpos = 10;
 
 	//init view
-	dynamic_cast<CameraView*>(view)->setCameraController(cameraType);
-	dynamic_cast<CameraView*>(view)->setRenderingMode(renderingMode);
-	dynamic_cast<CameraView*>(view)->setCameraSpeed(speed);
-	dynamic_cast<CameraView*>(view)->setCameraSensitivity(mouseSensitivity);
-	dynamic_cast<CameraView*>(view)->setCameraDrawDistance(drawDistance);
-	dynamic_cast<CameraView*>(view)->setCameraPosition(glm::vec3(xpos, ypos, zpos));
+	dynamic_cast<Scene3D*>(view)->setCameraController(cameraType);
+	dynamic_cast<Scene3D*>(view)->setRenderingMode(renderingMode);
+	dynamic_cast<Scene3D*>(view)->setCameraSpeed(speed);
+	dynamic_cast<Scene3D*>(view)->setCameraSensitivity(mouseSensitivity);
+	dynamic_cast<Scene3D*>(view)->setCameraDrawDistance(drawDistance);
+	dynamic_cast<Scene3D*>(view)->setCameraPosition(glm::vec3(xpos, ypos, zpos));
 }
 
 void CameraControlFrame::mainDraw()
@@ -42,9 +42,9 @@ void CameraControlFrame::mainDraw()
 //	if (ImGui::RadioButton("Grounded FPS camera", cameraType == GROUNDED_FPS_CAMERA)) cameraType = GROUNDED_FPS_CAMERA;
 	if (tempC != cameraType)
 	{
-		dynamic_cast<CameraView *>(view)->setCameraController(cameraType);
-		dynamic_cast<CameraView *>(view)->setCameraSensitivity(mouseSensitivity);
-		dynamic_cast<CameraView *>(view)->setCameraSpeed(speed);
+		dynamic_cast<Scene3D *>(view)->setCameraController(cameraType);
+		dynamic_cast<Scene3D *>(view)->setCameraSensitivity(mouseSensitivity);
+		dynamic_cast<Scene3D *>(view)->setCameraSpeed(speed);
 	}
 
 	ImGui::NewLine();
@@ -53,12 +53,12 @@ void CameraControlFrame::mainDraw()
 	if (ImGui::RadioButton("Filled with lighting", renderingMode == FILLED_WITH_LIGHTING)) renderingMode = FILLED_WITH_LIGHTING;
 	if (ImGui::RadioButton("Wireframe", renderingMode == WIREFRAME)) renderingMode = WIREFRAME;
 	if (tempR != renderingMode)
-		dynamic_cast<CameraView*>(view)->setRenderingMode(renderingMode);
+		dynamic_cast<Scene3D*>(view)->setRenderingMode(renderingMode);
 
 	ImGui::NextColumn();
 
 	ImGui::NewLine();
-	glm::vec3 tempP = dynamic_cast<CameraView*>(view)->getCameraPosition();
+	glm::vec3 tempP = dynamic_cast<Scene3D*>(view)->getCameraPosition();
 	std::ostringstream str;
 	str << "X: " << tempP.x << "\nY: " << tempP.y << "\nZ: " << tempP.z;
 	ImGui::Text("Current position");
@@ -71,7 +71,7 @@ void CameraControlFrame::mainDraw()
 	ImGui::InputFloat("Zpos", &zpos);
 	if (ImGui::Button("Teleport"))
 	{
-		dynamic_cast<CameraView*>(view)->setCameraPosition(glm::vec3(xpos, ypos, zpos));
+		dynamic_cast<Scene3D*>(view)->setCameraPosition(glm::vec3(xpos, ypos, zpos));
 	}
 
 	ImGui::Columns(1);
@@ -79,20 +79,20 @@ void CameraControlFrame::mainDraw()
 	float tempF = mouseSensitivity;
 	ImGui::SliderFloat("Mouse sensitivity", &mouseSensitivity, .1f, 1.f);
 	if (tempF != mouseSensitivity)
-		dynamic_cast<CameraView*>(view)->setCameraSensitivity(mouseSensitivity);
+		dynamic_cast<Scene3D*>(view)->setCameraSensitivity(mouseSensitivity);
 
 	tempF = fov;
 	ImGui::SliderFloat("Field of view", &fov, 10, 180);
 	if (tempF != fov)
-		dynamic_cast<CameraView*>(view)->setCameraFOV(glm::radians<float>(fov));
+		dynamic_cast<Scene3D*>(view)->setCameraFOV(glm::radians<float>(fov));
 
 	tempF = drawDistance;
 	ImGui::SliderFloat("Draw distance", &drawDistance, 1, 500);
 	if (tempF != drawDistance)
-		dynamic_cast<CameraView*>(view)->setCameraDrawDistance(drawDistance);
+		dynamic_cast<Scene3D*>(view)->setCameraDrawDistance(drawDistance);
 
 	tempF = speed;
 	ImGui::SliderFloat("Movement speed", &speed, 1.f, 10.f);
 	if (tempF != speed)
-		dynamic_cast<CameraView*>(view)->setCameraSpeed(speed);
+		dynamic_cast<Scene3D*>(view)->setCameraSpeed(speed);
 }

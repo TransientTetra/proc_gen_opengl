@@ -1,7 +1,7 @@
 #include "view/terrain_control_frame.hpp"
 #include "view/view.hpp"
 
-TerrainControlFrame::TerrainControlFrame(TerrainModelsView *view, const std::string &name, WorldManipulator* worldManipulator)
+TerrainControlFrame::TerrainControlFrame(Scene3D *view, const std::string &name, WorldManipulator* worldManipulator)
 : Frame(view, name), worldManipulator(worldManipulator)
 {
 	flags = ImGuiWindowFlags_NoResize;

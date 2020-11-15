@@ -10,12 +10,11 @@
 #include <model/opengl_interfacing/camera.hpp>
 #include <controller/world_manipulator.hpp>
 #include "view.hpp"
-#include "camera_view.hpp"
-#include "terrain_models_view.hpp"
+#include "scene_3d.hpp"
 #include "standard_fps_movement.hpp"
 
 //the main view of the scene; the view where entities are rendered and where player can move and terrain is rendered
-class Demo1MainScene : public TerrainModelsView
+class Demo1MainScene : public Scene3D
 {
 private:
 	StandardFPSMovement inputProcessor;
