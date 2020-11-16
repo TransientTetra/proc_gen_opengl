@@ -3,6 +3,7 @@
 #include "view/demo1_main_scene.hpp"
 #include "controller/application.hpp"
 #include <view/camera_control_frame.hpp>
+#include <view/erosion_control_frame.hpp>
 
 Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 			       WorldManipulator* modelManipulator, Terrain* terrain)
@@ -12,6 +13,7 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
 	frames.emplace_back(std::make_unique<CameraControlFrame>(this, "Camera Control"));
+	frames.emplace_back(std::make_unique<ErosionControlFrame>(this, "Erosion Control", modelManipulator));
 }
 
 void Demo1MainScene::processEvents(SDL_Event &event)

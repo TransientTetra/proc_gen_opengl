@@ -21,7 +21,6 @@ void Terrain::calculatePoints()
 	unsigned int currIndex = 0;
 	unsigned int nPointsWidth = getNPointsWidth();
 	unsigned int nPointsLength = getNPointsLength();
-	TerrainColorer colorer;
 
 	//todo make this multithreaded
 	for (unsigned int i = 0; i < nPointsLength; ++i)
@@ -32,7 +31,7 @@ void Terrain::calculatePoints()
 			float y = scale * heightMap->at(i, j) + position.y;
 			float z = (i * length / (nPointsLength - 1) - length / 2) + position.z;
 			glm::vec3 pos(x, y, z);
-			vertices.emplace_back(pos, glm::vec3(0, 0, 0), colorer.getPointColor(pos));
+			vertices.emplace_back(pos, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0));
 			if (i < nPointsLength - 1 and j < nPointsWidth - 1)
 			{
 				indices.emplace_back(currIndex + nPointsWidth);
@@ -115,4 +114,9 @@ void Terrain::updateNormals()
 glm::vec3 Terrain::calcTriangleNormal(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3)
 {
 	return glm::normalize(glm::cross(v2 - v1, v3 - v1));
+}
+
+Vertex &Terrain::at(unsigned int x, unsigned int y)
+{
+	return vertices.at(y * getNPointsWidth() + x);
 }

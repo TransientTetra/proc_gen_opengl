@@ -2,11 +2,14 @@
 #define PROC_GEN_OPENGL_EROSION_HPP
 
 
+#include "terrain.hpp"
+
 class Erosion
 {
 private:
 protected:
 public:
+	virtual void erode(Terrain &terrain) = 0;
 };
 
 

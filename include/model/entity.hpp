@@ -26,6 +26,8 @@ public:
 	const std::vector<unsigned int> &getIndices() const;
 
 	const std::shared_ptr<Mesh> &getMesh() const;
+
+	void setMesh(const std::shared_ptr<Mesh> &mesh);
 };
 
 
