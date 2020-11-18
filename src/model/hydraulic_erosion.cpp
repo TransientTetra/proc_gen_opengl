@@ -79,7 +79,7 @@ void HydraulicErosion::erode(Terrain &terrain)
 			}
 
 			//update droplet
-			droplet.speed = droplet.speed + deltaH * gravity;
+			droplet.speed = std::sqrt(std::max(0.f, droplet.speed * droplet.speed - deltaH * gravity));
 			droplet.water *= 1 - evaporateSpeed;
 		}
 	}

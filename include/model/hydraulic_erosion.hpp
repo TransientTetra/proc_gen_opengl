@@ -34,8 +34,8 @@ private:
 	float minSedimentCapacity = .01f;
 	float gravity = 4;
 	float evaporateSpeed = .1f;
-	float depositSpeed = .3f;
-	float erosionSpeed = .3f;
+	float depositSpeed = .1f;
+	float erosionSpeed = .1f;
 	float dropletRadius;
 
 	//bilinear interpolation
