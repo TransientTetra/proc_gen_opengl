@@ -6,8 +6,9 @@
 
 class Erosion
 {
-private:
 protected:
+	virtual void addAt(Terrain &terrain, unsigned int x, unsigned int y, float val);
+	virtual void subtractAt(Terrain &terrain, unsigned int x, unsigned int y, float val);
 public:
 	virtual void erode(Terrain &terrain) = 0;
 };

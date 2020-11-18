@@ -29,17 +29,14 @@ private:
 	float dropletInitialSpeed;
 	float dropletInitialVolume;
 
-	float dropletInertia = .5f;
-	float sedimentCapacityFactor = 4;
+	float dropletInertia = .05f;
+	float sedimentCapacityFactor = 1;
 	float minSedimentCapacity = .01f;
 	float gravity = 4;
-	float evaporateSpeed = .1f;
-	float depositSpeed = .1f;
-	float erosionSpeed = .1f;
-	float dropletRadius;
-
-	//bilinear interpolation
-	float interp(float val1, float val2, float val3, float val4, float w1, float w2, float w3, float w4);
+	float evaporateSpeed = .01f;
+	float depositSpeed = .3f;
+	float erosionSpeed = .3f;
+	float dropletRadius = 3;
 
 	float getDropletHeight(const Droplet &droplet, Terrain &terrain);
 	glm::vec2 getDropletDirection(const Droplet &droplet, Terrain &terrain);
