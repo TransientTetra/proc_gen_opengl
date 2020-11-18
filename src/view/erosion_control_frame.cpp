@@ -12,11 +12,13 @@ void ErosionControlFrame::mainDraw()
 {
 	ImGui::SetWindowSize(ImVec2(width, height));
 	ImGui::Columns(1);
+	ImGui::Text("Seed");
+	ImGui::InputText("", seedBuf, sizeof(seedBuf) / sizeof(char));
 	if (ImGui::Button("Erode"))
 		sendUpdateSignal();
 }
 
 void ErosionControlFrame::sendUpdateSignal()
 {
-	worldManipulator->erodeTerrainHydraulic(seedBuf, 1, 1);
+	worldManipulator->erodeTerrainHydraulic(seedBuf, 70000, 100, 1, 1);
 }

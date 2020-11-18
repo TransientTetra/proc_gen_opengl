@@ -146,13 +146,13 @@ void WorldManipulator::setTerrainScale(float scale)
 	world->getTerrain().setScale(scale);
 }
 
-void WorldManipulator::erodeTerrainHydraulic(const std::string &seed, unsigned int nDroplets,
-					     unsigned int dropletLifetime)
+void WorldManipulator::erodeTerrainHydraulic(const std::string &seed, unsigned int nDroplets, unsigned int dropletLifetime,
+					float dropletInitialSpeed, float dropletInitialVolume)
 {
 	unsigned int seedI = 0;
 	for (auto&& c : seed)
 		seedI += c;
-	HydraulicErosion erosion(seedI, nDroplets, dropletLifetime);
+	HydraulicErosion erosion(seedI, nDroplets, dropletLifetime, dropletInitialSpeed, dropletInitialVolume);
 	erosion.erode(world->getTerrain());
 	EntityMeshGenerator meshGenerator(&(world->getTerrain()));
 	world->getTerrain().setMesh(meshGenerator.createMesh());
