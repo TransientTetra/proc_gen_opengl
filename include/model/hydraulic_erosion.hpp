@@ -29,7 +29,7 @@ private:
 	float dropletInitialSpeed;
 	float dropletInitialVolume;
 
-	float dropletInertia = .05f;
+	float dropletInertia = .1f;
 	float sedimentCapacityFactor = 1;
 	float minSedimentCapacity = .01f;
 	float gravity = 4;

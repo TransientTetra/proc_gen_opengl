@@ -29,6 +29,7 @@ void HydraulicErosion::erode(Terrain &terrain)
 		for (unsigned lifetime = 0; lifetime < dropletLifetime; ++lifetime)
 		{
 			//calculate droplet height and direction of flow
+			Droplet oldDroplet = droplet;
 
 			float dropletHeight = getDropletHeight(droplet, terrain);
 			droplet.direction = droplet.direction * dropletInertia
@@ -64,7 +65,7 @@ void HydraulicErosion::erode(Terrain &terrain)
 				else
 					depositAmount = (droplet.sediment - sedimentCapacity) * depositSpeed;
 
-				deposit(droplet, terrain, depositAmount);
+				deposit(oldDroplet, terrain, depositAmount);
 				droplet.sediment -= depositAmount;
 			}
 
@@ -74,7 +75,7 @@ void HydraulicErosion::erode(Terrain &terrain)
 			{
 				float erosionAmount =
 					std::min((sedimentCapacity - droplet.sediment) * erosionSpeed, -deltaH);
-				erodeSingle(droplet, terrain, erosionAmount);
+				erodeSingle(oldDroplet, terrain, erosionAmount);
 				droplet.sediment += erosionAmount;
 			}
 
