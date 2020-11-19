@@ -1,11 +1,33 @@
 #include <iostream>
 #include "model/hydraulic_erosion.hpp"
 
-HydraulicErosion::HydraulicErosion(unsigned int seed, unsigned int nDroplets, unsigned int dropletLifetime,
-				   float dropletInitialSpeed, float dropletInitialVolume)
-: seed(seed), nDroplets(nDroplets), generator(seed), dropletLifetime(dropletLifetime),
-dropletInitialSpeed(dropletInitialSpeed), dropletInitialVolume(dropletInitialVolume)
-{}
+HydraulicErosion::HydraulicErosion(unsigned int seed, unsigned int nDroplets)
+: nDroplets(nDroplets), generator(seed)
+{
+	dropletLifetime = 100;
+	dropletInitialSpeed = 1;
+	dropletInitialVolume = 1;
+	dropletInertia = .1f;
+	sedimentCapacityFactor = 4;
+	minSedimentCapacity = .01f;
+	gravity = 4;
+	evaporateSpeed = .01f;
+	depositSpeed = .3f;
+	erosionSpeed = .3f;
+	dropletRadius = 3;
+}
+
+HydraulicErosion::HydraulicErosion(unsigned int seed, unsigned int nDroplets, float dropletInertia,
+				   float evaporateSpeed, float depositSpeed, float erosionSpeed,
+				   unsigned int dropletRadius)
+: HydraulicErosion(seed, nDroplets)
+{
+	HydraulicErosion::dropletInertia = dropletInertia;
+	HydraulicErosion::evaporateSpeed = evaporateSpeed;
+	HydraulicErosion::depositSpeed = depositSpeed;
+	HydraulicErosion::erosionSpeed = erosionSpeed;
+	HydraulicErosion::dropletRadius = dropletRadius;
+}
 
 void HydraulicErosion::erode(Terrain &terrain)
 {

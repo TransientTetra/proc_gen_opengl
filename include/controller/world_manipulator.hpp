@@ -33,8 +33,9 @@ public:
 
 	void setTerrainScale(float scale);
 
-	void erodeTerrainHydraulic(const std::string &seed, unsigned int nDroplets, unsigned int dropletLifetime,
-				   float dropletInitialSpeed, float dropletInitialVolume);
+	void erodeTerrainHydraulic(const std::string &seed, unsigned int nDroplets, float dropletInertia,
+				   float evaporateSpeed, float depositSpeed, float erosionSpeed,
+				   unsigned int dropletRadius);
 };
 
 
