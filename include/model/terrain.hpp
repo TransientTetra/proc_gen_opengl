@@ -42,6 +42,7 @@ public:
 	unsigned int getNPointsWidth() const;
 
 	Vertex& at(unsigned x, unsigned y);
+	Vertex& at(unsigned i);
 
 };
 

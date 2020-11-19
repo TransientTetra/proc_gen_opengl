@@ -13,7 +13,7 @@ void main()
 {
     vec3 grassColor = vec3(.398, .398, .0) * .7;
     vec3 mountainColor = vec3(.37, .25, .125) * .7;
-    float slopeThresh = .2f;
+    float slopeThresh = .1f;
     float blend = .5f;
 
     // ambient

@@ -120,3 +120,8 @@ Vertex &Terrain::at(unsigned int x, unsigned int y)
 {
 	return vertices.at(y * getNPointsWidth() + x);
 }
+
+Vertex& Terrain::at(unsigned int i)
+{
+	return vertices.at(i);
+}

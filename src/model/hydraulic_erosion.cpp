@@ -31,6 +31,7 @@ HydraulicErosion::HydraulicErosion(unsigned int seed, unsigned int nDroplets, fl
 
 void HydraulicErosion::erode(Terrain &terrain)
 {
+	initializeBrush(terrain);
 	unsigned int mapWidth = terrain.getNPointsWidth();
 	unsigned int mapHeight = terrain.getNPointsLength();
 	std::uniform_real_distribution<float> distributionW(0, mapWidth - 1);
@@ -160,18 +161,76 @@ void HydraulicErosion::deposit(const Droplet &droplet, Terrain &terrain, float a
 
 void HydraulicErosion::erodeSingle(const Droplet &droplet, Terrain &terrain, float amount)
 {
-	unsigned dropletIntX = static_cast<unsigned>(droplet.position.x);
-	unsigned dropletIntY = static_cast<unsigned>(droplet.position.y);
+	unsigned int dropletIntX = static_cast<unsigned>(droplet.position.x);
+	unsigned int dropletIntY = static_cast<unsigned>(droplet.position.y);
+	unsigned int dropletIndex = dropletIntY * terrain.getNPointsWidth() + dropletIntX;
 
-	float ulWeight = (1 - droplet.offsets.x) * (1 - droplet.offsets.y);
-	float urWeight = droplet.offsets.x * (1 - droplet.offsets.y);
-	float llWeight = (1 - droplet.offsets.x) * droplet.offsets.y;
-	float lrWeight = droplet.offsets.x * droplet.offsets.y;
+	for (int brushPointIndex = 0; brushPointIndex < brushIndices.at(dropletIndex).size(); ++brushPointIndex)
+	{
+		int nodeIndex = brushIndices.at(dropletIndex).at(brushPointIndex);
+		float weighedErodeAmount = amount * brushWeights.at(dropletIndex).at(brushPointIndex);
+		float deltaSediment = (terrain.at(nodeIndex).getPosition().y < weighedErodeAmount) ? terrain.at(nodeIndex).getPosition().y : weighedErodeAmount;
+		terrain.at(nodeIndex).setPosition(terrain.at(nodeIndex).getPosition() - glm::vec3(0, deltaSediment, 0));
+	}
+}
 
-	subtractAt(terrain, dropletIntX, dropletIntY, amount * ulWeight);
-	subtractAt(terrain, dropletIntX + 1, dropletIntY, amount * urWeight);
-	subtractAt(terrain, dropletIntX, dropletIntY + 1, amount * llWeight);
-	subtractAt(terrain, dropletIntX + 1, dropletIntY + 1, amount * lrWeight);
+void HydraulicErosion::initializeBrush(const Terrain& terrain)
+{
+	unsigned int width = terrain.getNPointsWidth();
+	unsigned int height = terrain.getNPointsLength();
+	brushIndices.resize(width * height);
+	brushWeights.resize(width * height);
+
+	std::vector<int> xOffsets(dropletRadius * dropletRadius * 4);
+	std::vector<int> yOffsets(dropletRadius * dropletRadius * 4);
+	std::vector<float> weights(dropletRadius * dropletRadius * 4);
+	float weightSum = 0;
+	int addIndex = 0;
+
+	for (int i = 0; i < brushIndices.size(); ++i)
+	{
+		int centreX = i % width;
+		int centreY = i / height;
+
+		if (centreY <= dropletRadius or centreY >= height - dropletRadius or centreX <= dropletRadius + 1
+			or centreX >= width - dropletRadius)
+		{
+			weightSum = 0;
+			addIndex = 0;
+			for (int y = -dropletRadius; y <= dropletRadius; ++y)
+			{
+				for (int x = -dropletRadius; x <= dropletRadius; ++x)
+				{
+					float sqrDst = x * x + y * y;
+					if (sqrDst < dropletRadius * dropletRadius)
+					{
+						int coordX = centreX + x;
+						int coordY = centreY + y;
+
+						if (coordX >= 0 and coordX < width and coordY >= 0 and coordY < height)
+						{
+							float weight = 1 - std::sqrt(sqrDst) / dropletRadius;
+							weightSum += weight;
+							weights.at(addIndex) = weight;
+							xOffsets.at(addIndex) = x;
+							yOffsets.at(addIndex) = y;
+							addIndex++;
+						}
+					}
+				}
+			}
+		}
+
+		int numEntries = addIndex;
+		brushIndices.at(i).resize(numEntries);
+		brushWeights.at(i).resize(numEntries);
+
+		for (int j = 0; j < numEntries; ++j)
+		{
+			brushIndices.at(i).at(j) = (yOffsets.at(j) + centreY) * width + xOffsets.at(j) + centreX;
+			brushWeights.at(i).at(j) = weights.at(j) / weightSum;
+		}
+	}
 }
 
 Droplet::Droplet(const glm::vec2 &position, float speed, float water)

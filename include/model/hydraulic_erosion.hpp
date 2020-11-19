@@ -37,10 +37,14 @@ private:
 	float erosionSpeed;
 	unsigned int dropletRadius;
 
+	std::vector<std::vector<unsigned int>> brushIndices;
+	std::vector<std::vector<float>> brushWeights;
+
 	float getDropletHeight(const Droplet &droplet, Terrain &terrain);
 	glm::vec2 getDropletDirection(const Droplet &droplet, Terrain &terrain);
 	void deposit(const Droplet &droplet, Terrain &terrain, float amount);
 	void erodeSingle(const Droplet &droplet, Terrain &terrain, float amount);
+	void initializeBrush(const Terrain& terrain);
 public:
 	HydraulicErosion(unsigned int seed, unsigned int nDroplets);
 
