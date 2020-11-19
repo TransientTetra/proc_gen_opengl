@@ -34,3 +34,8 @@ const std::vector<unsigned int> &Entity::getIndices() const
 {
 	return indices;
 }
+
+void Entity::setMesh(const std::shared_ptr<Mesh> &mesh)
+{
+	Entity::mesh = mesh;
+}

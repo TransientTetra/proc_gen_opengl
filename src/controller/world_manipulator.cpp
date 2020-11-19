@@ -4,6 +4,8 @@
 #include <model/sinusoidal_map.hpp>
 #include <model/diamond_square_map.hpp>
 #include <model/voronoi_map.hpp>
+#include <model/hydraulic_erosion.hpp>
+#include <model/entity_mesh_generator.hpp>
 #include "controller/world_manipulator.hpp"
 
 WorldManipulator::WorldManipulator(World *world)
@@ -126,20 +128,34 @@ void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, Height
 	}
 	if (not heightMapInitialized)
 		heightMap = std::make_unique<HeightMap>(nVerticesSide, nVerticesSide);
-	world->getTerrain()->setHeightMap(std::move(heightMap));
+	world->getTerrain().setHeightMap(std::move(heightMap));
 }
 
 void WorldManipulator::setTerrainWidth(float width)
 {
-	world->getTerrain()->setWidth(width);
+	world->getTerrain().setWidth(width);
 }
 
 void WorldManipulator::setTerrainLength(float length)
 {
-	world->getTerrain()->setLength(length);
+	world->getTerrain().setLength(length);
 }
 
 void WorldManipulator::setTerrainScale(float scale)
 {
-	world->getTerrain()->setScale(scale);
+	world->getTerrain().setScale(scale);
+}
+
+void WorldManipulator::erodeTerrainHydraulic(const std::string& seed, unsigned int nDroplets, float dropletInertia,
+					float evaporateSpeed, float depositSpeed, float erosionSpeed,
+					unsigned int dropletRadius)
+{
+	unsigned int seedI = 0;
+	for (auto&& c : seed)
+		seedI += c;
+	HydraulicErosion erosion(seedI, nDroplets, dropletInertia, evaporateSpeed, depositSpeed, erosionSpeed, dropletRadius);
+	erosion.erode(world->getTerrain());
+	world->getTerrain().updateNormals();
+	EntityMeshGenerator meshGenerator(&(world->getTerrain()));
+	world->getTerrain().setMesh(meshGenerator.createMesh());
 }

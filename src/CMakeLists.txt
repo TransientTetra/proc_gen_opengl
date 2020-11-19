@@ -47,6 +47,9 @@ set(
         model/terrain_colorer.cpp
         controller/model_manipulator.cpp
         controller/world_manipulator.cpp
+        model/erosion.cpp
+        model/hydraulic_erosion.cpp
+        view/erosion_control_frame.cpp
 )
 set(SRC ${SRC})
 

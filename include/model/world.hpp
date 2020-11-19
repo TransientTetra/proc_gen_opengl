@@ -21,7 +21,7 @@ public:
 
 	const std::vector<std::shared_ptr<Entity>> &getEntities() const;
 
-	std::unique_ptr<Terrain> &getTerrain();
+	Terrain &getTerrain();
 
 	void setTerrain(std::unique_ptr<Terrain> terrain);
 };

@@ -15,9 +15,9 @@ void World::setTerrain(std::unique_ptr<Terrain> terrain)
 	this->terrain = std::move(terrain);
 }
 
-std::unique_ptr<Terrain> &World::getTerrain()
+Terrain &World::getTerrain()
 {
-	return terrain;
+	return *terrain;
 }
 
 World::World()
