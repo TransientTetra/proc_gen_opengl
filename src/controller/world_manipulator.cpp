@@ -155,6 +155,7 @@ void WorldManipulator::erodeTerrainHydraulic(const std::string& seed, unsigned i
 		seedI += c;
 	HydraulicErosion erosion(seedI, nDroplets, dropletInertia, evaporateSpeed, depositSpeed, erosionSpeed, dropletRadius);
 	erosion.erode(world->getTerrain());
+	world->getTerrain().updateNormals();
 	EntityMeshGenerator meshGenerator(&(world->getTerrain()));
 	world->getTerrain().setMesh(meshGenerator.createMesh());
 }

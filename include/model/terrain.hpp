@@ -20,11 +20,11 @@ protected:
 	std::unique_ptr<HeightMap> heightMap;
 
 	void calculatePoints();
-	void updateNormals();
 	glm::vec3 calcTriangleNormal(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3);
 public:
 	Terrain(float width, float length, float scale);
 
+	void updateNormals();
 	void setHeightMap(std::unique_ptr<HeightMap> heightMap);
 
 	void setLength(float length);

@@ -48,6 +48,11 @@ void HydraulicErosion::erode(Terrain &terrain)
 
 		Droplet droplet(glm::vec2(x, y), dropletInitialSpeed, dropletInitialVolume);
 
+		//random initial direction
+		droplet.direction.x = distributionW(generator);
+		droplet.direction.y = distributionW(generator);;
+		droplet.direction = glm::normalize(droplet.direction);
+
 		for (unsigned lifetime = 0; lifetime < dropletLifetime; ++lifetime)
 		{
 			//calculate droplet height and direction of flow
