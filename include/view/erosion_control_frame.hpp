@@ -13,6 +13,14 @@ private:
 
 	char seedBuf[256];
 
+	unsigned int nDroplets;
+
+	float dropletInertia;
+	float evaporateSpeed;
+	float depositSpeed;
+	float erosionSpeed;
+	unsigned int dropletRadius;
+
 	void mainDraw() override;
 	void sendUpdateSignal();
 public:

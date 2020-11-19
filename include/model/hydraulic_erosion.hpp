@@ -22,29 +22,30 @@ class HydraulicErosion : public Erosion
 {
 private:
 	std::knuth_b generator;
-	unsigned int seed;
 
 	unsigned int nDroplets;
 	unsigned int dropletLifetime;
 	float dropletInitialSpeed;
 	float dropletInitialVolume;
 
-	float dropletInertia = .1f;
-	float sedimentCapacityFactor = 1;
-	float minSedimentCapacity = .01f;
-	float gravity = 4;
-	float evaporateSpeed = .01f;
-	float depositSpeed = .3f;
-	float erosionSpeed = .3f;
-	float dropletRadius = 3;
+	float dropletInertia;
+	float sedimentCapacityFactor;
+	float minSedimentCapacity;
+	float gravity;
+	float evaporateSpeed;
+	float depositSpeed;
+	float erosionSpeed;
+	unsigned int dropletRadius;
 
 	float getDropletHeight(const Droplet &droplet, Terrain &terrain);
 	glm::vec2 getDropletDirection(const Droplet &droplet, Terrain &terrain);
 	void deposit(const Droplet &droplet, Terrain &terrain, float amount);
 	void erodeSingle(const Droplet &droplet, Terrain &terrain, float amount);
 public:
-	HydraulicErosion(unsigned int seed, unsigned int nDroplets, unsigned int dropletLifetime,
-			 float dropletInitialSpeed, float dropletInitialVolume);
+	HydraulicErosion(unsigned int seed, unsigned int nDroplets);
+
+	HydraulicErosion(unsigned int seed, unsigned int nDroplets, float dropletInertia,
+			 float evaporateSpeed, float depositSpeed, float erosionSpeed, unsigned int dropletRadius);
 
 	void erode(Terrain &terrain) override;
 };
