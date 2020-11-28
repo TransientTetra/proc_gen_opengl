@@ -11,9 +11,10 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 {
 	light = std::make_unique<LightSource>(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
-	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", modelManipulator));
-	frames.emplace_back(std::make_unique<CameraControlFrame>(this, "Camera Control"));
-	frames.emplace_back(std::make_unique<ErosionControlFrame>(this, "Erosion Control", modelManipulator));
+	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", 0, 0, modelManipulator));
+	frames.emplace_back(std::make_unique<CameraControlFrame>(this, "Camera Control", frames[0]->getWidth(), 0));
+	frames.emplace_back(std::make_unique<ErosionControlFrame>(this, "Erosion Control", 0,
+							   frames[0]->getHeight(), modelManipulator));
 }
 
 void Demo1MainScene::processEvents(SDL_Event &event)

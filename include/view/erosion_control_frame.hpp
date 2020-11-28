@@ -24,7 +24,7 @@ private:
 	void mainDraw() override;
 	void sendUpdateSignal();
 public:
-	ErosionControlFrame(Scene3D *view, const std::string &name, WorldManipulator *worldManipulator);
+	ErosionControlFrame(Scene3D *view, const std::string &name, int xPos, int yPos, WorldManipulator *worldManipulator);
 };
 
 

@@ -1,8 +1,8 @@
 #include "view/terrain_control_frame.hpp"
 #include "view/view.hpp"
 
-TerrainControlFrame::TerrainControlFrame(Scene3D *view, const std::string &name, WorldManipulator* worldManipulator)
-: Frame(view, name), worldManipulator(worldManipulator)
+TerrainControlFrame::TerrainControlFrame(Scene3D *view, const std::string &name, int xPos, int yPos, WorldManipulator* worldManipulator)
+: Frame(view, name, xPos, yPos), worldManipulator(worldManipulator)
 {
 	flags = ImGuiWindowFlags_NoResize;
 	width = 500;
@@ -41,7 +41,6 @@ TerrainControlFrame::TerrainControlFrame(Scene3D *view, const std::string &name,
 
 void TerrainControlFrame::mainDraw()
 {
-	ImGui::SetWindowSize(ImVec2(width, height));
 	ImGui::Columns(2);
 
 	ImGui::Text("Generation algorithm");
