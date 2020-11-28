@@ -18,10 +18,6 @@ protected:
 	SDL_GLContext glContext;
 	ImGuiIO* io;
 	std::string title;
-	int posX;
-	int posY;
-	int height;
-	int width;
 public:
 	Window(std::string title, int posX, int posY, int height, int width);
 	~Window();
@@ -34,6 +30,13 @@ public:
 	bool isOpen();
 	void setClose();
 	SDL_Window* getSDLWindow();
+
+	void setFullScreenWindowed();
+	void setFullScreenBorderless();
+	void setFullScreen();
+
+	void maximize();
+	void minimize();
 
 	int getHeight() const;
 

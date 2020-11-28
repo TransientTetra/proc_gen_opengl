@@ -2,7 +2,7 @@
 #include "view/window.hpp"
 
 Window::Window(std::string title, int posX, int posY, int height, int width)
-: posX(posX), posY(posY), height(height), width(width), title(title), open(true)
+: title(title), open(true)
 {
 	assert(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) == 0);
 
@@ -108,10 +108,39 @@ void Window::updateViewportAndClear()
 
 int Window::getHeight() const
 {
-	return height;
+	int w;
+	SDL_GetWindowSize(sdlWindow, &w, nullptr);
+	return w;
 }
 
 int Window::getWidth() const
 {
-	return width;
+	int h;
+	SDL_GetWindowSize(sdlWindow, nullptr, &h);
+	return h;
+}
+
+void Window::setFullScreenWindowed()
+{
+	SDL_SetWindowFullscreen(sdlWindow, 0);
+}
+
+void Window::setFullScreenBorderless()
+{
+	SDL_SetWindowFullscreen(sdlWindow, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_BORDERLESS);
+}
+
+void Window::setFullScreen()
+{
+	SDL_SetWindowFullscreen(sdlWindow, SDL_WINDOW_FULLSCREEN);
+}
+
+void Window::maximize()
+{
+	SDL_MaximizeWindow(sdlWindow);
+}
+
+void Window::minimize()
+{
+	SDL_MinimizeWindow(sdlWindow);
 }
