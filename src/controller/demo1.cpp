@@ -8,6 +8,7 @@
 Demo1::Demo1(const std::string &title, int height, int width)
 : Application(title, height, width), worldManipulator(&world)
 {
+	window.maximize();
 	//todo change default first view once menu or something is devised
 	currentView = std::make_unique<Demo1MainScene>(this, &window, &worldManipulator, &(world.getTerrain()));
 }
