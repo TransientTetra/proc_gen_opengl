@@ -52,7 +52,7 @@ Window::~Window()
 
 void Window::setupImGui()
 {
-	const char* glsl_version = "#version 130";
+	const char* glsl_version = "#version 330";
 	// Initialize OpenGL loader
 	IM_ASSERT(glewInit() == GLEW_OK);
 
