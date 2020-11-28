@@ -16,12 +16,15 @@ protected:
 	float opacity;
 	int height;
 	int width;
+	int xPos;
+	int yPos;
 
 	void beginDraw();
 	virtual void mainDraw() = 0;
 	void endDraw();
 public:
 	Frame(View* view, std::string name);
+	Frame(View* view, std::string name, int xPos, int yPos);
 	virtual void draw() final;
 
 	void setOpacity(float opacity);

@@ -1,8 +1,8 @@
 #include <sstream>
 #include "view/camera_control_frame.hpp"
 
-CameraControlFrame::CameraControlFrame(Scene3D *view, const std::string &name)
-: Frame(view, name)
+CameraControlFrame::CameraControlFrame(Scene3D* view, const std::string& name, int xPos, int yPos)
+: Frame(view, name, xPos, yPos)
 {
 	flags = ImGuiWindowFlags_NoResize;
 	width = 400;
@@ -31,7 +31,6 @@ CameraControlFrame::CameraControlFrame(Scene3D *view, const std::string &name)
 
 void CameraControlFrame::mainDraw()
 {
-	ImGui::SetWindowSize(ImVec2(width, height));
 	ImGui::Columns(2);
 
 	ImGui::Text("Camera type");

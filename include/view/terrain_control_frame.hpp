@@ -46,7 +46,7 @@ private:
 	void mainDraw() override;
 	void sendUpdateSignal();
 public:
-	TerrainControlFrame(Scene3D *view, const std::string &name, WorldManipulator* worldManipulator);
+	TerrainControlFrame(Scene3D *view, const std::string &name, int xPos, int yPos, WorldManipulator* worldManipulator);
 };
 
 

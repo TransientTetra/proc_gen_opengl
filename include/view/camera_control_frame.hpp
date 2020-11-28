@@ -23,7 +23,7 @@ private:
 	float ypos;
 	float zpos;
 public:
-	CameraControlFrame(Scene3D *view, const std::string &name);
+	CameraControlFrame(Scene3D* view, const std::string& name, int xPos, int yPos);
 };
 
 

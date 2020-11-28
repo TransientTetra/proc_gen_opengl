@@ -6,6 +6,15 @@ Frame::Frame(View* view, std::string name)
 : name(name), flags(ImGuiWindowFlags_None), opacity(.5f)
 {
 	this->view = view;
+	xPos = 0;
+	yPos = 0;
+}
+
+Frame::Frame(View* view, std::string name, int xPos, int yPos)
+: Frame(view, name)
+{
+	Frame::xPos = xPos;
+	Frame::yPos = yPos;
 }
 
 void Frame::draw()
@@ -18,6 +27,9 @@ void Frame::draw()
 void Frame::beginDraw()
 {
 	ImGui::SetNextWindowBgAlpha(opacity);
+	ImGui::SetNextWindowSize(ImVec2(width, height), ImGuiCond_Once);
+	ImGui::SetNextWindowPos(ImVec2(xPos, yPos), ImGuiCond_Once);
+	ImGui::SetNextWindowCollapsed(false, ImGuiCond_Once);
 	ImGui::Begin(name.c_str(), nullptr, flags);
 }
 

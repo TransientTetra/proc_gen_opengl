@@ -1,7 +1,7 @@
 #include "view/erosion_control_frame.hpp"
 
-ErosionControlFrame::ErosionControlFrame(Scene3D *view, const std::string &name, WorldManipulator *worldManipulator)
-: Frame(view, name), worldManipulator(worldManipulator)
+ErosionControlFrame::ErosionControlFrame(Scene3D *view, const std::string &name, int xPos, int yPos, WorldManipulator *worldManipulator)
+: Frame(view, name, xPos, yPos), worldManipulator(worldManipulator)
 {
 	flags = ImGuiWindowFlags_NoResize;
 	width = 700;
@@ -19,7 +19,6 @@ ErosionControlFrame::ErosionControlFrame(Scene3D *view, const std::string &name,
 
 void ErosionControlFrame::mainDraw()
 {
-	ImGui::SetWindowSize(ImVec2(width, height));
 	ImGui::Columns(1);
 
 
