@@ -106,14 +106,14 @@ void Window::updateViewportAndClear()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-int Window::getHeight() const
+int Window::getWidth() const
 {
 	int w;
 	SDL_GetWindowSize(sdlWindow, &w, nullptr);
 	return w;
 }
 
-int Window::getWidth() const
+int Window::getHeight() const
 {
 	int h;
 	SDL_GetWindowSize(sdlWindow, nullptr, &h);
