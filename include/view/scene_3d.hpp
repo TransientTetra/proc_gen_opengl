@@ -23,17 +23,17 @@ public:
 
 	void draw() override;
 
-	void setRenderingMode(RenderingMode renderingMode);
+	virtual void setRenderingMode(RenderingMode renderingMode);
 
-	void setCameraController(CameraControllerType cameraType);
-	void setCameraPosition(glm::vec3 position);
-	const glm::vec3& getCameraPosition() const;
-	void setCameraSpeed(float cameraSpeed);
-	void setCameraAspectRatio(float aspectRatio);
-	void setCameraDrawDistance(float drawDistance);
+	virtual void setCameraController(CameraControllerType cameraType);
+	virtual void setCameraPosition(glm::vec3 position);
+	virtual const glm::vec3& getCameraPosition() const;
+	virtual void setCameraSpeed(float cameraSpeed);
+	virtual void setCameraAspectRatio(float aspectRatio);
+	virtual void setCameraDrawDistance(float drawDistance);
 
-	void setCameraSensitivity(float sensitivity);
-	void setCameraFOV(float fov); //radians
+	virtual void setCameraSensitivity(float sensitivity);
+	virtual void setCameraFOV(float fov); //radians
 };
 
 

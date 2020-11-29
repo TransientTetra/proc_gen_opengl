@@ -18,9 +18,17 @@ class Demo1MainScene : public Scene3D
 {
 private:
 	StandardFPSMovement inputProcessor;
+	//below cameras for keeping each config
+	Camera aboveCamera;
+	Camera fpsCamera;
+	Camera staticCamera;
+	CameraControllerType currType;
 public:
 	Demo1MainScene(Application* application, Window* window,
 		WorldManipulator* modelManipulator, Terrain* terrain);
+
+	void setCameraController(CameraControllerType cameraType) override;
+
 	void processEvents(SDL_Event& event) override;
 	virtual ~Demo1MainScene();
 
