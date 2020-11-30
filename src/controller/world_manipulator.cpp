@@ -128,6 +128,8 @@ void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, Height
 	}
 	if (not heightMapInitialized)
 		heightMap = std::make_unique<HeightMap>(nVerticesSide, nVerticesSide);
+
+	if (algorithm != FLAT) heightMap->normalize(-1, 1);
 	world->getTerrain().setHeightMap(std::move(heightMap));
 }
 

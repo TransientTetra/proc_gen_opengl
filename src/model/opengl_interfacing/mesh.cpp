@@ -12,7 +12,7 @@ Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> 
 	VertexShader vs;
 	FragmentShader fs;
 	vs.loadCompileShaderSource("assets/shaders/vertex/default_basic_lighting.glsl");
-	fs.loadCompileShaderSource("assets/shaders/fragment/terrain_mountain_grass_fixed.glsl");
+	fs.loadCompileShaderSource("assets/shaders/fragment/default_basic_lighting.glsl");
 
 	shader.attachVertexAndFragmentShaders(vs, fs);
 	shader.linkProgram();
