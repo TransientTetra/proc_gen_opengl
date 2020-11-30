@@ -13,7 +13,7 @@ Demo1MainScene::Demo1MainScene(Application* application, Window* window,
 : Scene3D(application, window, terrain), inputProcessor(cameraController.get()), fpsCamera(camera),
 	aboveCamera(camera), staticCamera(camera)
 {
-	light = std::make_unique<LightSource>(glm::vec3(4.0f, 1.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	light = std::make_unique<LightSource>(glm::vec3(4.0f, 5.0f, 10.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	frames.emplace_back(std::make_unique<TerrainControlFrame>(this, "Generation Control", 0, 0, modelManipulator));
 	frames.emplace_back(std::make_unique<CameraControlFrame>(this, "Camera Control", frames[0]->getWidth(), 0));

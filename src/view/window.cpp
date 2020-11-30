@@ -6,8 +6,6 @@ Window::Window(std::string title, int posX, int posY, int height, int width)
 {
 	assert(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) == 0);
 
-	bgColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
 	// GL 3.3 + GLSL 130
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -104,6 +102,8 @@ void Window::updateViewportAndClear()
 	//todo should this be here or in View?
 	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//todo temporary
+	glClearColor(.58f, .78f, .89f, 1.f);
 }
 
 int Window::getWidth() const
