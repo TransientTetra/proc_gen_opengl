@@ -2,10 +2,11 @@
 
 TerrainColorer::TerrainColorer()
 {
-	maxHeight = 2.0f;
-	minHeight = -2.0f;
-	highColor = glm::vec3(1.0f, .0f, .0f);
-	lowColor = glm::vec3(.0f, 1.0f, .0f);
+	maxHeight = .5f;
+	minHeight = -.5f;
+	highColor = glm::vec3(1.0f, 1.0f, 1.0f) * .55f;
+	midColor = glm::vec3(.37, .25, .125);
+	lowColor = glm::vec3(.398f, .398f, .0f) * 1.f;
 }
 
 TerrainColorer::~TerrainColorer()
@@ -18,11 +19,8 @@ glm::vec3 TerrainColorer::getPointColor(glm::vec3 &point)
 	float diff = (point.y - minHeight) / (maxHeight - minHeight);
 	diff = diff < .0f ? .0f : diff > 1.0f ? 1.0f : diff;
 
-	glm::vec3 col = glm::vec3(
-		highColor.r > lowColor.r ? (highColor.r - lowColor.r) * diff + lowColor.r : lowColor.r - (lowColor.r - highColor.r) * diff,
-		highColor.g > lowColor.g ? (highColor.g - lowColor.g) * diff + lowColor.g : lowColor.g - (lowColor.g - highColor.g) * diff,
-		highColor.b > lowColor.b ? (highColor.b - lowColor.b) * diff + lowColor.b : lowColor.b - (lowColor.b - highColor.b) * diff
-	);
-
-	return col;
+	if (diff < .5f)
+		return midColor * diff * 2.f + lowColor * (.5f - diff) * 2.f;
+	else
+		return highColor * (diff - .5f) * 2.f + midColor * (1 - diff) * 2.f;
 }

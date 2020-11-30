@@ -13,7 +13,6 @@ class Window
 private:
 protected:
 	bool open;
-	ImVec4 bgColor;
 	SDL_Window* sdlWindow;
 	SDL_GLContext glContext;
 	ImGuiIO* io;

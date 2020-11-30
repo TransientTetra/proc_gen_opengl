@@ -12,6 +12,7 @@ private:
 	float maxHeight;
 	float minHeight;
 	glm::vec3 highColor;
+	glm::vec3 midColor;
 	glm::vec3 lowColor;
 
 public:

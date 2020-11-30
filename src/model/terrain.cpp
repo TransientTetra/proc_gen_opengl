@@ -21,7 +21,8 @@ void Terrain::calculatePoints()
 	unsigned int currIndex = 0;
 	unsigned int nPointsWidth = getNPointsWidth();
 	unsigned int nPointsLength = getNPointsLength();
-
+	//todo temp
+	TerrainColorer tc;
 	//todo make this multithreaded
 	for (unsigned int i = 0; i < nPointsLength; ++i)
 	{
@@ -31,7 +32,7 @@ void Terrain::calculatePoints()
 			float y = scale * heightMap->at(i, j) + position.y;
 			float z = (i * length / (nPointsLength - 1) - length / 2) + position.z;
 			glm::vec3 pos(x, y, z);
-			vertices.emplace_back(pos, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0));
+			vertices.emplace_back(pos, glm::vec3(0, 0, 0), tc.getPointColor(pos));
 			if (i < nPointsLength - 1 and j < nPointsWidth - 1)
 			{
 				indices.emplace_back(currIndex + nPointsWidth);
