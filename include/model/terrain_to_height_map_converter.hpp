@@ -2,11 +2,14 @@
 #define PROC_GEN_OPENGL_TERRAIN_TO_HEIGHT_MAP_CONVERTER_HPP
 
 
+#include "terrain.hpp"
+
 class TerrainToHeightMapConverter
 {
 private:
 protected:
 public:
+	HeightMap convert(Terrain& terrain);
 };
 
 

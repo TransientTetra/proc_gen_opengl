@@ -2,11 +2,13 @@
 #include "view/view.hpp"
 
 TerrainControlFrame::TerrainControlFrame(Scene3D *view, const std::string &name, int xPos, int yPos, WorldManipulator* worldManipulator)
-: Frame(view, name, xPos, yPos), worldManipulator(worldManipulator)
+: Frame(view, name, xPos, yPos), worldManipulator(worldManipulator),
+	saveFileBrowser(ImGuiFileBrowserFlags_EnterNewFilename | ImGuiFileBrowserFlags_CloseOnEsc),
+	loadFileBrowser(ImGuiFileBrowserFlags_CloseOnEsc)
 {
 	flags = ImGuiWindowFlags_NoResize;
 	width = 500;
-	height = 550;
+	height = 560;
 
 	currentAlgo = FLAT;
 	op = ADDITION;
@@ -35,6 +37,11 @@ TerrainControlFrame::TerrainControlFrame(Scene3D *view, const std::string &name,
 
 	nPartitions = 40;
 	levelDiff = 0.2;
+
+	saveFileBrowser.SetTitle("Save");
+	loadFileBrowser.SetTitle("Load");
+	saveFileBrowser.SetTypeFilters({".bmp"});
+	loadFileBrowser.SetTypeFilters({".bmp"});
 
 	sendUpdateSignal();
 }
@@ -197,6 +204,34 @@ void TerrainControlFrame::mainDraw()
 			sendUpdateSignal();
 		}
 	}
+
+	ImGui::NewLine();
+	ImGui::Columns(2);
+	if (ImGui::Button("Save to file"))
+	{
+		saveFileBrowser.Open();
+	}
+	ImGui::NextColumn();
+	if (ImGui::Button("Load from file"))
+	{
+		loadFileBrowser.Open();
+	}
+
+	saveFileBrowser.Display();
+	if (saveFileBrowser.HasSelected())
+	{
+		worldManipulator->saveTerrain(saveFileBrowser.GetSelected().string());
+		saveFileBrowser.ClearSelected();
+		saveFileBrowser.Close();
+	}
+
+	loadFileBrowser.Display();
+	if (loadFileBrowser.HasSelected())
+	{
+		worldManipulator->loadTerrain(loadFileBrowser.GetSelected().string());
+		loadFileBrowser.ClearSelected();
+		loadFileBrowser.Close();
+	}
 }
 
 void TerrainControlFrame::sendUpdateSignal()
@@ -206,4 +241,3 @@ void TerrainControlFrame::sendUpdateSignal()
 					      nOctaves, persistence, lacunarity,
 					      nWavesWidth, nWavesHeight, nPartitions, levelDiff);
 }
-
