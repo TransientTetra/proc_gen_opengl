@@ -1,0 +1,13 @@
+#ifndef PROC_GEN_OPENGL_HEIGHT_MAP_FILE_OPERATOR_HPP
+#define PROC_GEN_OPENGL_HEIGHT_MAP_FILE_OPERATOR_HPP
+
+
+class HeightMapFileOperator
+{
+private:
+protected:
+public:
+};
+
+
+#endif //PROC_GEN_OPENGL_HEIGHT_MAP_FILE_OPERATOR_HPP

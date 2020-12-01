@@ -50,6 +50,8 @@ set(
         model/erosion.cpp
         model/hydraulic_erosion.cpp
         view/erosion_control_frame.cpp
+        model/terrain_to_height_map_converter.cpp
+        model/height_map_file_operator.cpp
 )
 set(SRC ${SRC})
 

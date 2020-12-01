@@ -1,0 +1,13 @@
+#ifndef PROC_GEN_OPENGL_TERRAIN_TO_HEIGHT_MAP_CONVERTER_HPP
+#define PROC_GEN_OPENGL_TERRAIN_TO_HEIGHT_MAP_CONVERTER_HPP
+
+
+class TerrainToHeightMapConverter
+{
+private:
+protected:
+public:
+};
+
+
+#endif //PROC_GEN_OPENGL_TERRAIN_TO_HEIGHT_MAP_CONVERTER_HPP
