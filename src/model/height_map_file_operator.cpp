@@ -47,7 +47,7 @@ void HeightMapFileOperator::saveHeightMap(const std::string& filename, const Hei
 			unsigned char val = temp.at(x, y) * 255;
 			if (temp.at(x, y) > 1 or temp.at(x, y) < 0)
 				throw;
-			bitmap.set_pixel(x, y, val, val, val);
+			bitmap.set_pixel(y, x, val, val, val);
 		}
 	}
 	bitmap.save_image(filename);

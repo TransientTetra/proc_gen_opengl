@@ -215,6 +215,12 @@ void TerrainControlFrame::mainDraw()
 	if (ImGui::Button("Load from file"))
 	{
 		loadFileBrowser.Open();
+		flat = false;
+		white = false;
+		sinusoidal = false;
+		perlin = false;
+		diamond = false;
+		voronoi = false;
 	}
 
 	saveFileBrowser.Display();
