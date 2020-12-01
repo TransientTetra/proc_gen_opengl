@@ -26,8 +26,10 @@ find_package(OpenGL REQUIRED)
 
 include_directories(lib) #for imgui
 include_directories(lib/imgui)
+include_directories(lib/imgui-filebrowser)
 include_directories(lib/googletest/googletest/include)
 include_directories(lib/glm)
+include_directories(lib/bitmap)
 include_directories(include)
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${GLEW_INCLUDE_DIR})

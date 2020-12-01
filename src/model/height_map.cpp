@@ -74,7 +74,7 @@ void HeightMap::normalize(float a, float b)
 	{
 		for (unsigned j = 0; j < width; ++j)
 		{
-			float normalizedVal = 2 * (static_cast<float>(at(j, i)) - min) / (max - min) - 1;
+			float normalizedVal = (b - a) * (static_cast<float>(at(j, i)) - min) / (max - min) + a;
 			setAt(j, i, normalizedVal);
 		}
 	}

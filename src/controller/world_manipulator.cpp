@@ -6,6 +6,8 @@
 #include <model/voronoi_map.hpp>
 #include <model/hydraulic_erosion.hpp>
 #include <model/entity_mesh_generator.hpp>
+#include <model/height_map_file_operator.hpp>
+#include <model/terrain_to_height_map_converter.hpp>
 #include "controller/world_manipulator.hpp"
 
 WorldManipulator::WorldManipulator(World *world)
@@ -129,7 +131,7 @@ void WorldManipulator::setTerrainAlgorithm(GenerationAlgorithm algorithm, Height
 	if (not heightMapInitialized)
 		heightMap = std::make_unique<HeightMap>(nVerticesSide, nVerticesSide);
 
-	if (algorithm != FLAT) heightMap->normalize(-1, 1);
+	if (algorithm & DIAMOND_SQUARE) heightMap->normalize(-1, 1);
 	world->getTerrain().setHeightMap(std::move(heightMap));
 }
 
@@ -160,4 +162,20 @@ void WorldManipulator::erodeTerrainHydraulic(const std::string& seed, unsigned i
 	world->getTerrain().updateNormals();
 	EntityMeshGenerator meshGenerator(&(world->getTerrain()));
 	world->getTerrain().setMesh(meshGenerator.createMesh());
+}
+
+void WorldManipulator::saveTerrain(const std::string& filename)
+{
+	HeightMapFileOperator o;
+	TerrainToHeightMapConverter c;
+	HeightMap h(c.convert(world->getTerrain()));
+	o.saveHeightMap(filename, h);
+}
+
+void WorldManipulator::loadTerrain(const std::string& filename)
+{
+	HeightMapFileOperator o;
+	HeightMap loadedHeightMap = o.loadHeightMap(filename);
+	std::unique_ptr<HeightMap> m = std::make_unique<HeightMap>(loadedHeightMap);
+	world->getTerrain().setHeightMap(std::move(m));
 }

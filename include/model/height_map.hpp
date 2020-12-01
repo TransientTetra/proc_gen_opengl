@@ -13,6 +13,8 @@ protected:
 	unsigned int length; //number of points vertical
 	std::vector<float> points;
 	void setAt(unsigned int x, unsigned int y, float v);
+	friend class HeightMapFileOperator;
+	friend class TerrainToHeightMapConverter;
 public:
 	HeightMap();
 

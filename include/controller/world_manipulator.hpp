@@ -36,6 +36,9 @@ public:
 	void erodeTerrainHydraulic(const std::string &seed, unsigned int nDroplets, float dropletInertia,
 				   float evaporateSpeed, float depositSpeed, float erosionSpeed,
 				   unsigned int dropletRadius);
+
+	void loadTerrain(const std::string& filename);
+	void saveTerrain(const std::string& filename);
 };
 
 

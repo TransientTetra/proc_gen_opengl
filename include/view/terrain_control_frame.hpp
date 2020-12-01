@@ -1,6 +1,8 @@
 #ifndef PROC_GEN_OPENGL_TERRAIN_CONTROL_FRAME_HPP
 #define PROC_GEN_OPENGL_TERRAIN_CONTROL_FRAME_HPP
 
+#include <imgui.h>
+#include <imfilebrowser.h>
 
 #include <generation_algorithm.hpp>
 #include <controller/world_manipulator.hpp>
@@ -13,6 +15,9 @@ private:
 	WorldManipulator* worldManipulator;
 	GenerationAlgorithm currentAlgo;
 	HeightMapOperation op;
+
+	ImGui::FileBrowser saveFileBrowser;
+	ImGui::FileBrowser loadFileBrowser;
 
 	//checkbox buffers
 	bool flat;
